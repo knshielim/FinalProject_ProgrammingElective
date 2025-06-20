@@ -11,15 +11,22 @@
 		<a href="home.jsp"><img src="images/Logo.jpg" alt="Halabo Logo"></a>
 	</div>
 	
-	
 	<div class="nav-links" id="navLinks">
 		<i class="fas fa-xmark" onclick="hideMenu()"></i> 
 		<ul>
 	        <li><a href="home.jsp">Home</a></li>
 	        <li><a href="about.jsp">About</a></li>
 	        <li><a href="attractions.jsp">Attractions</a></li>
+	        <li><a href="packages.jsp">Packages</a></li>
+	        <li><a href="booking.jsp">Bookings</a></li>
 	    </ul>
 	    <a href="contact.jsp" class="contact-btn">Contact Us</a>
+	    <a href="login.jsp" class="contact-btn">Login</a>
+	    <a href="register.jsp" class="contact-btn">Register</a>
+	    <a href="profile.jsp" class="profile-btn">
+    	<i class="fas fa-user-circle"></i>
+		</a>
+	    
    	</div>
    	<i class="fa fa-bars" onclick="showMenu()"></i>
 </div>

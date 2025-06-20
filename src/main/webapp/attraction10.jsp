@@ -24,6 +24,30 @@
 			</p>
 		</section>
 		
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction10_pack/prambanan_p1.jsp">
+		                <img src="images/prambanan_p1.jpg" alt="Cultural Discovery">
+		                <p>Cultural Discovery</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction10_pack/prambanan_p2.jsp">
+		                <img src="images/prambanan_p2.jpg" alt="Romantic Heritage Escape">
+		                <p>Romantic Heritage Escape</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction10_pack/prambanan_p3.jsp">
+		                <img src="images/prambanan_p3.jpg" alt="Budget Explorer">
+		                <p>Budget Explorer</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>		
+		
 		<section class="bottom-nav">
 		   	<a href="attraction9.jsp">< Previous</a>
 			<a href="home.jsp">Back to Home</a>

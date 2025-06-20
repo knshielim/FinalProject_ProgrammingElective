@@ -24,6 +24,31 @@
 			</p>
 		</section>
 		
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction1_pack/borobudur_p1.jsp">
+		                <img src="images/borobudur_p1.jpg" alt="Family Journey">
+		                <p>Family Journey</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction1_pack/borobudur_p2.jsp">
+		                <img src="images/borobudur_p2.jpg" alt="Adventure Trail">
+		                <p>Adventure Trail</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction1_pack/borobudur_p3.jsp">
+		                <img src="images/borobudur_p3.jpg" alt="Cultural Luxury">
+		                <p>Cultural Luxury</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>
+		
+		
 		<section class="bottom-nav">
 			<a href="attraction10.jsp">< Previous</a>
 		    <a href="home.jsp">Back to Home</a>

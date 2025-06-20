@@ -3,23 +3,23 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="UTF-8">
-	<title>Contact Us - Halabo Indonesia Tour</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
-		function validateForm() {
-			const name = document.forms["contactForm"]["name"].value;
-			const email = document.forms["contactForm"]["email"].value;
-			const message = document.forms["contactForm"]["message"].value;
-	
-			if (!name || !email || !message) {
-				alert("Some fields are empty!");
-				return false;
-				}
-			return true;
-	    }
-	</script>
+		<meta charset="UTF-8">
+		<title>Contact Us - Halabo Indonesia Tour</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>
+			function validateForm() {
+				const name = document.forms["contactForm"]["name"].value;
+				const email = document.forms["contactForm"]["email"].value;
+				const message = document.forms["contactForm"]["message"].value;
+		
+				if (!name || !email || !message) {
+					alert("Some fields are empty!");
+					return false;
+					}
+				return true;
+		    }
+		</script>
 	</head>
 	<body>
 		<jsp:include page="header.jsp"/>

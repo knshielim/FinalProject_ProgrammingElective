@@ -25,6 +25,30 @@
 			</p>
 		</section>
 		
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction4_pack/mountbromo_p1.jsp">
+		                <img src="images/mountbromo_p1.jpg" alt="Sunrise Experience">
+		                <p>Sunrise Experience</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction4_pack/mountbromo_p2.jsp">
+		                <img src="images/mountbromo_p2.jpg" alt="Scenic Discovery">
+		                <p>Scenic Discovery</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction4_pack/mountbromo_p3.jsp">
+		                <img src="images/mountbromo_p3.jpg" alt="Crater Adventure">
+		                <p>Crater Adventure</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>
+		
 		<section class="bottom-nav">
 		   	<a href="attraction3.jsp">< Previous</a>
 			<a href="home.jsp">Back to Home</a>

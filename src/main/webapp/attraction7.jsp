@@ -25,6 +25,31 @@
 		    	The monument also houses a museum that showcases Indonesia’s rich history, making it both a symbol of national pride and a center of education.
 			</p>
 		</section>
+
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction7_pack/monas_p1.jsp">
+		                <img src="images/monas_p1.jpg" alt="Historical Exploration">
+		                <p>Historical Exploration</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction7_pack/monas_p2.jsp">
+		                <img src="images/monas_p2.jpg" alt="Heritage Tour">
+		                <p>Heritage Tour</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction7_pack/monas_p3.jsp">
+		                <img src="images/monas_p3.jpg" alt="Night City Escape">
+		                <p>Night City Escape</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>
+
 		
 		<section class="bottom-nav">
 		   	<a href="attraction6.jsp">< Previous</a>

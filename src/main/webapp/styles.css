@@ -762,3 +762,127 @@ h4 {
         padding: 20px;
     }
 }
+
+
+/*====================================== TABS DESIGN ================================*/
+.package-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+.package-meta {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.package-meta p {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.tabs {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background-color: #ddd;
+}
+
+.tab-btn.active {
+    background-color: #d92662;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 30px 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h2 {
+    color: #1D3D59;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff4d00;
+    padding-bottom: 10px;
+}
+
+.tab-content ul {
+    text-align: left;
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.tab-content li {
+    margin-bottom: 8px;
+}
+
+.enquiry-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.enquiry-button a {
+    background-color: #d92662;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.enquiry-button a:hover {
+    background-color: #b71c4c;
+    transform: translateY(-2px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #1D3D59;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9

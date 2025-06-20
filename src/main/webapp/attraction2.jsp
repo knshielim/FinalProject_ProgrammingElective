@@ -24,6 +24,30 @@
 			</p>
 		</section>
 		
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction2_pack/bali_p1.jsp">
+		                <img src="images/bali_p1.jpg" alt="Beach Getaway">
+		                <p>Beach Getaway</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction2_pack/bali_p2.jsp">
+		                <img src="images/bali_p2.jpg" alt="Adventure Retreat">
+		                <p>Adventure Retreat</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction2_pack/bali_p3.jsp">
+		                <img src="images/bali_p3.jpg" alt="Beachside Romance">
+		                <p>Beachside Romance</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>
+		
 		<section class="bottom-nav">
 			<a href="attraction1.jsp">< Previous</a>
 			<a href="home.jsp">Back to Home</a>

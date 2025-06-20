@@ -24,6 +24,30 @@
 			</p>
 		</section>
 		
+		<section class="package-options">
+		    <h3>Choose Your Package:</h3>
+		    <div class="package-grid">
+		        <div class="package-card">
+		            <a href="attraction8_pack/komodoisland_p1.jsp">
+		                <img src="images/komodo_p1.jpg" alt="Explorer Package">
+		                <p>Explorer Package</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction8_pack/komodoisland_p2.jsp">
+		                <img src="images/komodo_p2.jpg" alt="Wildlife Trek">
+		                <p>Wildlife Trek</p>
+		            </a>
+		        </div>
+		        <div class="package-card">
+		            <a href="attraction8_pack/komodoisland_p3.jsp">
+		                <img src="images/komodo_p3.jpg" alt="Explorer's Escape">
+		                <p>Explorer's Escape</p>
+		            </a>
+		        </div>
+		    </div>
+		</section>
+		
 		<section class="bottom-nav">
 		   	<a href="attraction7.jsp">< Previous</a>
 			<a href="home.jsp">Back to Home</a>
