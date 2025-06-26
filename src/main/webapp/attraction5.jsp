@@ -28,19 +28,19 @@
 		    <h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction5_pack/laketoba_p1.jsp">
+		            <a href="=laketoba_p1.jsp">
 		                <img src="images/laketoba_p1.jpg" alt="Cultural Retreat">
 		                <p>Cultural Retreat</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction5_pack/laketoba_p2.jsp">
+		            <a href="laketoba_p2.jsp">
 		                <img src="images/laketoba_p2.jpg" alt="Adventure Discovery">
 		                <p>Adventure Discovery</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction5_pack/laketoba_p3.jsp">
+		            <a href="laketoba_p3.jsp">
 		                <img src="images/laketoba_p3.jpg" alt="Honeymoon Escape">
 		                <p>Honeymoon Escape</p>
 		            </a>

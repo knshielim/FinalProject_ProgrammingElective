@@ -53,6 +53,9 @@
 	            <p><strong>Travel Date:</strong> <%= date %></p>
 	        </div>
 	    </div>
+	    <div class="back-button-container" style="margin-top: 20px;">
+			<button onclick="history.back()" class="back-btn">← Back</button>
+		</div>
 	    
 	    <jsp:include page="footer.jsp"/>
 	</body>

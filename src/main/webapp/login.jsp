@@ -28,6 +28,9 @@
                 <p style="text-align: center; margin-top: 1rem;">
                     Don't have an account? <a href="register.jsp">Sign up here</a>
                 </p>
+                <div class="back-button-container" style="margin-top: 20px;">
+				    <button onclick="history.back()" class="back-btn">← Back</button>
+				</div>
             </div>
         </div>
 	</body>

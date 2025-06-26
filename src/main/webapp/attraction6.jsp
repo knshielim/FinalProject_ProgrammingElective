@@ -29,19 +29,19 @@
 		    <h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction6_pack/pulauseribu_p1.jsp">
+		            <a href="pulauseribu_p1.jsp">
 		                <img src="images/pulauseribu_p1.jpg" alt="Island Escape">
 		                <p>Island Escape</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction6_pack/pulauseribu_p2.jsp">
+		            <a href="pulauseribu_p2.jsp">
 		                <img src="images/pulauseribu_p2.jpg" alt="Couple's Getaway">
 		                <p>Couple's Getaway</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction6_pack/pulauseribu_p3.jsp">
+		            <a href="pulauseribu_p3.jsp">
 		                <img src="images/pulauseribu_p3.jpg" alt="Water Adventure">
 		                <p>Water Adventure</p>
 		            </a>

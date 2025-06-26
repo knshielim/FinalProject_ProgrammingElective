@@ -48,6 +48,9 @@
                 <p style="text-align: center; margin-top: 1rem;">
                     Already have an account? <a href="login.jsp">Login here</a>
                 </p>
+                <div class="back-button-container" style="margin-top: 20px;">
+				    <button onclick="history.back()" class="back-btn">← Back</button>
+				</div>
             </div>
         </div>
 	</body>

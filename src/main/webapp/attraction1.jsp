@@ -28,19 +28,19 @@
 		    <h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction1_pack/borobudur_p1.jsp">
+		            <a href="borobudur_p1.jsp">
 		                <img src="images/borobudur_p1.jpg" alt="Family Journey">
 		                <p>Family Journey</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction1_pack/borobudur_p2.jsp">
+		            <a href="borobudur_p2.jsp">
 		                <img src="images/borobudur_p2.jpg" alt="Adventure Trail">
 		                <p>Adventure Trail</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction1_pack/borobudur_p3.jsp">
+		            <a href="borobudur_p3.jsp">
 		                <img src="images/borobudur_p3.jpg" alt="Cultural Luxury">
 		                <p>Cultural Luxury</p>
 		            </a>

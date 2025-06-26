@@ -28,19 +28,19 @@
 		    <h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction9_pack/labuanbajo_p1.jsp">
+		            <a href="labuanbajo_p1.jsp">
 		                <img src="images/labuanbajo_p1.jpg" alt="Quick Adventure">
 		                <p>Quick Adventure</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction9_pack/labuanbajo_p2.jsp">
+		            <a href="labuanbajo_p2.jsp">
 		                <img src="images/labuanbajo_p2.jpg" alt="Island Discovery">
 		                <p>Island Discovery</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction9_pack/labuanbajo_p3.jsp">
+		            <a href="labuanbajo_p3.jsp">
 		                <img src="images/labuanbajo_p3.jpg" alt="Romantic Escape">
 		                <p>Romantic Escape</p>
 		            </a>

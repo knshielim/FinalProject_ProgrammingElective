@@ -30,19 +30,19 @@
 		    <h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction7_pack/monas_p1.jsp">
+		            <a href="monas_p1.jsp">
 		                <img src="images/monas_p1.jpg" alt="Historical Exploration">
 		                <p>Historical Exploration</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction7_pack/monas_p2.jsp">
+		            <a href="monas_p2.jsp">
 		                <img src="images/monas_p2.jpg" alt="Heritage Tour">
 		                <p>Heritage Tour</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction7_pack/monas_p3.jsp">
+		            <a href="monas_p3.jsp">
 		                <img src="images/monas_p3.jpg" alt="Night City Escape">
 		                <p>Night City Escape</p>
 		            </a>

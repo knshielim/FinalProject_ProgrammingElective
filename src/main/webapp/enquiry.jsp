@@ -18,6 +18,8 @@
 		<script src="enquiry.js" defer></script>
 	</head>
 	<body>
+		<jsp:include page="header.jsp"/>
+	
 	    <div class="enquiry-form-container">
 	        <h1>Tour Package Enquiry</h1>
 	        <form action="submit_enquiry.jsp" method="post">
@@ -51,6 +53,8 @@
 	            <textarea id="message" name="message" rows="4" placeholder="Any additional request or questions?"></textarea>
 	
 	            <button type="submit">Submit Enquiry</button>
+	            
+	            <jsp:include page="footer.jsp"/>
 	        </form>
 	    </div>
 	</body>

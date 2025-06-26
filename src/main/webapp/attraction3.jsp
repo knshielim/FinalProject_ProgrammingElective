@@ -27,19 +27,19 @@
 	    	<h3>Choose Your Package:</h3>
 		    <div class="package-grid">
 		        <div class="package-card">
-		            <a href="attraction3_pack/rajaampat_p1.jsp">
+		            <a href="rajaampat_p1.jsp">
 		                <img src="images/rajaampat_p1.jpg" alt="Marine Discovery">
 		                <p>Marine Discovery</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction3_pack/rajaampat_p2.jsp">
+		            <a href="rajaampat_p2.jsp">
 		                <img src="images/rajaampat_p2.jpg" alt="Eco Explorer">
 		                <p>Eco Explorer</p>
 		            </a>
 		        </div>
 		        <div class="package-card">
-		            <a href="attraction3_pack/rajaampat_p3.jsp">
+		            <a href="rajaampat_p3.jsp">
 		                <img src="images/rajaampat_p3.jpg" alt="Luxury Dive Cruise">
 		                <p>Luxury Dive Cruise</p>
 		            </a>
