@@ -9,8 +9,15 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	</head>
 	<body>
+		<jsp:include page="../header.jsp"/>
+		
 		<div class="package-container">
 		    <h1>3D2N Mount Bromo (Scenic Discovery) – Lava View Resort</h1>
+		    
+		    <div class="package-banner">
+    			<img src="../images/mountbromo_p2.jpg" alt="Scenic Discovery">
+			</div>
+		    
 		    <div class="package-meta">
 		        <p><strong>Price:</strong> From RM899.00</p>
 		        <p><strong>Duration:</strong> 3 Days, 2 Nights</p>
@@ -86,6 +93,7 @@
     		<button onclick="goBackToPreviousTab()" class="back-btn">← Back</button>
 		</div>
 		
+		<jsp:include page="../footer.jsp"/>
 		<script src="../tabs.js"></script>
 	</body>
 </html>

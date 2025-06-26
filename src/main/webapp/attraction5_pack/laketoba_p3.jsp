@@ -9,8 +9,15 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	</head>
 	<body>
+		<jsp:include page="../header.jsp"/>
+		
 		<div class="package-container">
 		    <h1>5D4N Lake Toba (Honeymoon Escape) – Samosir Romantic Villas</h1>
+		    
+		    <div class="package-banner">
+    			<img src="../images/laketoba_p3.jpg" alt="Honeymoon Escape">
+			</div>
+		    
 		    <div class="package-meta">
 		        <p><strong>Price:</strong> From RM1299.00</p>
 		        <p><strong>Duration:</strong> 5 Days, 4 Nights</p>
@@ -89,6 +96,7 @@
     		<button onclick="goBackToPreviousTab()" class="back-btn">← Back</button>
 		</div>
 		
+		<jsp:include page="../footer.jsp"/>		
 		<script src="../tabs.js"></script>
 	</body>
 </html>

@@ -8,12 +8,21 @@
 		<title>Register - Halabo Indonesia Tour</title>
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+		<script src="register.js" defer></script>
 	</head>
 	<body>
         <div class="container">
             <div class="form-container">
                 <h2 style="text-align: center; margin-bottom: 2rem;">Create Your Account</h2>
                 <form onsubmit="handleRegistration(event)">
+	                <div class="form-group">
+	                    <label for="reg-first-name">First Name</label>
+	                    <input type="text" id="reg-first-name" name="first_name" class="rounded-md" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="reg-last-name">Last Name</label>
+	                    <input type="text" id="reg-last-name" name="last_name" class="rounded-md" required>
+	                </div>
                     <div class="form-group">
                         <label for="reg-username">Username</label>
                         <input type="text" id="reg-username" name="username" required>

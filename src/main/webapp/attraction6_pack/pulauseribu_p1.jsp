@@ -9,8 +9,15 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	</head>
 	<body>
+		<jsp:include page="../header.jsp"/>
+			
 		<div class="package-container">
 		    <h1>2D1N Pulau Seribu (Island Escape) – Tidung Serenity Resort</h1>
+		    
+		    <div class="package-banner">
+    			<img src="../images/pulauseribu_p1.jpg" alt="Island Escape">
+			</div>
+		    
 		    <div class="package-meta">
 		        <p><strong>Price:</strong> From RM399.00</p>
 		        <p><strong>Duration:</strong> 2 Days, 1 Night</p>
@@ -85,6 +92,7 @@
     		<button onclick="goBackToPreviousTab()" class="back-btn">← Back</button>
 		</div>
 		
+		<jsp:include page="../footer.jsp"/>		
 		<script src="../tabs.js"></script>
 	</body>
 </html>

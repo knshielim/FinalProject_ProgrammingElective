@@ -9,8 +9,15 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	</head>
 	<body>
+		<jsp:include page="../header.jsp"/>
+		
 		<div class="package-container">
 		    <h1>2D1N Labuan Bajo (Quick Adventure) – Bajo Harbor Lodge</h1>
+		    
+		    <div class="package-banner">
+    			<img src="../images/labuanbajo_p1.jpg" alt="Quick Adventure">
+			</div>
+		    
 		    <div class="package-meta">
 		        <p><strong>Price:</strong> From RM799.00</p>
 		        <p><strong>Duration:</strong> 2 Days, 1 Night</p>
@@ -84,6 +91,7 @@
     		<button onclick="goBackToPreviousTab()" class="back-btn">← Back</button>
 		</div>
 		
+		<jsp:include page="../footer.jsp"/>		
 		<script src="../tabs.js"></script>
 	</body>
 </html>
