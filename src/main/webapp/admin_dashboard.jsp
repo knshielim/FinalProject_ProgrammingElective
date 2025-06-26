@@ -66,9 +66,9 @@
 	
 	        <div class="admin-options">
 	            <a href="add_destination.jsp">Add Destination</a>
-	            <a href="manage_destinations.jsp">Modify Destination</a>
+	            <a href="modify_destination.jsp">Modify Destination</a>
 	            <a href="add_package.jsp">Add Package</a>
-	            <a href="manage_packages.jsp">Modify Package</a>
+	            <a href="modify_package.jsp">Modify Package</a>
 	        </div>
 	
 	        <a href="logout.jsp" class="logout-btn">Logout</a>

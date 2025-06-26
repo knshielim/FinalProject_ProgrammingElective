@@ -11,13 +11,44 @@
 	    <link rel="stylesheet" type="text/css" href="styles.css">
 	    <script src="enquiry.js" defer></script>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <style>
+			.alert {
+				padding: 10px;
+				margin: 10px 0;
+				border-radius: 4px;
+			}
+			.alert-success {
+				background-color: #d4edda;
+				color: #155724;
+				border: 1px solid #c3e6cb;
+			}
+			.alert-error {
+				background-color: #f8d7da;
+				color: #721c24;
+				border: 1px solid #f5c6cb;
+			}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp"/>
 		
 		<div class="form-container">
 		    <h2>Send Us Your Enquiry</h2>
-		    <form action="submit_enquiry.jsp" method="post">
+		    
+		    <%-- Show success/error messages --%>
+			<% if (request.getParameter("success") != null) { %>
+				<div class="alert alert-success">
+					Thank you for your enquiry! We'll contact you soon with more details.
+				</div>
+			<% } %>
+			
+			<% if (request.getParameter("error") != null) { %>
+				<div class="alert alert-error">
+					Sorry, there was an error submitting your enquiry. Please try again.
+				</div>
+			<% } %>
+		    
+		    <form action="enquiry" method="post">
 		        <label>Full Name:</label>
 		        <input type="text" name="fullname" required>
 		
