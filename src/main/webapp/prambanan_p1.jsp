@@ -15,7 +15,7 @@
 		    <h1>3D2N Prambanan (Cultural Discovery) – Candi Garden Hotel</h1>
 		    
 		    <div class="package-banner">
-    			<img src="images/prambanan_p1.jpg" alt="Prambanan Cultural Discovery">
+    			<img src="images/prambanan_p1.jpg" alt="Cultural Discovery">
 			</div>
 		    
 		    <div class="package-meta">
@@ -84,13 +84,15 @@
 		        </ul>
 		    </div>
 		
-		    <div class="enquiry-button">
-		        <a href="enquiry.jsp?package=HALA-PRAM-CULT">Enquire Now</a>
+			<div class="back-button">
+		    	<button onclick="history.back()" class="back-btn">← Back</button>
+			</div>
+			<div class="booking-button">
+		    	<a href="booking.jsp?package=Cultural Discovery">Book Now</a>
 		    </div>
-		</div>
-
-		<div class="back-button-container" style="margin-top: 20px;">
-		    <button onclick="history.back()" class="back-btn">← Back</button>
+		    <div class="enquiry-button">
+		        <a href="enquiry.jsp?package=Cultural Discovery">Enquire Now</a>
+		    </div>
 		</div>
 		
 		<jsp:include page="footer.jsp"/>

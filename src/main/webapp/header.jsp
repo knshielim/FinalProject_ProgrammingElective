@@ -18,11 +18,11 @@
 	        <li><a href="about.jsp">About</a></li>
 	        <li><a href="attractions.jsp">Attractions</a></li>
 	        <li><a href="packages.jsp">Packages</a></li>
-	        <li><a href="booking.jsp">Bookings</a></li>
 	    </ul>
+	    <a href="booking.jsp" class="booking-btn">Book Now</a>
 	    <a href="contact.jsp" class="contact-btn">Contact Us</a>
-	    <a href="login.jsp" class="contact-btn">Login</a>
-	    <a href="register.jsp" class="contact-btn">Register</a>
+	    <a href="login.jsp" class="login-btn">Login</a>
+	    <a href="register.jsp" class="register-btn">Register</a>
 	    <a href="profile.jsp" class="profile-btn">
     	<i class="fas fa-user-circle"></i>
 		</a>

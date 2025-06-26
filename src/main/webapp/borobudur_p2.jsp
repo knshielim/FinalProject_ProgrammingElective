@@ -15,7 +15,7 @@
 			<h1>3D2N Borobudur (Adventure Trail) – Sunrise & Trek</h1>
 			
 			<div class="package-banner">
-    			<img src="images/borobudur_p2.jpg" alt="Borobudur Adventure Trail">
+    			<img src="images/borobudur_p2.jpg" alt="Adventure Trail">
 			</div>
 			
 		    <div class="package-meta">
@@ -85,13 +85,15 @@
 		        </ul>
 		    </div>
 		
-		    <div class="enquiry-button">
-		        <a href="enquiry.jsp?package=HALA-BORO-ADV">Enquire Now</a>
+			<div class="back-button">
+		    	<button onclick="history.back()" class="back-btn">← Back</button>
+			</div>
+			<div class="booking-button">
+		    	<a href="booking.jsp?package=Adventure Trail">Book Now</a>
 		    </div>
-		</div>
-		
-		<div class="back-button-container" style="margin-top: 20px;">
-		    <button onclick="history.back()" class="back-btn">← Back</button>
+		    <div class="enquiry-button">
+		        <a href="enquiry.jsp?package=Adventure Trail">Enquire Now</a>
+		    </div>
 		</div>
 		
 		<jsp:include page="footer.jsp"/>

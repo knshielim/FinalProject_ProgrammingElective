@@ -15,7 +15,7 @@
 		    <h1>3D2N Monas (Night City Escape) – Urban Glow Hotel</h1>
 		    
 		    <div class="package-banner">
-    			<img src="images/monas_p3.jpg" alt="Night City Escape]">
+    			<img src="images/monas_p3.jpg" alt="Night City Escape">
 			</div>
 		    
 		    <div class="package-meta">
@@ -84,13 +84,15 @@
 		        </ul>
 		    </div>
 		
-		    <div class="enquiry-button">
-		        <a href="enquiry.jsp?package=HALA-MONAS-NIGHT">Enquire Now</a>
+			<div class="back-button">
+		    	<button onclick="history.back()" class="back-btn">← Back</button>
+			</div>
+			<div class="booking-button">
+		    	<a href="booking.jsp?package=Night City Escape">Book Now</a>
 		    </div>
-		</div>
-		
-		<div class="back-button-container" style="margin-top: 20px;">
-		    <button onclick="history.back()" class="back-btn">← Back</button>
+		    <div class="enquiry-button">
+		        <a href="enquiry.jsp?package=Night City Escape">Enquire Now</a>
+		    </div>
 		</div>
 		
 		<jsp:include page="footer.jsp"/>

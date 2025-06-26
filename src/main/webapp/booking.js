@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const destinationSelect = document.getElementById("select-destination");
     const packageSelect = document.getElementById("select-package");
+    const bookingDestination = document.getElementById("booking-destination");
+    const bookingPackage = document.getElementById("booking-package");
 
     const packageOptions = {
         "Borobudur Temple": ["Family Journey", "Adventure Trail", "Cultural Luxury"],
@@ -15,30 +17,41 @@ document.addEventListener("DOMContentLoaded", function () {
         "Prambanan Temple": ["Cultural Discovery", "Romantic Heritage Escape", "Budget Explorer"]
     };
 
-    // Populate package dropdown based on selected destination
-    destinationSelect.addEventListener("change", function () {
-        const selectedDestination = this.value;
+    function populatePackages(destination) {
         packageSelect.innerHTML = '<option value="">-- Choose Package --</option>';
-
-        if (packageOptions[selectedDestination]) {
-            packageOptions[selectedDestination].forEach(pkg => {
+        if (packageOptions[destination]) {
+            packageOptions[destination].forEach(pkg => {
                 const option = document.createElement("option");
                 option.value = pkg;
                 option.textContent = pkg;
                 packageSelect.appendChild(option);
             });
         }
+    }
+
+    destinationSelect.addEventListener("change", function () {
+        populatePackages(this.value);
     });
-});
 
-document.querySelector("form").addEventListener("submit", function (e) {
-    // Optional: If you want to build a dynamic URL manually
-    // e.preventDefault();
+    // Auto-select if URL contains ?package=
+    const urlParams = new URLSearchParams(window.location.search);
+    const preselectedPackage = urlParams.get('package');
 
-    const destination = document.getElementById("select-destination").value;
-    const pkg = document.getElementById("select-package").value;
+    if (preselectedPackage) {
+        for (const [destination, packages] of Object.entries(packageOptions)) {
+            if (packages.includes(preselectedPackage)) {
+                destinationSelect.value = destination;
+                populatePackages(destination);
+                setTimeout(() => {
+                    packageSelect.value = preselectedPackage;
+                }, 100); // Delay to allow options to populate
+                break;
+            }
+        }
+    }
 
-    // Auto-fill hidden/readonly fields if needed
-    document.getElementById("booking-destination").value = destination;
-    document.getElementById("booking-package").value = pkg;
+    document.querySelector("form").addEventListener("submit", function () {
+        bookingDestination.value = destinationSelect.value;
+        bookingPackage.value = packageSelect.value;
+    });
 });

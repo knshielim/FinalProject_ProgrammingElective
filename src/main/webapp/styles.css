@@ -866,6 +866,51 @@ h4 {
     transform: translateY(-2px);
 }
 
+.booking-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.booking-button a {
+    background-color: #d92662;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.booking-button a:hover {
+    background-color: #b71c4c;
+    transform: translateY(-2px);
+}
+
+.back-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-button button {
+    background-color: #d92662;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.back-button button:hover {
+    background-color: #b71c4c;
+    transform: translateY(-2px);
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

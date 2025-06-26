@@ -87,13 +87,15 @@
 		        </ul>
 		    </div>
 		
-		    <div class="enquiry-button">
-		        <a href="enquiry.jsp?package=HALA-TOBA-HONEY">Enquire Now</a>
+			<div class="back-button">
+		    	<button onclick="history.back()" class="back-btn">← Back</button>
+			</div>
+			<div class="booking-button">
+		    	<a href="booking.jsp?package=Honeymoon Escape">Book Now</a>
 		    </div>
-		</div>
-		
-		<div class="back-button-container" style="margin-top: 20px;">
-		    <button onclick="history.back()" class="back-btn">← Back</button>
+		    <div class="enquiry-button">
+		        <a href="enquiry.jsp?package=Honeymoon Escape">Enquire Now</a>
+		    </div>
 		</div>
 		
 		<jsp:include page="footer.jsp"/>		

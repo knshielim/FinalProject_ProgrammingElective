@@ -60,90 +60,180 @@
 	        <div class="destination-section">
 	            <div class="destination-title">Borobudur Temple</div>
 	            <div class="package-links">
-	                <a href="borobudur_p1.jsp">Family Journey</a>
-	                <a href="borobudur_p2.jsp">Adventure Trail</a>
-	                <a href="borobudur_p3.jsp">Cultural Luxury</a>
+	                <a href="borobudur_p1.jsp">
+	                	<img src="images/borobudur_p1.jpg" alt="Family Journey">
+	                	Family Journey
+	                </a>
+	                <a href="borobudur_p2.jsp">
+	                	<img src="images/borobudur_p2.jpg" alt="Adventure Trail">
+	                	Adventure Trail
+	                </a>
+	                <a href="borobudur_p3.jsp">
+	                	<img src="images/borobudur_p3.jpg" alt="Cultural Luxury">
+	                	Cultural Luxury
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Bali Island</div>
 	            <div class="package-links">
-	                <a href="bali_p1.jsp">Beach Getaway</a>
-	                <a href="bali_p2.jsp">Adventure Retreat</a>
-	                <a href="bali_p3.jsp">Beachside Romance</a>
+	                <a href="bali_p1.jsp">
+	                	<img src="images/bali_p1.jpg" alt="Beach Getaway">
+	                	Beach Getaway
+	                </a>
+	                <a href="bali_p2.jsp">
+	                	<img src="images/bali_p2.jpg" alt="Adventure Retreat">
+	                	Adventure Retreat
+	                </a>
+	                <a href="bali_p3.jsp">
+		                <img src="images/bali_p3.jpg" alt="Beachside Romance">
+		                Beachside Romance
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Raja Ampat</div>
 	            <div class="package-links">
-	                <a href="rajaampat_p1.jsp">Marine Discovery</a>
-	                <a href="rajaampat_p2.jsp">Eco Explorer</a>
-	                <a href="rajaampat_p3.jsp">Luxury Dive Cruise</a>
+	                <a href="rajaampat_p1.jsp">
+	                	<img src="images/rajaampat_p1.jpg" alt="Marine Discovery">
+	                	Marine Discovery
+	                </a>
+	                <a href="rajaampat_p2.jsp">
+	                	<img src="images/rajaampat_p2.jpg" alt="Eco Explorer">
+	                	Eco Explorer
+	                </a>
+	                <a href="rajaampat_p3.jsp">
+	                	<img src="images/rajaampat_p3.jpg" alt="Luxury Dive Cruise">
+	                	Luxury Dive Cruise
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Mount Bromo</div>
 	            <div class="package-links">
-	            	<a href="mountbromo_p1.jsp">Sunrise Experience</a>
-	                <a href="mountbromo_p2.jsp">Scenic Discovery</a>
-	                <a href="mountbromo_p3.jsp">Crater Adventure</a>
+	            	<a href="mountbromo_p1.jsp">
+	            		<img src="images/mountbromo_p1.jpg" alt="Sunrise Experience">
+	            		Sunrise Experience
+	            	</a>
+	                <a href="mountbromo_p2.jsp">
+	                	<img src="images/mountbromo_p2.jpg" alt="Scenic Discovery">
+	                	Scenic Discovery
+	                </a>
+	                <a href="mountbromo_p3.jsp">
+	                	<img src="images/mountbromo_p3.jpg" alt="Crater Adventure">
+	                	Crater Adventure
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Lake Toba</div>
 	            <div class="package-links">
-	                <a href="laketoba_p1.jsp">Cultural Retreat</a>
-	                <a href="laketoba_p2.jsp">Adventure Discovery</a>
-	                <a href="laketoba_p3.jsp">Honeymoon Escape</a>
+	                <a href="laketoba_p1.jsp">
+	                	<img src="images/laketoba_p1.jpg" alt="Cultural Retreat">
+	                	Cultural Retreat
+	                </a>
+	                <a href="laketoba_p2.jsp">
+	                	<img src="images/laketoba_p2.jpg" alt="Adventure Discovery">
+	                	Adventure Discovery
+	                </a>
+	                <a href="laketoba_p3.jsp">
+	                	<img src="images/laketoba_p3.jpg" alt="Honeymoon Escape">
+	                	Honeymoon Escape
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Pulau Seribu</div>
 	            <div class="package-links">
-	                <a href="pulauseribu_p1.jsp">Island Escape</a>
-	                <a href="pulauseribu_p2.jsp">Couple's Getaway</a>
-	                <a href="pulauseribu_p3.jsp">Water Adventure</a>
+	                <a href="pulauseribu_p1.jsp">
+	                	<img src="images/pulauseribu_p1.jpg" alt="Island Escape">
+	                	Island Escape
+	                </a>
+	                <a href="pulauseribu_p2.jsp">
+	                	<img src="images/pulauseribu_p2.jpg" alt="Couple's Getaway">
+	                	Couple's Getaway
+	                </a>
+	                <a href="pulauseribu_p3.jsp">
+	                	<img src="images/pulauseribu_p3.jpg" alt="Water Adventure">
+	                	Water Adventure
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Monas National Monument</div>
 	            <div class="package-links">
-	                <a href="monas_p1.jsp">Historical Exploration</a>
-	                <a href="monas_p2.jsp">Heritage Tour</a>
-	                <a href="monas_p3.jsp">Night City Escape</a>
+	                <a href="monas_p1.jsp">
+	                	<img src="images/monas_p1.jpg" alt="Historical Exploration">
+	                	Historical Exploration
+	                </a>
+	                <a href="monas_p2.jsp">
+	                	<img src="images/monas_p2.jpg" alt="Heritage Tour">
+	                	Heritage Tour
+	                </a>
+	                <a href="monas_p3.jsp">
+	                	<img src="images/monas_p3.jpg" alt="Night City Escape">
+	                	Night City Escape
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Komodo Island</div>
 	            <div class="package-links">
-	                <a href="komodoisland_p1.jsp">Explorer Package</a>
-	                <a href="komodoisland_p2.jsp">Wildlife Trek</a>
-	                <a href="komodoisland_p3.jsp">Explorer's Escape</a>
+	                <a href="komodoisland_p1.jsp">
+	                	<img src="images/komodoisland_p1.jpg" alt="Explorer Package">
+	                	Explorer Package
+	                </a>
+	                <a href="komodoisland_p2.jsp">
+	                	<img src="images/komodoisland_p2.jpg" alt="Wildlife Trek">
+	                	Wildlife Trek
+	                </a>
+	                <a href="komodoisland_p3.jsp">
+	                	<img src="images/komodoisland_p3.jpg" alt="Explorer's Escape">
+	                	Explorer's Escape
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Labuan Bajo</div>
 	            <div class="package-links">
-	                <a href="labuanbajo_p1.jsp">Quick Adventure</a>
-	                <a href="labuanbajo_p2.jsp">Island Discovery</a>
-	                <a href="labuanbajo_p3.jsp">Romantic Escape</a>
+	                <a href="labuanbajo_p1.jsp">
+	                	<img src="images/labuanbajo_p1.jpg" alt="Quick Adventure">
+	                	Quick Adventure
+	                </a>
+	                <a href="labuanbajo_p2.jsp">
+	                	<img src="images/labuanbajo_p2.jpg" alt="Island Discovery">
+	                	Island Discovery
+	                </a>
+	                <a href="labuanbajo_p3.jsp">
+	                	<img src="images/labuanbajo_p3.jpg" alt="Romantic Escape">
+	                	Romantic Escape
+	                </a>
 	            </div>
 	        </div>
 	
 	        <div class="destination-section">
 	            <div class="destination-title">Prambanan Temple</div>
 	            <div class="package-links">
-	                <a href="prambanan_p1.jsp">Cultural Discovery</a>
-	                <a href="prambanan_p2.jsp">Romantic Heritage Escape</a>
-	                <a href="prambanan_p3.jsp">Budget Explorer</a>
+	                <a href="prambanan_p1.jsp">
+	                	<img src="images/prambanan_p1.jpg" alt="Cultural Discovery">
+	                	Cultural Discovery
+	                </a>
+	                <a href="prambanan_p2.jsp">
+	                	<img src="images/prambanan_p2.jpg" alt="Romantic Heritage Escape">
+	                	Romantic Heritage Escape
+	                </a>
+	                <a href="prambanan_p3.jsp">
+	                	<img src="images/prambanan_p3.jpg" alt="Budget Explorer">
+	                	Budget Explorer
+	                </a>
 	            </div>
 	        </div>
 	    </div>

@@ -15,7 +15,7 @@
 		    <h1>4D3N Borobudur (Cultural Luxury) – Borobudur Heritage Resort</h1>
 
 			<div class="package-banner">
-	    		<img src="images/borobudur_p3.jpg" alt="Borobudur Cultural Luxury">
+	    		<img src="images/borobudur_p3.jpg" alt="Cultural Luxury">
 			</div>	
 
 		    <div class="package-meta">
@@ -85,13 +85,15 @@
 		        </ul>
 		    </div>
 		
-		    <div class="enquiry-button">
-		        <a href="enquiry.jsp?package=HALA-BORO-LUX">Enquire Now</a>
+			<div class="back-button">
+		    	<button onclick="history.back()" class="back-btn">← Back</button>
+			</div>
+			<div class="booking-button">
+		    	<a href="booking.jsp?package=Cultural Luxury">Book Now</a>
 		    </div>
-		</div>
-		
-		<div class="back-button-container" style="margin-top: 20px;">
-		    <button onclick="history.back()" class="back-btn">← Back</button>
+		    <div class="enquiry-button">
+		        <a href="enquiry.jsp?package=Cultural Luxury">Enquire Now</a>
+		    </div>
 		</div>
 		
 		<jsp:include page="footer.jsp"/>
