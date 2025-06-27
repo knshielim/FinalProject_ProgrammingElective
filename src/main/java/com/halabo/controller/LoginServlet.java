@@ -17,13 +17,31 @@ import com.halabo.util.DatabaseConnection;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    
+    private static final long serialVersionUID = 1L;
+
+    // Admin credentials for demo purpose
+    private final String adminUsername = "admin";
+    private final String adminPassword = "admin123";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
+        // Check for admin login first
+        if (username != null && password != null) {
+            if (username.equals(adminUsername) && password.equals(adminPassword)) {
+                // Admin login successful
+                HttpSession session = request.getSession();
+                session.setAttribute("isAdmin", true);
+                session.setAttribute("username", username);
+                response.sendRedirect("admin_dashboard.jsp");
+                return;
+            }
+        }
+        
+        // Regular user login with database
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sql = "SELECT id, first_name, last_name, email, phone, password FROM users WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -40,9 +58,12 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("userId", rs.getInt("id"));
                     session.setAttribute("username", username);
+                    session.setAttribute("firstName", rs.getString("first_name"));
+                    session.setAttribute("lastName", rs.getString("last_name"));
                     session.setAttribute("name", rs.getString("first_name") + " " + rs.getString("last_name"));
                     session.setAttribute("email", rs.getString("email"));
                     session.setAttribute("phone", rs.getString("phone"));
+                    session.setAttribute("isLoggedIn", true);
                     
                     // Check if there's a recent booking for this user
                     String bookingSql = "SELECT destination, package_type, travelers, travel_date FROM bookings WHERE email = ? ORDER BY created_at DESC LIMIT 1";
@@ -88,6 +109,22 @@ public class LoginServlet extends HttpServlet {
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        }
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Handle logout
+        String action = request.getParameter("action");
+        
+        if ("logout".equals(action)) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+            response.sendRedirect("login.jsp");
+        } else {
+            // Optionally redirect GET to login page
+            response.sendRedirect("login.jsp");
         }
     }
 }

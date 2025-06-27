@@ -19,7 +19,7 @@
 				<p style="color: red; text-align: center;"><%= error %></p>
 			<% } %>
 
-			<form action="LoginServlet" method="post">
+			<form action="login" method="post">
 				<div class="form-group">
 					<label for="login-username">Username or Email</label>
 					<input type="text" id="login-username" name="username" required>
