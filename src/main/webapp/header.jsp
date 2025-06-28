@@ -20,7 +20,8 @@
 			<li><a href="attractions.jsp">Attractions</a></li>
 			<li><a href="packages.jsp">Packages</a></li>
 		</ul>
-
+		
+		<a href="feedback.jsp"class="feedback-btn">Feedback</a>
 		<a href="booking.jsp" class="booking-btn">Book Now</a>
 		<a href="contact.jsp" class="contact-btn">Contact Us</a>
 
