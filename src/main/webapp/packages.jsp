@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.util.LinkedHashMap" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.halabo.util.DatabaseConnection" %> <%-- Adjust this path if your DatabaseConnection class is in a different package --%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,38 +27,80 @@
 	        h1 {
 	            text-align: center;
 	            color: #d92662;
+	            margin-bottom: 40px;
 	        }
 	
 	        .destination-section {
 	            margin-top: 40px;
+	            padding-bottom: 20px;
+	            border-bottom: 1px solid #eee; /* Light separator */
 	        }
+            .destination-section:last-child {
+                border-bottom: none; /* No border for the last section */
+            }
 	
 	        .destination-title {
-	            font-size: 24px;
-	            margin-bottom: 15px;
+	            font-size: 28px; /* Slightly larger title */
+	            margin-bottom: 20px; /* More space below title */
 	            color: #222;
 	            border-bottom: 2px solid #d92662;
-	            padding-bottom: 5px;
+	            padding-bottom: 8px;
+	            display: inline-block; /* Makes border only as wide as text */
+	            width: 100%; /* For centering or left align */
+	            text-align: left; /* Keep title left-aligned */
 	        }
 	
 	        .package-links {
 	            display: flex;
 	            flex-wrap: wrap;
-	            gap: 10px;
+	            gap: 20px; /* Increased gap */
+	            justify-content: center; /* Center packages within section */
 	        }
 	
 	        .package-links a {
-	            display: inline-block;
-	            padding: 10px 15px;
-	            background-color: #d92662;
-	            color: white;
+	            display: flex; /* Use flexbox for vertical alignment of img and text */
+	            flex-direction: column; /* Stack image and text */
+	            align-items: center; /* Center content horizontally */
+	            width: 180px; /* Fixed width for each package link */
+	            padding: 15px; /* More padding */
+	            background-color: #fff; /* White background for cards */
+	            border: 1px solid #ddd; /* Light border */
+	            border-radius: 8px; /* Rounded corners for card effect */
 	            text-decoration: none;
-	            border-radius: 5px;
+	            color: #333; /* Darker text color */
 	            font-weight: bold;
+	            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+	            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 	        }
 	
 	        .package-links a:hover {
-	            background-color: #b71d4d;
+	            transform: translateY(-5px); /* Lift effect on hover */
+	            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Stronger shadow on hover */
+	            color: #d92662; /* Highlight text on hover */
+	        }
+	
+	        .package-links img {
+	            width: 100%; /* Image takes full width of its container */
+	            height: 120px; /* Fixed height for images */
+	            object-fit: cover; /* Crop images to fit */
+	            border-radius: 4px; /* Slightly rounded image corners */
+	            margin-bottom: 10px; /* Space between image and text */
+	        }
+	        .no-packages-found {
+	            text-align: center;
+	            color: #777;
+	            font-style: italic;
+	            margin-top: 15px;
+	        }
+	        .error-message {
+	            text-align: center;
+	            color: red;
+	            font-weight: bold;
+	            margin-top: 20px;
+	            padding: 15px;
+	            border: 1px solid red;
+	            background-color: #ffe6e6;
+	            border-radius: 5px;
 	        }
 	    </style>
 	</head>
@@ -57,185 +110,86 @@
 	    <div class="package-page-container">
 	        <h1>Explore Our Tour Packages</h1>
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Borobudur Temple</div>
-	            <div class="package-links">
-	                <a href="borobudur_p1.jsp">
-	                	<img src="images/borobudur_p1.jpg" alt="Family Journey">
-	                	Family Journey
-	                </a>
-	                <a href="borobudur_p2.jsp">
-	                	<img src="images/borobudur_p2.jpg" alt="Adventure Trail">
-	                	Adventure Trail
-	                </a>
-	                <a href="borobudur_p3.jsp">
-	                	<img src="images/borobudur_p3.jpg" alt="Cultural Luxury">
-	                	Cultural Luxury
-	                </a>
-	            </div>
-	        </div>
+	        <%
+	            Connection conn = null;
+	            PreparedStatement psDestinations = null;
+	            ResultSet rsDestinations = null;
+	            PreparedStatement psPackages = null;
+	            ResultSet rsPackages = null;
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Bali Island</div>
-	            <div class="package-links">
-	                <a href="bali_p1.jsp">
-	                	<img src="images/bali_p1.jpg" alt="Beach Getaway">
-	                	Beach Getaway
-	                </a>
-	                <a href="bali_p2.jsp">
-	                	<img src="images/bali_p2.jpg" alt="Adventure Retreat">
-	                	Adventure Retreat
-	                </a>
-	                <a href="bali_p3.jsp">
-		                <img src="images/bali_p3.jpg" alt="Beachside Romance">
-		                Beachside Romance
-	                </a>
-	            </div>
-	        </div>
+	            try {
+	                conn = DatabaseConnection.getConnection();
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Raja Ampat</div>
-	            <div class="package-links">
-	                <a href="rajaampat_p1.jsp">
-	                	<img src="images/rajaampat_p1.jpg" alt="Marine Discovery">
-	                	Marine Discovery
-	                </a>
-	                <a href="rajaampat_p2.jsp">
-	                	<img src="images/rajaampat_p2.jpg" alt="Eco Explorer">
-	                	Eco Explorer
-	                </a>
-	                <a href="rajaampat_p3.jsp">
-	                	<img src="images/rajaampat_p3.jpg" alt="Luxury Dive Cruise">
-	                	Luxury Dive Cruise
-	                </a>
-	            </div>
-	        </div>
+	                // 1. Fetch all destinations
+	                // Assuming 'destinations' table has 'id' and 'destination_name'
+	                String sqlDestinations = "SELECT id, destination_name FROM destinations ORDER BY destination_name ASC";
+	                psDestinations = conn.prepareStatement(sqlDestinations);
+	                rsDestinations = psDestinations.executeQuery();
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Mount Bromo</div>
-	            <div class="package-links">
-	            	<a href="mountbromo_p1.jsp">
-	            		<img src="images/mountbromo_p1.jpg" alt="Sunrise Experience">
-	            		Sunrise Experience
-	            	</a>
-	                <a href="mountbromo_p2.jsp">
-	                	<img src="images/mountbromo_p2.jpg" alt="Scenic Discovery">
-	                	Scenic Discovery
-	                </a>
-	                <a href="mountbromo_p3.jsp">
-	                	<img src="images/mountbromo_p3.jpg" alt="Crater Adventure">
-	                	Crater Adventure
-	                </a>
-	            </div>
-	        </div>
+	                boolean destinationsFound = false;
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Lake Toba</div>
-	            <div class="package-links">
-	                <a href="laketoba_p1.jsp">
-	                	<img src="images/laketoba_p1.jpg" alt="Cultural Retreat">
-	                	Cultural Retreat
-	                </a>
-	                <a href="laketoba_p2.jsp">
-	                	<img src="images/laketoba_p2.jpg" alt="Adventure Discovery">
-	                	Adventure Discovery
-	                </a>
-	                <a href="laketoba_p3.jsp">
-	                	<img src="images/laketoba_p3.jpg" alt="Honeymoon Escape">
-	                	Honeymoon Escape
-	                </a>
-	            </div>
-	        </div>
+	                // Loop through each destination
+	                while (rsDestinations.next()) {
+	                    destinationsFound = true;
+	                    int destinationId = rsDestinations.getInt("id");
+	                    String destinationName = rsDestinations.getString("destination_name");
+	        %>
+	                    <div class="destination-section">
+	                        <div class="destination-title"><%= destinationName %></div>
+	                        <div class="package-links">
+	                        <%
+	                            // 2. For each destination, fetch its packages
+	                            String sqlPackages = "SELECT id, package_name, image_path FROM packages WHERE destination_id = ? ORDER BY package_name ASC";
+	                            psPackages = conn.prepareStatement(sqlPackages);
+	                            psPackages.setInt(1, destinationId);
+	                            rsPackages = psPackages.executeQuery();
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Pulau Seribu</div>
-	            <div class="package-links">
-	                <a href="pulauseribu_p1.jsp">
-	                	<img src="images/pulauseribu_p1.jpg" alt="Island Escape">
-	                	Island Escape
-	                </a>
-	                <a href="pulauseribu_p2.jsp">
-	                	<img src="images/pulauseribu_p2.jpg" alt="Couple's Getaway">
-	                	Couple's Getaway
-	                </a>
-	                <a href="pulauseribu_p3.jsp">
-	                	<img src="images/pulauseribu_p3.jpg" alt="Water Adventure">
-	                	Water Adventure
-	                </a>
-	            </div>
-	        </div>
+	                            boolean packagesForDestinationFound = false;
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Monas National Monument</div>
-	            <div class="package-links">
-	                <a href="monas_p1.jsp">
-	                	<img src="images/monas_p1.jpg" alt="Historical Exploration">
-	                	Historical Exploration
-	                </a>
-	                <a href="monas_p2.jsp">
-	                	<img src="images/monas_p2.jpg" alt="Heritage Tour">
-	                	Heritage Tour
-	                </a>
-	                <a href="monas_p3.jsp">
-	                	<img src="images/monas_p3.jpg" alt="Night City Escape">
-	                	Night City Escape
-	                </a>
-	            </div>
-	        </div>
+	                            if (!rsPackages.next()) {
+	                                // No packages found for this specific destination
+	                                out.println("<p class='no-packages-found'>No packages found for " + destinationName + " yet.</p>");
+	                            } else {
+	                                // Packages found, loop and display them
+	                                packagesForDestinationFound = true;
+	                                do {
+	                                    int packageId = rsPackages.getInt("id");
+	                                    String packageName = rsPackages.getString("package_name");
+	                                    String imagePath = rsPackages.getString("image_path");
+	                        %>
+	                                    <a href="package_details.jsp?package_id=<%= packageId %>">
+	                                        <img src="<%= imagePath %>" alt="<%= packageName %>">
+	                                        <%= packageName %>
+	                                    </a>
+	                        <%
+	                                } while (rsPackages.next());
+	                            }
+	                            // Close rsPackages and psPackages after each destination loop
+	                            if (rsPackages != null) rsPackages.close();
+	                            if (psPackages != null) psPackages.close();
+	                        %>
+	                        </div>
+	                    </div>
+	        <%
+	                } // End of while (rsDestinations.next()) loop
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Komodo Island</div>
-	            <div class="package-links">
-	                <a href="komodoisland_p1.jsp">
-	                	<img src="images/komodoisland_p1.jpg" alt="Explorer Package">
-	                	Explorer Package
-	                </a>
-	                <a href="komodoisland_p2.jsp">
-	                	<img src="images/komodoisland_p2.jpg" alt="Wildlife Trek">
-	                	Wildlife Trek
-	                </a>
-	                <a href="komodoisland_p3.jsp">
-	                	<img src="images/komodoisland_p3.jpg" alt="Explorer's Escape">
-	                	Explorer's Escape
-	                </a>
-	            </div>
-	        </div>
+	                if (!destinationsFound) {
+	                    out.println("<p class='no-packages-found'>No destinations found in the database.</p>");
+	                }
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Labuan Bajo</div>
-	            <div class="package-links">
-	                <a href="labuanbajo_p1.jsp">
-	                	<img src="images/labuanbajo_p1.jpg" alt="Quick Adventure">
-	                	Quick Adventure
-	                </a>
-	                <a href="labuanbajo_p2.jsp">
-	                	<img src="images/labuanbajo_p2.jpg" alt="Island Discovery">
-	                	Island Discovery
-	                </a>
-	                <a href="labuanbajo_p3.jsp">
-	                	<img src="images/labuanbajo_p3.jpg" alt="Romantic Escape">
-	                	Romantic Escape
-	                </a>
-	            </div>
-	        </div>
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                out.println("<p class='error-message'>Error loading tour packages. Please try again later.</p>");
+	                out.println("<p class='error-message'>Developer Note: Database Error - " + e.getMessage() + "</p>");
+	            } finally {
+	                // Close all JDBC resources in the reverse order of creation
+	                try { if (rsDestinations != null) rsDestinations.close(); } catch (SQLException e) { e.printStackTrace(); }
+	                try { if (psDestinations != null) psDestinations.close(); } catch (SQLException e) { e.printStackTrace(); }
+	                try { if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+	                // psPackages and rsPackages are closed inside the loop for each destination
+	            }
+	        %>
 	
-	        <div class="destination-section">
-	            <div class="destination-title">Prambanan Temple</div>
-	            <div class="package-links">
-	                <a href="prambanan_p1.jsp">
-	                	<img src="images/prambanan_p1.jpg" alt="Cultural Discovery">
-	                	Cultural Discovery
-	                </a>
-	                <a href="prambanan_p2.jsp">
-	                	<img src="images/prambanan_p2.jpg" alt="Romantic Heritage Escape">
-	                	Romantic Heritage Escape
-	                </a>
-	                <a href="prambanan_p3.jsp">
-	                	<img src="images/prambanan_p3.jpg" alt="Budget Explorer">
-	                	Budget Explorer
-	                </a>
-	            </div>
-	        </div>
 	    </div>
 	
 	    <jsp:include page="footer.jsp"/>

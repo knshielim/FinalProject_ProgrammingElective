@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%
     String userName = (String) session.getAttribute("name");
     if (userName == null) userName = "Guest";

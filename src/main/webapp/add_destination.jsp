@@ -1,106 +1,129 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Add Destination - Halabo Indonesia Tour Admin</title>
-	    <link rel="stylesheet" type="text/css" href="styles.css">
+	    <title>Add New Destination - Admin</title>
+	    <link rel="stylesheet" href="styles.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <style>
-	        .admin-form-container {
-	            max-width: 600px;
-	            margin: 40px auto;
+	        /* Existing admin dashboard styles apply, but here are specific form styles */
+	        .form-container-admin {
+	            max-width: 700px;
+	            margin: 50px auto;
 	            padding: 30px;
-	            background-color: #fefefe;
-	            border-radius: 10px;
-	            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	            background-color: #f9f9f9;
+	            border-radius: 8px;
+	            box-shadow: 0 0 15px rgba(0,0,0,0.1);
 	        }
-	
-	        .admin-form-container h2 {
-	            color: #d92662;
+	        .form-container-admin h2 {
 	            text-align: center;
-	            margin-bottom: 25px;
+	            color: #d92662;
+	            margin-bottom: 30px;
 	        }
-	
-	        .admin-form-container label {
-	            font-weight: bold;
+	        .form-container-admin label {
 	            display: block;
-	            margin: 15px 0 5px;
+	            margin-bottom: 8px;
+	            font-weight: bold;
+	            color: #555;
 	        }
-	
-	        .admin-form-container input,
-	        .admin-form-container textarea {
-	            width: 100%;
+	        .form-container-admin input[type="text"],
+	        .form-container-admin textarea,
+	        .form-container-admin input[type="file"] { /* Added input[type="file"] */
+	            width: calc(100% - 20px);
 	            padding: 10px;
-	            border: 1px solid #aaa;
+	            margin-bottom: 20px;
+	            border: 1px solid #ccc;
 	            border-radius: 5px;
-	            font-size: 16px;
+	            font-size: 1em;
+	            box-sizing: border-box;
 	        }
-	
-	        .admin-form-container button {
-	            margin-top: 20px;
+	        .form-container-admin textarea {
+	            min-height: 120px;
+	            resize: vertical;
+	        }
+	        .form-container-admin button[type="submit"] {
+	            display: block;
 	            width: 100%;
-	            background-color: #d92662;
+	            padding: 12px;
+	            background-color: #28a745; /* Green for submit */
 	            color: white;
 	            border: none;
-	            padding: 12px;
-	            font-size: 16px;
 	            border-radius: 5px;
+	            font-size: 1.1em;
 	            cursor: pointer;
+	            transition: background-color 0.3s ease;
 	        }
-	
-	        .admin-form-container button:hover {
-	            background-color: #b71c4c;
+	        .form-container-admin button[type="submit"]:hover {
+	            background-color: #218838;
 	        }
-	
-	        .admin-form-container .message {
-	            text-align: center;
-	            margin-top: 20px;
+	        .form-message {
+	            margin-top: 15px;
+	            padding: 10px;
+	            border-radius: 5px;
 	            font-weight: bold;
+	            text-align: center;
 	        }
-	
-	        .success {
-	            color: green;
+	        .form-message.success {
+	            background-color: #d4edda;
+	            color: #155724;
+	            border: 1px solid #c3e6cb;
 	        }
-	
-	        .error {
-	            color: red;
+	        .form-message.error {
+	            background-color: #f8d7da;
+	            color: #721c24;
+	            border: 1px solid #f5c6cb;
 	        }
 	    </style>
 	</head>
 	<body>
-	
 	    <jsp:include page="header.jsp"/>
 	
-	    <div class="admin-form-container">
+	    <%
+	        // Basic access control for this specific page (good practice for all admin JSPs)
+	        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+	        if (isAdmin == null || !isAdmin) {
+	            response.sendRedirect("login.jsp?error=unauthorized");
+	            return; // Stop further processing of the JSP
+	        }
+	    %>
+	
+	    <div class="form-container-admin">
 	        <h2>Add New Destination</h2>
 	
-	        <form action="${pageContext.request.contextPath}/AddDestinationServlet" method="post">
-	            <label for="name">Destination Name:</label>
-	            <input type="text" id="name" name="name" required>
-	
-	            <label for="location">Location:</label>
-	            <input type="text" id="location" name="location" required>
-	
-	            <label for="description">Description:</label>
-	            <textarea id="description" name="description" rows="5" required></textarea>
-	
-	            <button type="submit">Add Destination</button>
-	        </form>
-	
-	        <%-- Optional success/failure message --%>
+	        <%-- Display success or error messages --%>
 	        <%
-	            String status = request.getParameter("status");
-	            if ("success".equals(status)) {
+	            String message = (String) request.getAttribute("message");
+	            String messageType = (String) request.getAttribute("messageType");
+	            if (message != null) {
 	        %>
-	            <div class="message success">Destination added successfully!</div>
-	        <%
-	            } else if ("error".equals(status)) {
-	        %>
-	            <div class="message error">Failed to add destination. Please try again.</div>
+	            <div class="form-message <%= messageType %>">
+	                <%= message %>
+	            </div>
 	        <%
 	            }
 	        %>
+	
+	        <form action="AddDestinationServlet" method="post" enctype="multipart/form-data">
+	            <label for="destinationName">Destination Name:</label>
+	            <input type="text" id="destinationName" name="destinationName" required>
+	
+	            <label for="caption">Caption (Short Description):</label>
+	            <input type="text" id="caption" name="caption">
+	
+	            <label for="description">Full Description:</label>
+	            <textarea id="description" name="description" required></textarea>
+	
+	            <label for="imageFile">Upload Image:</label>
+	            <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+	            <small style="display: block; margin-top: -15px; margin-bottom: 20px; color: #777;">
+	                Please upload the image file (e.g., JPG, PNG). It will be named after the destination.
+	            </small>
+	
+	            <button type="submit">Add Destination</button>
+	        </form>
 	    </div>
 	
 	    <jsp:include page="footer.jsp"/>

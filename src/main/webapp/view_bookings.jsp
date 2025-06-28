@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="com.halabo.model.Destination" %> <%-- Import your Destination model --%>
+<%@ page import="com.halabo.model.Booking" %> <%-- Import your Booking model --%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Manage Destinations - Admin</title>
+	    <title>View Bookings - Admin</title>
 	    <link rel="stylesheet" href="styles.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <style>
-	        /* Shared admin dashboard styles are assumed from styles.css */
+	        /* Reuse .admin-table-container, .admin-table etc., from previous admin JSPs */
+	        /* If you moved them to styles.css, you don't need them here. */
 	        .admin-table-container {
-	            max-width: 1000px;
+	            max-width: 1200px; /* Wider for more columns */
 	            margin: 50px auto;
 	            padding: 20px;
 	            background-color: #f9f9f9;
@@ -35,6 +36,7 @@
 	            padding: 10px;
 	            text-align: left;
 	            vertical-align: top;
+	            font-size: 0.9em; /* Slightly smaller font for more columns */
 	        }
 	        .admin-table th {
 	            background-color: #d92662;
@@ -43,35 +45,6 @@
 	        }
 	        .admin-table tbody tr:nth-child(even) {
 	            background-color: #f2f2f2;
-	        }
-	        .admin-table .actions {
-	            white-space: nowrap; /* Prevent buttons from wrapping */
-	        }
-	        .admin-table .actions a {
-	            display: inline-block;
-	            padding: 5px 10px;
-	            margin-right: 5px;
-	            border-radius: 5px;
-	            text-decoration: none;
-	            color: white;
-	            font-size: 0.9em;
-	        }
-	        .admin-table .actions .edit-btn {
-	            background-color: #007bff;
-	        }
-	        .admin-table .actions .edit-btn:hover {
-	            background-color: #0056b3;
-	        }
-	        .admin-table .actions .delete-btn {
-	            background-color: #dc3545;
-	        }
-	        .admin-table .actions .delete-btn:hover {
-	            background-color: #c82333;
-	        }
-	        .admin-table img {
-	            max-width: 80px;
-	            height: auto;
-	            border-radius: 4px;
 	        }
 	        .no-data-message {
 	            text-align: center;
@@ -110,9 +83,9 @@
 	    %>
 	
 	    <div class="admin-table-container">
-	        <h2>Manage Destinations</h2>
+	        <h2>All Bookings</h2>
 	
-	        <%-- Display success or error messages from Update/Delete operations --%>
+	        <%-- Display messages if any --%>
 	        <%
 	            String message = (String) request.getAttribute("message");
 	            String messageType = (String) request.getAttribute("messageType");
@@ -125,38 +98,45 @@
 	            }
 	        %>
 	
-	        <%-- Retrieve the list of destinations from the request attribute --%>
+	        <%-- Retrieve the list of bookings from the request attribute --%>
 	        <%
-	            List<Destination> destinations = (List<Destination>) request.getAttribute("destinations");
-	            if (destinations != null && !destinations.isEmpty()) {
+	            List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
+	            if (bookings != null && !bookings.isEmpty()) {
 	        %>
 	                <table class="admin-table">
 	                    <thead>
 	                        <tr>
 	                            <th>ID</th>
-	                            <th>Name</th>
-	                            <th>Caption</th>
-	                            <th>Image</th>
-	                            <th>Actions</th>
+	                            <th>User</th>
+	                            <th>Package</th>
+	                            <th>Booking Date</th>
+	                            <th>Travel Date</th>
+	                            <th>Travelers</th>
+	                            <th>Total Price</th>
+	                            <th>Status</th>
+	                            <th>Contact Name</th>
+	                            <th>Contact Email</th>
+	                            <th>Contact Phone</th>
+	                            <%-- Optional: Special Requests --%>
+	                            <%-- <th>Special Requests</th> --%>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        <% for (Destination dest : destinations) { %>
+	                        <% for (Booking booking : bookings) { %>
 	                            <tr>
-	                                <td><%= dest.getId() %></td>
-	                                <td><%= dest.getName() %></td>
-	                                <td><%= dest.getCaption() %></td>
-	                                <td>
-	                                    <% if (dest.getImagePath() != null && !dest.getImagePath().isEmpty()) { %>
-	                                        <img src="<%= request.getContextPath() %><%= dest.getImagePath() %>" alt="<%= dest.getName() %>" style="max-width: 80px;">
-	                                    <% } else { %>
-	                                        No Image
-	                                    <% } %>
-	                                </td>
-	                                <td class="actions">
-	                                    <a href="editDestination.jsp?id=<%= dest.getId() %>" class="edit-btn">Edit</a>
-	                                    <a href="modifyDestination?action=delete&id=<%= dest.getId() %>" class="delete-btn" onclick="return confirm('Are you sure you want to delete <%= dest.getName() %>? This cannot be undone.');">Delete</a>
-	                                </td>
+	                                <td><%= booking.getId() %></td>
+	                                <td><%= booking.getUsername() %></td>
+	                                <td><%= booking.getPackageName() %></td>
+	                                <td><%= booking.getBookingDate() %></td>
+	                                <td><%= booking.getTravelDate() %></td>
+	                                <td><%= booking.getNumberOfTravelers() %></td>
+	                                <td><%= String.format("%,.2f", booking.getTotalPrice()) %></td> <%-- Format as currency --%>
+	                                <td><%= booking.getStatus() %></td>
+	                                <td><%= booking.getContactName() != null ? booking.getContactName() : "N/A" %></td>
+	                                <td><%= booking.getContactEmail() != null ? booking.getContactEmail() : "N/A" %></td>
+	                                <td><%= booking.getContactPhone() != null ? booking.getContactPhone() : "N/A" %></td>
+	                                <%-- Optional: Special Requests --%>
+	                                <%-- <td><%= booking.getSpecialRequests() != null ? booking.getSpecialRequests() : "" %></td> --%>
 	                            </tr>
 	                        <% } %>
 	                    </tbody>
@@ -164,7 +144,7 @@
 	        <%
 	            } else {
 	        %>
-	                <p class="no-data-message">No destinations found. <a href="add_destination.jsp">Add one now!</a></p>
+	                <p class="no-data-message">No bookings found.</p>
 	        <%
 	            }
 	        %>

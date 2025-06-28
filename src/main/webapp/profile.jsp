@@ -26,6 +26,7 @@
 	    <meta charset="UTF-8">
 	    <title>User Profile - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" type="text/css" href="styles.css">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <style>
 	        .profile-container {
 	            max-width: 600px;
