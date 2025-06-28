@@ -14,7 +14,35 @@
         <div class="container">
             <div class="form-container">
                 <h2 style="text-align: center; margin-bottom: 2rem;">Create Your Account</h2>
-                <form onsubmit="handleRegistration(event)">
+              	<%
+			    String error = request.getParameter("error");
+			    String message = "";
+			
+			    if (error != null) {
+			        switch (error) {
+			            case "password_mismatch":
+			                message = "Passwords do not match.";
+			                break;
+			            case "user_exists":
+			                message = "Username or email already exists.";
+			                break;
+			            case "registration_failed":
+			                message = "Registration failed. Please try again.";
+			                break;
+			            case "database_error":
+			                message = "Something went wrong with the database.";
+			                break;
+			            default:
+			                message = "Unknown error.";
+			        }
+					%>
+					    <div class="error-message" style="color: red; text-align: center; margin-bottom: 1rem;">
+					        <%= message %>
+					    </div>
+					<%
+					    }
+				%>
+                <form action="register" method="post" onsubmit="return handleRegistration(event)">
 	                <div class="form-group">
 	                    <label for="reg-first-name">First Name</label>
 	                    <input type="text" id="reg-first-name" name="first_name" class="rounded-md" required>

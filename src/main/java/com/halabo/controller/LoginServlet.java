@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("date", bookingRs.getString("travel_date"));
                     }
                     
-                    response.sendRedirect("index.jsp?login=success");
+                    response.sendRedirect("profile.jsp");
                 } else {
                     response.sendRedirect("login.jsp?error=invalid_credentials");
                 }

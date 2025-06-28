@@ -63,7 +63,9 @@ public class RegisterServlet extends HttpServlet {
             int result = stmt.executeUpdate();
             
             if (result > 0) {
-                response.sendRedirect("login.jsp?success=registered");
+                // Create session and auto-login
+                request.getSession().setAttribute("user", username); // or store a User object if you have one
+                response.sendRedirect("profile.jsp");
             } else {
                 response.sendRedirect("register.jsp?error=registration_failed");
             }
