@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
+    profile_image LONGBLOB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -87,3 +88,4 @@ CREATE TABLE IF NOT EXISTS feedbacks (
 
 SHOW TABLES;
 -- SELECT * FROM
+
