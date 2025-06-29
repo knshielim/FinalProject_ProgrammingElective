@@ -13,13 +13,13 @@
 		<div class="attractions-grid">
 		<%
 			try(Connection conn = DatabaseConnection.getConnection();
-		    	// Make sure to select your new 'image_path' column here
-		    	ResultSet rs = conn.createStatement().executeQuery("SELECT id,destination_name,caption,image_path FROM destinations")) {
+		    	// We need 'id' to pass to GetDestinationImageServlet
+		    	ResultSet rs = conn.createStatement().executeQuery("SELECT id, destination_name, caption FROM destinations")) {
 		    while(rs.next()) {
 		%>
 			<div class="attraction-card">
 			    <a href="destination.jsp?id=<%=rs.getInt("id")%>">
-			    	<img src="<%=rs.getString("image_path")%>" alt="<%=rs.getString("destination_name")%>">
+			    	<img src="${pageContext.request.contextPath}/GetDestinationImageServlet?id=<%=rs.getInt("id")%>" alt="<%=rs.getString("destination_name")%>">
 			    </a>
 			    <h1><%=rs.getString("destination_name")%></h1>
 			    <p><%=rs.getString("caption")%></p>
@@ -28,7 +28,6 @@
 				}
 			} catch (SQLException e) {
                 e.printStackTrace();
-                // Optionally display an error message on the page
                 out.println("<p>Error loading attractions: " + e.getMessage() + "</p>");
             }
 		%>

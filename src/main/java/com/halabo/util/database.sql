@@ -19,8 +19,8 @@ CREATE TABLE destinations (
     destination_name VARCHAR(255) NOT NULL UNIQUE,
     caption VARCHAR(255),
     description TEXT,
-    image_path VARCHAR(255),
-    -- Add other columns if needed, e.g., created_at, updated_at
+    destination_image LONGBLOB,
+    image_path VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -29,7 +29,8 @@ CREATE TABLE packages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     destination_id INT NOT NULL,
     package_name VARCHAR(255) NOT NULL,
-    image_path VARCHAR(255),
+    package_image LONGBLOB,
+    image_path VARCHAR(255) NULL,
     price VARCHAR(100),
     duration VARCHAR(100),
     min_people VARCHAR(50),
@@ -45,7 +46,6 @@ CREATE TABLE packages (
     FOREIGN KEY (destination_id) REFERENCES destinations(id) ON DELETE CASCADE
 );
 
--- Example bookings table structure
 CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -112,97 +112,84 @@ VALUES ('Super',
 		'08123456789',
 		NOW());
 
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Borobudur Temple', 
 		'The world’s largest Buddhist temple, rich with ancient history.', 
 		'Borobudur Temple is the world’s largest Buddhist temple and a UNESCO World Heritage Site located in Central Java, Indonesia. 
 		Constructed in the 9th century during the reign of the Sailendra Dynasty, the temple is a stunning example of Mahayana Buddhist architecture. 
 		It is decorated with over 2,600 relief panels and 504 Buddha statues, making it one of the most intricately designed ancient structures in the world. 
-		Visitors can climb to the top of the temple for panoramic views of the surrounding hills and lush forests.',
-        'images/borobudur1.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		Visitors can climb to the top of the temple for panoramic views of the surrounding hills and lush forests.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Bali Island', 
 		'Beautiful beaches, temples, and a unique spiritual vibe.', 
 		'Bali is Indonesia’s most popular tourist island, known for its breathtaking beaches, vibrant culture, and picturesque rice terraces. 
 		Visitors can explore ancient temples like Uluwatu and Tanah Lot, experience traditional Balinese dance performances, and indulge in wellness retreats. 
 		The island also offers world-class surfing, diving, and snorkeling opportunities. 
-		With its rich artistic heritage and spiritual atmosphere, Bali provides an unforgettable travel experience for every kind of traveler.',
-        'images/bali2.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		With its rich artistic heritage and spiritual atmosphere, Bali provides an unforgettable travel experience for every kind of traveler.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Raja Ampat', 
 		'A diver’s paradise with stunning marine biodiversity.', 
 		'Raja Ampat, located in West Papua, is an archipelago comprising over 1,500 islands and cays. 
 		It is renowned as one of the most biodiverse marine habitats on Earth. 
 		Divers and snorkelers from around the globe flock to Raja Ampat for its vibrant coral reefs and exotic marine life, including manta rays, reef sharks, and sea turtles. 
-		The islands also feature lush jungles and limestone karsts, offering adventure seekers plenty to explore both above and below the waterline.',
-        'images/rajaampat3.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		The islands also feature lush jungles and limestone karsts, offering adventure seekers plenty to explore both above and below the waterline.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Mount Bromo', 
 		'Witness a sunrise over one of Indonesia’s iconic volcanoes.', 
 		'Mount Bromo, located in East Java, is one of Indonesia\'s most iconic volcanoes. 
 		It stands in the middle of the Tengger caldera and is part of Bromo Tengger Semeru National Park. 
 		The area is famous for its dramatic sunrises, where the smoky peak of Bromo is silhouetted against the glowing sky. 
 		Tourists can hike or ride jeeps across the sea of volcanic sand to reach the crater\'s edge. 
-		Bromo\'s otherworldly landscape makes it a must-visit for nature lovers and photographers.',
-        'images/bromo4.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		Bromo\'s otherworldly landscape makes it a must-visit for nature lovers and photographers.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Lake Toba', 
 		'The largest volcanic lake in the world, nestled in North Sumatra.', 
 		'Lake Toba, situated in North Sumatra, is the largest volcanic lake in the world. 
 		Formed by a massive supervolcanic eruption around 75,000 years ago, the lake spans over 1,100 square kilometers and reaches depths of up to 500 meters. 
 		At its center lies Samosir Island, a cultural heartland of the Batak people. 
-		Tourists can enjoy scenic boat rides, explore traditional Batak villages, soak in hot springs, and admire the tranquil natural surroundings.',
-        'images/toba5.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		Tourists can enjoy scenic boat rides, explore traditional Batak villages, soak in hot springs, and admire the tranquil natural surroundings.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Pulau Seribu', 
 		'A chain of tropical islands near Jakarta, perfect for snorkeling and beach getaways.', 
 		'Pulau Seribu, or the Thousand Islands, is a chain of tropical islands stretching north of Jakarta in the Java Sea. 
 		These islands are ideal for weekend getaways, offering pristine beaches, coral reefs, and clear blue waters. 
 		Popular activities include snorkeling, scuba diving, and island hopping. 
 		Many islands have eco-resorts and cultural heritage sites, such as the colonial-era buildings on Onrust Island. 
-		It’s a convenient escape for those seeking serenity and marine adventures close to the capital city.',
-        'images/pulauseribu6.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		It’s a convenient escape for those seeking serenity and marine adventures close to the capital city.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Monas National Monument', 
 		'A symbol of Indonesia\'s independence in the heart of Jakarta.', 
 		'Monas, short for Monumen Nasional, is an iconic landmark located in the heart of Jakarta. 
 		It was constructed to commemorate Indonesia’s struggle for independence. 
 		Standing at 132 meters tall, Monas is crowned with a flame covered in gold foil. 
 		Visitors can take an elevator to the top for panoramic views of the capital. 
-		The monument also houses a museum that showcases Indonesia’s rich history, making it both a symbol of national pride and a center of education.',
-        'images/monas7.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		The monument also houses a museum that showcases Indonesia’s rich history, making it both a symbol of national pride and a center of education.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Komodo Island', 
 		'Home to the world-famous Komodo dragons and vibrant marine life.', 
 		'Komodo Island is part of the Komodo National Park and is globally known as the natural habitat of the Komodo dragon, the largest lizard on Earth. 
 		Located in the Lesser Sunda Islands, it offers a dramatic landscape of rugged hills, savannahs, and pink beaches. 
 		Visitors can trek through the island with guides to observe the dragons and enjoy world-class diving sites teeming with marine biodiversity. 
-		The unique ecosystem and scenery make it a true natural wonder.',
-        'images/komodo8.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		The unique ecosystem and scenery make it a true natural wonder.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Labuan Bajo', 
 		'A charming harbor town and gateway to Komodo National Park.', 
 		'Labuan Bajo is a charming port town located on the western tip of Flores Island. 
 		It serves as the main gateway to Komodo National Park and the nearby islands. 
 		Once a sleepy fishing village, Labuan Bajo has transformed into a vibrant tourist hub with upscale resorts, dive centers, and restaurants. 
-		From here, visitors can embark on boat tours to see the Komodo dragons, snorkel in pristine coral reefs, and admire the beauty of Padar Island’s viewpoints.',
-        'images/labuanbajo9.jpg');
-INSERT INTO destinations (destination_name, caption, description, image_path) 
+		From here, visitors can embark on boat tours to see the Komodo dragons, snorkel in pristine coral reefs, and admire the beauty of Padar Island’s viewpoints.');
+INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Prambanan Temple', 
 		'A majestic Hindu temple complex with stunning architecture and history.', 
 		'Prambanan is a magnificent Hindu temple complex located near Yogyakarta in Central Java. 
 		Built in the 9th century, the complex is dedicated to the Trimurti: Brahma the creator, Vishnu the preserver, and Shiva the destroyer. 
 		The main temple stands at 47 meters tall and is surrounded by smaller temples adorned with detailed bas-reliefs. 
-		Prambanan is a UNESCO World Heritage Site and is also a venue for traditional dance performances held under the moonlight, adding to its mystical charm.',
-        'images/prambanan10.jpg');
+		Prambanan is a UNESCO World Heritage Site and is also a venue for traditional dance performances held under the moonlight, adding to its mystical charm.');
 
-SELECT * FROM destinations;
-
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     1, 
     '3D2N Borobudur (Family Journey) – Java Family Stay',
-    'images/borobudur_p1.jpg',
     'From RM899.00',
     '3 Days, 2 Nights',
     '2',
@@ -214,11 +201,10 @@ VALUES (
     'Java Family Stay',
     '<ul><li>Rates quoted are for the minimum number of pax mentioned; rates may vary depending on the number of pax requested.</li><li>This is a quotation only — no reservation is confirmed until written acceptance and deposit are received.</li><li>Prices may be subject to surcharges (e.g., peak season, weekend, or public holidays).</li><li>All bookings are subject to hotel and land arrangement availability.</li><li>A 50% deposit is required upon booking; full payment is due one month before the tour.</li><li>Travel dates can be changed with notice, up to 2 weeks before departure.</li><li>Written notice is required for cancellations. Penalties apply based on notice period:</li><ul><li>30 days and over: 20% penalty</li><li>15–29 days: 30% penalty</li><li>8–14 days: 50% penalty</li><li>1–7 days: 75% penalty</li><li>Arrival day/No Show: 100% penalty</li></ul><li>If full payment is not received a month before departure, the company may cancel your reservation.</li><li>Any room change due to cancellation (e.g., Twin to Single) will incur cost differences borne by the remaining party.</li><li>No refunds for illness, absence, or early return from the trip.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     1, 
     '3D2N Borobudur (Adventure Trail) – Sunrise & Trek',
-    'images/borobudur_p2.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '2',
@@ -230,11 +216,10 @@ VALUES (
     'Jogja Eco Retreat',
     '<ul><li>Booking is based on availability; early booking recommended during peak season.</li><li>Adventurous activities require a moderate fitness level.</li><li>Itinerary may shift due to weather conditions or temple regulations.</li><li>All cancellation policies apply as per Halabo Indonesia Tour policy guide.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     1, 
     '4D3N Borobudur (Cultural Luxury) – Borobudur Heritage Resort',
-    'images/borobudur_p3.jpg',
     'From RM1,799.00',
     '4 Days, 3 Nights',
     '2',
@@ -247,11 +232,10 @@ VALUES (
     '<ul><li>Bookings must be made 3 weeks in advance for VIP performance access.</li><li>Rates include taxes; optional gratuities not included.</li><li>Flexible date changes allowed up to 14 days before travel.</li><li>Deposit of 50% required upon confirmation.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     2, 
     '3D2N Bali (Beach Getaway) – Ocean Breeze Hotel',
-    'images/bali_p1.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '2',
@@ -263,11 +247,10 @@ VALUES (
     'Ocean Breeze Hotel',
     '<ul><li>Rates are valid for the mentioned travel period only.</li><li>Bookings subject to room availability at time of reservation.</li><li>Deposit of 50% is required to confirm your reservation.</li><li>Cancellation policy applies with tiered penalties based on advance notice.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     2, 
     '5D4N Bali (Adventure Retreat) – Ubud Jungle Lodge',
-    'images/bali_p2.jpg',
     'From RM1,299.00',
     '5 Days, 4 Nights',
     '2',
@@ -279,11 +262,10 @@ VALUES (
     'Ubud Jungle Lodge',
     '<ul><li>Physical fitness required for hiking and rafting activities.</li><li>Insurance coverage for adventure activities is advisable.</li><li>Itinerary is weather dependent and may be adjusted for safety.</li><li>Advance booking of at least 2 weeks required.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     2,
     '3D2N Bali (Beachside Romance) – Seminyak Bliss Resort',
-    'images/bali_p3.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '2',
@@ -296,11 +278,10 @@ VALUES (
     '<ul><li>Package available for couples only.</li><li>Must book at least 10 days in advance.</li><li>Seasonal surcharge may apply during festive periods.</li><li>Free airport transfer included in the price.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     3, 
     '4D3N Raja Ampat (Marine Discovery) – Coral Reef Lodge',
-    'images/rajaampat_p1.jpg',
     'From RM2,499.00',
     '4 Days, 3 Nights',
     '2',
@@ -312,11 +293,10 @@ VALUES (
     'Coral Reef Lodge',
     '<ul><li>Best travel season: October to April (dry season)</li><li>All tours depend on sea conditions; flexibility is required</li><li>Advance booking required due to remote access</li><li>Guests must follow conservation guidelines in marine park</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     3,
     '6D5N Raja Ampat (Eco Explorer) – Coral Reef Resort',
-    'images/rajaampat_p2.jpg',
     'From RM2,899.00',
     '6 Days, 5 Nights',
     '2',
@@ -328,11 +308,10 @@ VALUES (
     'Coral Reef Resort',
     '<ul><li>This is a low-impact, conservation-focused tour. Respect local customs and wildlife.</li><li>Bring reef-safe sunscreen and reusable bottles.</li><li>Booking recommended 1 month in advance due to limited access permits.</li><li>All schedules are weather-permitting and may change with notice.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     3, 
     '6D5N Raja Ampat (Luxury Dive Cruise) – Ocean Pearl Explorer',
-    'images/rajaampat_p3.jpg',
     'From RM4,899.00',
     '6 Days, 5 Nights',
     '4',
@@ -345,11 +324,10 @@ VALUES (
     '<ul><li>Participants must have valid open-water dive certification.</li><li>Medical clearance is recommended for diving activities.</li><li>Payment in full is required 45 days before departure.</li><li>Limited slots available – early booking is encouraged.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     4, 
     '2D1N Mount Bromo (Sunrise Experience) – Bromo Hillside Lodge',
-    'images/mountbromo_p1.jpg',
     'From RM599.00',
     '2 Days, 1 Night',
     '2',
@@ -361,11 +339,10 @@ VALUES (
     'Bromo Hillside Lodge',
     '<ul><li>Tour timing is weather dependent and may change due to volcanic activity.</li><li>Warm clothing is highly recommended for early morning tours.</li><li>Advance booking required for weekends and public holidays.</li><li>Minimum 2 persons per booking.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     4,
     '3D2N Mount Bromo (Scenic Discovery) – Lava View Resort',
-    'images/mountbromo_p2.jpg',
     'From RM899.00',
     '3 Days, 2 Nights',
     '2',
@@ -377,11 +354,10 @@ VALUES (
     'Lava View Resort',
     '<ul><li>All activities subject to weather and volcanic conditions.</li><li>Not suitable for guests with mobility issues due to uneven trails.</li><li>Book at least 1 week in advance for optimal planning.</li><li>Guests should bring waterproof jackets and walking shoes.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     4,
     '4D3N Mount Bromo & Ijen (Crater Adventure) – Volcanic Trekker''s Delight',
-    'images/mountbromo_p3.jpg',
     'From RM1099.00',
     '4 Days, 3 Nights',
     '4',
@@ -394,11 +370,10 @@ VALUES (
     '<ul><li>Blue fire at Ijen is visible only during early morning hours under clear skies.</li><li>Proper trekking shoes and jackets required.</li><li>Itinerary may be adjusted due to weather or volcanic conditions.</li><li>This tour is not recommended for children under 10 or elderly with mobility issues.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     5,
     '3D2N Lake Toba (Cultural Retreat) – Toba Serenity Resort',
-    'images/laketoba_p1.jpg',
     'From RM799.00',
     '3 Days, 2 Nights',
     '2',
@@ -410,11 +385,10 @@ VALUES (
     'Toba Serenity Resort',
     '<ul><li>Prices may vary during peak holiday seasons.</li><li>Bookings must be confirmed at least 7 days before travel date.</li><li>Subject to weather and lake transport conditions.</li><li>Deposit of 50% required upon booking, non-refundable within 10 days of departure.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     5, 
     '4D3N Lake Toba (Adventure Discovery) – Summit Eco Lodge',
-    'images/laketoba_p2.jpg',
     'From RM999.00',
     '4 Days, 3 Nights',
     '2',
@@ -426,11 +400,10 @@ VALUES (
     'Summit Eco Lodge',
     '<ul><li>Eco tours are subject to availability based on weather.</li><li>Minimum age: 12 years old for trekking and kayaking activities.</li><li>Bookings require confirmation 10 days prior to travel.</li><li>50% deposit needed. Cancellation within 7 days forfeits deposit.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     5,
     '5D4N Lake Toba (Honeymoon Escape) – Samosir Romantic Villas',
-    'images/laketoba_p3.jpg',
     'From RM1299.00',
     '5 Days, 4 Nights',
     '2',
@@ -443,11 +416,10 @@ VALUES (
     '<ul><li>Package valid for couples only (honeymoon or anniversary proof may be requested).</li><li>Upgrade options subject to availability upon booking.</li><li>Booking must be confirmed at least 14 days before arrival.</li><li>Non-refundable within 7 days of departure. 50% deposit required at time of booking.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     6, 
     '2D1N Pulau Seribu (Island Escape) – Tidung Serenity Resort',
-    'images/pulauseribu_p1.jpg',
     'From RM399.00',
     '2 Days, 1 Night',
     '2',
@@ -459,11 +431,10 @@ VALUES (
     'Tidung Serenity Resort',
     '<ul><li>Subject to availability and weather conditions for sea travel.</li><li>Minimum 2 pax per booking, max 10 per villa unit.</li><li>Bookings must be confirmed at least 5 days prior to travel.</li><li>No refunds for late arrival or early return.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     6, 
     '3D2N Pulau Seribu (Couple''s Getaway) – Coral Bliss Resort',
-    'images/pulauseribu_p2.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '2',
@@ -475,11 +446,10 @@ VALUES (
     'Coral Bliss Resort',
     '<ul><li>Check-in time: 2:00 PM; check-out time: 12:00 PM</li><li>Couples are advised to bring sunscreen and appropriate beachwear</li><li>All bookings must be confirmed at least 7 days before departure</li><li>Full payment required upon confirmation</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     6, 
     '3D2N Pulau Seribu (Water Adventure) – Marina Dive Lodge',
-    'images/pulauseribu_p3.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '4',
@@ -492,11 +462,10 @@ VALUES (
     '<ul><li>Minimum 4 participants required. Children under 12 not recommended due to water safety.</li><li>Subject to weather conditions; alternate activities will be arranged in case of bad weather.</li><li>Bookings must be confirmed 7 days before departure. No refund for missed boat departure.</li><li>Cancellation charges apply based on notice period: 30% if within 5 days, 50% within 3 days.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     7,
     '2D1N Monas (Historical Exploration) – Jakarta Heritage Hotel',
-    'images/monas_p1.jpg',
     'From RM549.00',
     '2 Days, 1 Night',
     '2',
@@ -508,11 +477,10 @@ VALUES (
     'Jakarta Heritage Hotel',
     '<ul><li>Monas tower access subject to weather and government regulations.</li><li>Bookings require confirmation 5 days in advance.</li><li>Additional nights or airport pickup available upon request with extra charge.</li><li>50% deposit required. Cancellation less than 48 hours before departure forfeits deposit.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     7,
     '2D1N Monas (Heritage Tour) – Jakarta City Stay',
-    'images/monas_p2.jpg',
     'From RM589.00',
     '2 Days, 1 Night',
     '2',
@@ -524,11 +492,10 @@ VALUES (
     'Jakarta City Stay',
     '<ul><li>Tour timings may vary based on local traffic and events.</li><li>Advance booking required at least 5 days before travel.</li><li>No refunds for missed attractions due to late arrivals or personal delays.</li><li>Itinerary can be customized for private groups.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     7,
     '3D2N Monas (Night City Escape) – Urban Glow Hotel',
-    'images/monas_p3.jpg',
     'From RM789.00',
     '3 Days, 2 Nights',
     '2',
@@ -541,11 +508,10 @@ VALUES (
     '<ul><li>City traffic may cause minor delays in evening tours.</li><li>Smart casual attire required for rooftop dinner experience.</li><li>Minimum age for rooftop access: 13 years.</li><li>Bookings close 5 days before tour start. Full payment required upfront.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     8,
     '3D2N Komodo Encounter (Explorer Package) – Labuan Bajo Stay',
-    'images/komodoisland_p1.jpg',
     'From RM1099.00',
     '3 Days, 2 Nights',
     '2',
@@ -557,11 +523,10 @@ VALUES (
     'Labuan Bajo Stay',
     '<ul><li>Tour availability is subject to weather and park regulations.</li><li>Wear sturdy footwear and sun protection during island trek.</li><li>Bookings should be confirmed 7 days in advance with 50% deposit.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     8,
     '3D2N Komodo (Wildlife Trek) – Komodo Hillside Inn',
-    'images/komodoisland_p2.jpg',
     'From RM1,199.00',
     '3 Days, 2 Nights',
     '2',
@@ -573,11 +538,10 @@ VALUES (
     'Komodo Hillside Inn',
     '<ul><li>Visitors must be physically fit for moderate hiking.</li><li>Tours depend on weather and sea conditions. Alternative routes may be used during rough weather.</li><li>Non-refundable deposit of 40% required to confirm booking.</li><li>No refunds for missed activities due to personal reasons or delay in arrival.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     8,
     '4D3N Komodo (Explorer''s Escape) – Ocean Breeze Resort',
-    'images/komodoisland_p3.jpg',
     'From RM1,399.00',
     '4 Days, 3 Nights',
     '2',
@@ -590,11 +554,10 @@ VALUES (
     '<ul><li>Excursions are subject to weather and tidal conditions.</li><li>Tour slots are limited; early booking is recommended (at least 2 weeks prior).</li><li>Children under 10 not allowed on Padar Island hike due to terrain.</li><li>All national park regulations apply strictly.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     9,
     '2D1N Labuan Bajo (Quick Adventure) – Bajo Harbor Lodge',
-    'images/labuanbajo_p1.jpg',
     'From RM799.00',
     '2 Days, 1 Night',
     '2',
@@ -606,11 +569,10 @@ VALUES (
     'Bajo Harbor Lodge',
     '<ul><li>This package is ideal for weekend getaways or add-ons to longer trips.</li><li>Subject to room and boat availability at time of booking.</li><li>Deposit of 30% required for confirmation.</li><li>Activities may shift due to tide/weather conditions.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     9,
     '4D3N Labuan Bajo (Island Discovery) – Bajo Bay Villas',
-    'images/labuanbajo_p2.jpg',
     'From RM1,599.00',
     '4 Days, 3 Nights',
     '2',
@@ -622,11 +584,10 @@ VALUES (
     'Bajo Bay Villas',
     '<ul><li>Bookings must be made at least 2 weeks before departure.</li><li>All activities are group-based unless otherwise requested for private arrangements.</li><li>A 50% deposit is required to confirm this package. Remaining balance is due 10 days before departure.</li><li>No refund for last-minute cancellations (within 7 days).</li><li>Custom itinerary available upon request for larger groups.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     9,
     '3D2N Labuan Bajo (Romantic Escape) – Sunset View Villas',
-    'images/labuanbajo_p3.jpg',
     'From RM1,399.00',
     '3 Days, 2 Nights',
     '2',
@@ -639,11 +600,10 @@ VALUES (
     '<ul><li>Honeymoon packages are available year-round, but peak season surcharges apply during major holidays.</li><li>Non-refundable 60% deposit required to confirm honeymoon suite reservation.</li><li>Custom photography or spa packages available on request.</li><li>Early check-in and late check-out requests are subject to availability.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     10,
     '3D2N Prambanan (Cultural Discovery) – Candi Garden Hotel',
-    'images/prambanan_p1.jpg',
     'From RM889.00',
     '3 Days, 2 Nights',
     '2',
@@ -655,11 +615,10 @@ VALUES (
     'Candi Garden Hotel',
     '<ul><li>Tour bookings must be made at least 10 days in advance.</li><li>Prices are subject to availability and high season surcharges.</li><li>Minimum 2 participants per booking.</li><li>Travel insurance is recommended but not included.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     10,
     '3D2N Prambanan (Romantic Heritage Escape) – Svarna Heritage Lodge',
-    'images/prambanan_p2.jpg',
     'From RM1,099.00',
     '3 Days, 2 Nights',
     '2',
@@ -671,11 +630,10 @@ VALUES (
     'Svarna Heritage Lodge',
     '<ul><li>This package is ideal for anniversaries, honeymoons, or romantic holidays.</li><li>Early morning tours require punctual wake-up and readiness for sunrise moments.</li><li>Package includes basic transport within itinerary only.</li><li>Optional extensions available for Bali or Borobudur connection.</li></ul>'
 );
-INSERT INTO packages (destination_id, package_name, image_path, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
+INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     10,
     '2D1N Prambanan (Budget Explorer) – Taman Yogyakarta Guesthouse',
-    'images/prambanan_p3.jpg',
     'From RM499.00',
     '2 Days, 1 Night',
     '1',
@@ -688,4 +646,8 @@ VALUES (
     '<ul><li>Package is ideal for short stays or DIY travelers.</li><li>Late check-out may be subject to additional charges.</li><li>Guests are responsible for arranging their own transport to/from guesthouse.</li><li>Optional activities available at additional cost; inquire in advance.</li></ul>'
 );
 
+SELECT * FROM destinations;
+
 SELECT * FROM packages;
+
+SELECT * FROM users;

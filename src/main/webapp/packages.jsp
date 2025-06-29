@@ -139,6 +139,7 @@
 	                        <div class="package-links">
 	                        <%
 	                            // 2. For each destination, fetch its packages
+	                            // The image_path is still selected, but it's used by the servlet, not directly in the src
 	                            String sqlPackages = "SELECT id, package_name, image_path FROM packages WHERE destination_id = ? ORDER BY package_name ASC";
 	                            psPackages = conn.prepareStatement(sqlPackages);
 	                            psPackages.setInt(1, destinationId);
@@ -155,10 +156,11 @@
 	                                do {
 	                                    int packageId = rsPackages.getInt("id");
 	                                    String packageName = rsPackages.getString("package_name");
-	                                    String imagePath = rsPackages.getString("image_path");
+	                                    // String imagePath = rsPackages.getString("image_path"); // No longer directly used here for src
 	                        %>
 	                                    <a href="package_details.jsp?package_id=<%= packageId %>">
-	                                        <img src="<%= imagePath %>" alt="<%= packageName %>">
+	                                        <%-- *** MODIFICATION HERE *** --%>
+	                                        <img src="${pageContext.request.contextPath}/GetPackageImageServlet?id=<%= packageId %>" alt="<%= packageName %>">
 	                                        <%= packageName %>
 	                                    </a>
 	                        <%

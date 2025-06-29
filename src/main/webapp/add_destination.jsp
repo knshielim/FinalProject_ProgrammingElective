@@ -119,7 +119,7 @@
 	            <label for="imageFile">Upload Image:</label>
 	            <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
 	            <small style="display: block; margin-top: -15px; margin-bottom: 20px; color: #777;">
-	                Please upload the image file (e.g., JPG, PNG). It will be named after the destination.
+	                Please upload the image file (e.g., JPG, PNG).
 	            </small>
 	
 	            <button type="submit">Add Destination</button>

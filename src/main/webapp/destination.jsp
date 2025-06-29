@@ -175,7 +175,8 @@
 	      try {
 	        conn = DatabaseConnection.getConnection();
 	
-	        psDestination = conn.prepareStatement("SELECT destination_name, caption, description, image_path FROM destinations WHERE id=?");
+	        // SELECT query for destination details - No longer need 'image_path' here
+	        psDestination = conn.prepareStatement("SELECT destination_name, caption, description FROM destinations WHERE id=?");
 	        psDestination.setInt(1, id);
 	        drs = psDestination.executeQuery();
 	
@@ -187,11 +188,11 @@
 	        String destinationName = drs.getString("destination_name");
 	        String caption = drs.getString("caption");
 	        String description = drs.getString("description");
-	        String imagePath = drs.getString("image_path");
+	        // String imagePath = drs.getString("image_path"); // No longer retrieved directly here
 	    %>
 	        <div class="destination-detail">
 	            <h1><%= destinationName %></h1>
-	            <img src="<%= imagePath %>" alt="<%= destinationName %>" class="destination-main-image">
+	            <img src="${pageContext.request.contextPath}/GetDestinationImageServlet?id=<%= id %>" alt="<%= destinationName %>" class="destination-main-image">
 	            <p class="destination-caption"><strong><%= caption %></strong></p>
 	            <p><%= (description != null && !description.isEmpty()) ? description : "No detailed description available." %></p>
 	        </div>
@@ -200,7 +201,10 @@
 	            <h2>Available Packages for <%= destinationName %></h2>
 	            <div class="packages-grid">
 	            <%
-	                psPackages = conn.prepareStatement("SELECT id, package_name, image_path, price, duration, tour_type FROM packages WHERE destination_id=?");
+	                // SELECT query for packages - Make sure to select 'id' for packages
+	                // You'll need to add a BLOB column to your 'packages' table too,
+	                // and create an 'AddPackageServlet' and 'GetPackageImageServlet' for packages.
+	                psPackages = conn.prepareStatement("SELECT id, package_name, price, duration, tour_type FROM packages WHERE destination_id=?");
 	                psPackages.setInt(1, id);
 	                packageRs = psPackages.executeQuery();
 	
@@ -210,11 +214,10 @@
 	                    do {
 	                        int currentPackageId = packageRs.getInt("id");
 	                        String currentPackageName = packageRs.getString("package_name");
-	                        // out.println("");
 	            %>
 	                        <div class="package-card">
 	                            <a href="package_details.jsp?package_id=<%= currentPackageId %>">
-	                                <img src="<%= packageRs.getString("image_path") %>" alt="<%= currentPackageName %>">
+	                                <img src="${pageContext.request.contextPath}/GetPackageImageServlet?id=<%= currentPackageId %>" alt="<%= currentPackageName %>">
 	                                <h3><%= currentPackageName %></h3>
 	                                <p><strong>Price:</strong> <%= packageRs.getString("price") %></p>
 	                                <p><strong>Duration:</strong> <%= packageRs.getString("duration") %></p>
