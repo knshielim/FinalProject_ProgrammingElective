@@ -164,7 +164,7 @@
 	        .included-excluded li.excluded::before {
 	            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23dc3545"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>'); /* Red X */
 	        }
-	
+
 	        /* Button styles */
 	        .action-buttons {
 	            margin-top: 20px;
@@ -205,7 +205,7 @@
 	</head>
 	<body>
 	    <jsp:include page="header.jsp"/>
-	
+
 	    <div class="main-content">
 	    <%
 	      Connection conn = null;
@@ -216,7 +216,7 @@
 	        ps = conn.prepareStatement("SELECT * FROM packages WHERE id = ?");
 	        ps.setInt(1, packageId);
 	        rs = ps.executeQuery();
-	
+
 	        if (rs.next()) {
 	          String packageName = rs.getString("package_name");
 	          String imagePath = rs.getString("image_path");
@@ -234,8 +234,10 @@
 	    %>
 	            <div class="package-header">
 	                <h1><%= packageName %></h1>
-	                <img src="<%= imagePath %>" alt="<%= packageName %>" class="package-image">
-	
+	                <img src="${pageContext.request.contextPath}/GetPackageImageServlet?id=<%= packageId %>" 
+	                     alt="<%= packageName %>" 
+	                     class="package-image">
+
 	                <div class="key-info">
 	                    <div class="key-info-item">
 	                        <span>Price</span>
@@ -259,7 +261,7 @@
 	                    </div>
 	                </div>
 	            </div>
-	
+
 	            <div class="tab-buttons">
 	                <button class="tab-btn active" data-tab="description-tab">Description</button>
 	                <button class="tab-btn" data-tab="itinerary-tab">Itinerary</button>
@@ -269,7 +271,7 @@
 	                    <button class="tab-btn" data-tab="remarks-tab">Remarks</button>
 	                <% } %>
 	            </div>
-	
+
 	            <div id="description-tab" class="tab-content active">
 	                <%= (description != null && !description.isEmpty()) ? description : "<p>No description available.</p>" %>
 	            </div>
@@ -288,17 +290,17 @@
 	                    <%= remarks %>
 	                </div>
 	            <% } %>
-	
+
 	            <div class="action-buttons">
 	                <a href="booking.jsp?packageId=<%= packageId %>&destinationId=<%= destinationId %>" class="book-now-button">Book Now</a>
 	                <a href="destination.jsp?id=<%= destinationId %>" class="back-button">Back to Destination</a>
 	            </div>
-	
+
 	    <%
 	        } else {
 	            out.println("<p class='error-message'>Package not found with ID: " + packageId + ".</p>");
 	        }
-	
+
 	      } catch (SQLException e) {
 	        e.printStackTrace();
 	        out.println("<p class='error-message'>Error loading package details. Please try again later.</p>");
@@ -310,33 +312,33 @@
 	      }
 	    %>
 	    </div>
-	
+
 	    <jsp:include page="footer.jsp"/>
-	
+
 	    <script>
 	        document.addEventListener("DOMContentLoaded", function () {
 	            const tabButtons = document.querySelectorAll(".tab-btn");
 	            const tabContents = document.querySelectorAll(".tab-content");
-	
+
 	            tabButtons.forEach((button) => {
 	                button.addEventListener("click", () => {
 	                    tabButtons.forEach(btn => btn.classList.remove("active"));
 	                    tabContents.forEach(tab => tab.classList.remove("active"));
-	
+
 	                    button.classList.add("active");
-	
+
 	                    const targetTabId = button.dataset.tab;
 	                    document.getElementById(targetTabId).classList.add("active");
 	                    window.location.hash = targetTabId; // Update URL hash for direct links/refresh
 	                });
 	            });
-	
+
 	            // Initial tab activation based on URL hash or default to first tab
 	            const initialTabId = window.location.hash ? window.location.hash.substring(1) : (tabButtons.length > 0 ? tabButtons[0].dataset.tab : null);
 	            if (initialTabId) {
 	                const initialButton = document.querySelector(`.tab-btn[data-tab="${initialTabId}"]`);
 	                const initialContent = document.getElementById(initialTabId);
-	
+
 	                if (initialButton && initialContent) {
 	                    initialButton.click(); // Simulate a click to activate the tab
 	                } else if (tabButtons.length > 0) {

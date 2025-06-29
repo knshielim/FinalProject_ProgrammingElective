@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.halabo.model.Destination" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -10,7 +12,6 @@
         <link rel="stylesheet" href="styles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            /* Reuse .form-container-admin styles from add_destination.jsp */
             .form-container-admin {
                 max-width: 600px;
                 margin: 50px auto;
@@ -31,13 +32,15 @@
                 color: #555;
             }
             .form-container-admin input[type="text"],
-            .form-container-admin textarea {
-                width: calc(100% - 22px); /* Account for padding and border */
+            .form-container-admin textarea,
+            .form-container-admin input[type="file"] {
+                width: calc(100% - 22px);
                 padding: 10px;
                 margin-bottom: 20px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
                 font-size: 1em;
+                box-sizing: border-box;
             }
             .form-container-admin textarea {
                 resize: vertical;
@@ -83,9 +86,8 @@
             .back-link:hover {
                 text-decoration: underline;
             }
-            /* Style for image preview */
             .image-preview {
-                max-width: 200px; /* Adjust as needed */
+                max-width: 200px;
                 height: auto;
                 display: block;
                 margin: 10px auto 20px auto;
@@ -127,11 +129,9 @@
                 }
             %>
 
-            <form action="modifyDestination" method="post" enctype="multipart/form-data"> <%-- IMPORTANT: enctype for file upload --%>
+            <form action="modifyDestination" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="id" value="<%= destinationToEdit.getId() %>">
-                <%-- Send current image path as a hidden field, so we know what to use if no new file is uploaded --%>
-                <input type="hidden" name="currentImagePath" value="<%= destinationToEdit.getImagePath() != null ? destinationToEdit.getImagePath() : "" %>">
 
                 <label for="destinationName">Destination Name:</label>
                 <input type="text" id="destinationName" name="destinationName" value="<%= destinationToEdit.getName() %>" required>
@@ -143,20 +143,16 @@
                 <textarea id="description" name="description" required><%= destinationToEdit.getDescription() != null ? destinationToEdit.getDescription() : "" %></textarea>
 
                 <label>Current Image:</label>
-                <% if (destinationToEdit.getImageData() != null && destinationToEdit.getImageData().length > 0) { %>
-                    <img src="<%= request.getContextPath() %>/getDestinationImage?id=<%= destinationToEdit.getId() %>" alt="<%= destinationToEdit.getName() %>" class="image-preview">
-                <% } else { %>
-                    <p style="text-align: center; color: #777; margin-bottom: 20px;">No current image available.</p>
-                <% } %>
+                <img src="<%= request.getContextPath() %>/GetDestinationImageServlet?id=<%= destinationToEdit.getId() %>" alt="<%= destinationToEdit.getName() %>" class="image-preview">
 
                 <label for="newImageFile">Upload New Image (optional):</label>
                 <input type="file" id="newImageFile" name="newImageFile" accept="image/*">
-                <small style="display: block; margin-top: 5px; margin-bottom: 20px; color: #777;">
-                    Choose a new file (JPEG, PNG, GIF) to update the destination image.
+                <small style="display: block; margin-top: -15px; margin-bottom: 20px; color: #777;">
+                    Choose a new file (JPEG, PNG, GIF) to update the destination image. Leave empty to keep current image.
                 </small>
 
                 <button type="submit">Update Destination</button>
-                <a href="modify_destination.jsp" class="back-link" style="display: block; text-align: center; margin-top: 15px;">Back to List</a>
+                <a href="modifyDestination" class="back-link" style="display: block; text-align: center; margin-top: 15px;">Back to List</a>
             </form>
         </div>
 

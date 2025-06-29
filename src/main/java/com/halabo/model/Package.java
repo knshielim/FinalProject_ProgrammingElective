@@ -3,12 +3,12 @@ package com.halabo.model;
 public class Package {
     private int id;
     private int destinationId;
-    private String destinationName; // To hold the joined name from destinations table
     private String packageName;
+    private byte[] packageImage;
     private String imagePath;
-    private String price; // Storing as String based on schema
-    private String duration; // Storing as String based on schema
-    private String minPeople; // Storing as String based on schema
+    private String price;
+    private String duration;
+    private int minPeople;
     private String tourType;
     private String tourCode;
     private String description;
@@ -17,17 +17,12 @@ public class Package {
     private String hotel;
     private String remarks;
 
-    // Default constructor
-    public Package() {}
-
-    // Constructor to match the fields retrieved from DB, including joined destination_name
-    public Package(int id, int destinationId, String destinationName, String packageName,
-                   String imagePath, String price, String duration, String minPeople,
-                   String tourType, String tourCode, String description, String itinerary,
-                   String priceDetails, String hotel, String remarks) {
+    // Constructor for fetching from DB
+    public Package(int id, int destinationId, String packageName, String imagePath, String price, 
+                   String duration, int minPeople, String tourType, String tourCode, String description,
+                   String itinerary, String priceDetails, String hotel, String remarks) {
         this.id = id;
         this.destinationId = destinationId;
-        this.destinationName = destinationName;
         this.packageName = packageName;
         this.imagePath = imagePath;
         this.price = price;
@@ -42,33 +37,56 @@ public class Package {
         this.remarks = remarks;
     }
 
-    // You will need all the getters and setters for all fields
-    // Example:
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public int getDestinationId() { return destinationId; }
-    public void setDestinationId(int destinationId) { this.destinationId = destinationId; }
-    public String getDestinationName() { return destinationName; }
-    public void setDestinationName(String destinationName) { this.destinationName = destinationName; }
-    public String getPackageName() { return packageName; }
-    public void setPackageName(String packageName) { this.packageName = packageName; }
-    // ... all other getters and setters ...
+    // Constructor for creating new packages
+    public Package(int destinationId, String packageName, byte[] packageImage, String price,
+                   String duration, int minPeople, String tourType, String tourCode, String description,
+                   String itinerary, String priceDetails, String hotel, String remarks) {
+        this.destinationId = destinationId;
+        this.packageName = packageName;
+        this.packageImage = packageImage;
+        this.price = price;
+        this.duration = duration;
+        this.minPeople = minPeople;
+        this.tourType = tourType;
+        this.tourCode = tourCode;
+        this.description = description;
+        this.itinerary = itinerary;
+        this.priceDetails = priceDetails;
+        this.hotel = hotel;
+        this.remarks = remarks;
+    }
 
-    // If you have a Destination object in Package (as in my previous example), you'd need this too
-    private Destination destination;
-    public Destination getDestination() {
-        if (this.destination == null) {
-            this.destination = new Destination();
-            this.destination.setId(this.destinationId);
-            this.destination.setName(this.destinationName);
-        }
-        return this.destination;
-    }
-    public void setDestination(Destination destination) {
-        this.destination = destination;
-        if (destination != null) {
-            this.destinationId = destination.getId();
-            this.destinationName = destination.getName();
-        }
-    }
+    // Getters
+    public int getId() { return id; }
+    public int getDestinationId() { return destinationId; }
+    public String getPackageName() { return packageName; }
+    public byte[] getPackageImage() { return packageImage; }
+    public String getImagePath() { return imagePath; }
+    public String getPrice() { return price; }
+    public String getDuration() { return duration; }
+    public int getMinPeople() { return minPeople; }
+    public String getTourType() { return tourType; }
+    public String getTourCode() { return tourCode; }
+    public String getDescription() { return description; }
+    public String getItinerary() { return itinerary; }
+    public String getPriceDetails() { return priceDetails; }
+    public String getHotel() { return hotel; }
+    public String getRemarks() { return remarks; }
+
+    // Setters
+    public void setId(int id) { this.id = id; }
+    public void setDestinationId(int destinationId) { this.destinationId = destinationId; }
+    public void setPackageName(String packageName) { this.packageName = packageName; }
+    public void setPackageImage(byte[] packageImage) { this.packageImage = packageImage; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public void setPrice(String price) { this.price = price; }
+    public void setDuration(String duration) { this.duration = duration; }
+    public void setMinPeople(int minPeople) { this.minPeople = minPeople; }
+    public void setTourType(String tourType) { this.tourType = tourType; }
+    public void setTourCode(String tourCode) { this.tourCode = tourCode; }
+    public void setDescription(String description) { this.description = description; }
+    public void setItinerary(String itinerary) { this.itinerary = itinerary; }
+    public void setPriceDetails(String priceDetails) { this.priceDetails = priceDetails; }
+    public void setHotel(String hotel) { this.hotel = hotel; }
+    public void setRemarks(String remarks) { this.remarks = remarks; }
 }

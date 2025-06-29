@@ -95,6 +95,18 @@
                 color: #721c24;
                 border: 1px solid #f5c6cb;
             }
+            .add-destination-btn {
+                display: inline-block;
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+            .add-destination-btn:hover {
+                background-color: #218838;
+            }
         </style>
     </head>
     <body>
@@ -112,24 +124,19 @@
         <div class="admin-table-container">
             <h2>Manage Destinations</h2>
 
-            <%-- Display success or error messages from Update/Delete operations --%>
-            <%
-                String message = (String) request.getAttribute("message");
-                String messageType = (String) request.getAttribute("messageType");
-                if (message != null) {
-            %>
-                <div class="form-message <%= messageType %>">
-                    <%= message %>
-                </div>
-            <%
-                }
-            %>
+            <!-- Add new destination button -->
+            <a href="add_destination.jsp" class="add-destination-btn">Add New Destination</a>
 
-            <%-- Retrieve the list of destinations from the request attribute --%>
-            <%
-                List<Destination> destinations = (List<Destination>) request.getAttribute("destinations");
-                if (destinations != null && !destinations.isEmpty()) {
-            %>
+            <!-- Display success or error messages from Update/Delete operations -->
+            <c:if test="${not empty message}">
+                <div class="form-message ${messageType}">
+                    <c:out value="${message}" escapeXml="true"/>
+                </div>
+            </c:if>
+
+            <!-- Display destinations table -->
+            <c:choose>
+                <c:when test="${not empty destinations}">
                     <table class="admin-table">
                         <thead>
                             <tr>
@@ -141,34 +148,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for (Destination dest : destinations) { %>
+                            <c:forEach var="dest" items="${destinations}">
                                 <tr>
-                                    <td><%= dest.getId() %></td>
-                                    <td><%= dest.getName() %></td>
-                                    <td><%= dest.getCaption() %></td>
+                                    <td><c:out value="${dest.id}"/></td>
+                                    <td><c:out value="${dest.name}"/></td>
+                                    <td><c:out value="${dest.caption}"/></td>
                                     <td>
-                                        <%-- Use imagePath directly from the model --%>
-                                        <% if (dest.getImagePath() != null && !dest.getImagePath().isEmpty()) { %>
-                                            <img src="<%= request.getContextPath() %><%= dest.getImagePath() %>" alt="<%= dest.getName() %>" style="max-width: 80px;">
-                                        <% } else { %>
-                                            No Image
-                                        <% } %>
+                                        <c:choose>
+                                            <c:when test="${not empty dest.imagePath}">
+                                                <img src="${pageContext.request.contextPath}<c:out value='${dest.imagePath}'/>" 
+                                                     alt="<c:out value='${dest.name}'/>" 
+                                                     style="max-width: 80px;"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                                                <span style="display:none;">Image not found</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                No Image
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                     <td class="actions">
-                                        <a href="modifyDestination?action=edit&id=<%= dest.getId() %>" class="edit-btn">Edit</a>
-                                        <a href="modifyDestination?action=delete&id=<%= dest.getId() %>" class="delete-btn" onclick="return confirm('Are you sure you want to delete <%= dest.getName() %>? This cannot be undone.');">Delete</a>
+                                        <a href="modifyDestination?action=edit&id=<c:out value='${dest.id}'/>" class="edit-btn">Edit</a>
+                                        <a href="modifyDestination?action=delete&id=<c:out value='${dest.id}'/>" 
+                                           class="delete-btn" 
+                                           onclick="return confirm('Are you sure you want to delete \'<c:out value='${dest.name}' escapeXml='true'/>\'? This cannot be undone.');">Delete</a>
                                     </td>
                                 </tr>
-                            <% } %>
+                            </c:forEach>
                         </tbody>
                     </table>
-            <%
-                } else {
-            %>
+                </c:when>
+                <c:otherwise>
                     <p class="no-data-message">No destinations found. <a href="add_destination.jsp">Add one now!</a></p>
-            <%
-                }
-            %>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <jsp:include page="footer.jsp"/>
