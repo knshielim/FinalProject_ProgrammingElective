@@ -185,11 +185,12 @@
                                     <td>
                                         <c:choose>
                                             <c:when test="${not empty dest.imagePath}">
-                                                <img src="${pageContext.request.contextPath}<c:out value='${dest.imagePath}'/>" 
-                                                     alt="<c:out value='${dest.name}'/>" 
-                                                     style="max-width: 80px;"
-                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-                                                <span style="display:none;">Image not found</span>
+                                                <img src="${pageContext.request.contextPath}/${dest.imagePath}"
+												     alt="<c:out value='${dest.name}'/>"
+												     style="max-width: 80px;"
+												     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+												<span style="display:none;">Image not found</span>
+
                                             </c:when>
                                             <c:otherwise>
                                                 No Image

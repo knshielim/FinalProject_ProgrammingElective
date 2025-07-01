@@ -46,8 +46,7 @@ public class AddDestinationServlet extends HttpServlet {
             return;
         }
 
-        Part filePart = null;
-        InputStream imageInputStream = null;
+        
 
         Connection conn = null; // Declare connection outside try-with-resources for rollback in catch blocks
         try {
@@ -66,40 +65,50 @@ public class AddDestinationServlet extends HttpServlet {
                 }
             }
 
-            // --- 2. Handle File Upload (get InputStream for BLOB) ---
-            filePart = request.getPart("imageFile"); // Get the file part from the multipart request
+         // --- 2. Handle File Upload (store image on disk) ---
+            Part filePart = request.getPart("imageFile");
 
             if (filePart == null || filePart.getSize() == 0) {
                 request.setAttribute("message", "Image file is required.");
                 request.setAttribute("messageType", "error");
                 request.getRequestDispatcher(targetPage).forward(request, response);
-                System.out.println("DEBUG: No file part or file is empty (filePart.getSize() == 0)."); // ADDED DEBUG
-                return; // Exit if no file uploaded
+                return;
             }
 
-            // --- ADDED DEBUGGING STATEMENTS HERE ---
-            String uploadedFileName = filePart.getSubmittedFileName();
-            long uploadedFileSize = filePart.getSize();
-            
-            System.out.println("DEBUG: Uploaded file name: " + uploadedFileName);
-            System.out.println("DEBUG: Uploaded file size: " + uploadedFileSize + " bytes");
-            // --- END ADDED DEBUGGING ---
+            // Get original filename
+            String originalName = java.nio.file.Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String fileName = System.currentTimeMillis() + "_" + originalName;
 
-            imageInputStream = filePart.getInputStream(); // Get the InputStream for the image data
 
-            // --- MORE ADDED DEBUGGING ---
-            // Note: imageInputStream.available() might not always represent the full size for large streams,
-            // but for typical web uploads, it's often close to the actual size at this point.
-            System.out.println("DEBUG: Before setBlob: InputStream available bytes: " + imageInputStream.available());
-            // --- END MORE ADDED DEBUGGING ---
+            // Build full path to /images folder
+            String savePath = getServletContext().getRealPath("/") + "images";
+            java.io.File imageDir = new java.io.File(savePath);
+            if (!imageDir.exists()) {
+                imageDir.mkdirs();
+            }
+
+            // Full file path
+            String filePath = savePath + java.io.File.separator + fileName;
+
+            // Save image to disk
+            filePart.write(filePath);
+
+            // Path to store in DB (relative path)
+            String imagePath = "images/" + fileName;
+
+            // Debug
+            System.out.println("DEBUG: Uploaded file path: " + filePath);
+            System.out.println("DEBUG: Image path stored in DB: " + imagePath);
+
 
             // --- 3. Database Insertion ---
-            String sql = "INSERT INTO destinations (destination_name, caption, description, destination_image) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO destinations (destination_name, caption, description, image_path) VALUES (?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, destinationName);
                 stmt.setString(2, caption);
                 stmt.setString(3, description);
-                stmt.setBlob(4, imageInputStream);
+                stmt.setString(4, imagePath);
+
 
                 int rowsAffected = stmt.executeUpdate();
                 System.out.println("DEBUG: Database rows affected: " + rowsAffected);
@@ -167,14 +176,7 @@ public class AddDestinationServlet extends HttpServlet {
             request.setAttribute("message", "An unexpected error occurred: " + e.getMessage());
             request.setAttribute("messageType", "error");
         } finally {
-            // Close the InputStream if it was opened
-            if (imageInputStream != null) {
-                try {
-                    imageInputStream.close();
-                } catch (IOException e) {
-                    System.err.println("Failed to close image input stream: " + e.getMessage());
-                }
-            }
+        
             // Close the database connection in a finally block
             if (conn != null) {
                 try {

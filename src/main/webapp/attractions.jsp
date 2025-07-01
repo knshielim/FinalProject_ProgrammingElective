@@ -14,12 +14,16 @@
 		<%
 			try(Connection conn = DatabaseConnection.getConnection();
 		    	// We need 'id' to pass to GetDestinationImageServlet
-		    	ResultSet rs = conn.createStatement().executeQuery("SELECT id, destination_name, caption FROM destinations")) {
+					ResultSet rs = conn.createStatement().executeQuery("SELECT id, destination_name, caption, image_path FROM destinations")) {
 		    while(rs.next()) {
 		%>
 			<div class="attraction-card">
 			    <a href="destination.jsp?id=<%=rs.getInt("id")%>">
-			    	<img src="${pageContext.request.contextPath}/GetDestinationImageServlet?id=<%=rs.getInt("id")%>" alt="<%=rs.getString("destination_name")%>">
+			    	<img src="<%=request.getContextPath() + "/" + rs.getString("image_path")%>"
+					     alt="<%=rs.getString("destination_name")%>"
+					     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+					<span style="display:none;">Image not found</span>
+
 			    </a>
 			    <h1><%=rs.getString("destination_name")%></h1>
 			    <p><%=rs.getString("caption")%></p>

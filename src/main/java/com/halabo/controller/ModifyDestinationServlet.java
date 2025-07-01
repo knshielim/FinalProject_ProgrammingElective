@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.nio.file.Paths;
 
 import com.halabo.model.Destination;
 import com.halabo.util.DatabaseConnection;
@@ -365,9 +367,8 @@ public class ModifyDestinationServlet extends HttpServlet {
             String[] updateQueries;
             if (hasNewImage) {
                 updateQueries = new String[]{
-                    "UPDATE destinations SET destination_name = ?, caption = ?, description = ?, destination_image = ? WHERE id = ?",
-                    "UPDATE destinations SET name = ?, caption = ?, description = ?, destination_image = ? WHERE id = ?",
-                    "UPDATE destinations SET destination_name = ?, caption = ?, description = ?, image_path = ? WHERE id = ?"
+                    "UPDATE destinations SET destination_name = ?, caption = ?, description = ?, image_path = ? WHERE id = ?",
+                    "UPDATE destinations SET name = ?, caption = ?, description = ?, image_path = ? WHERE id = ?"
                 };
             } else {
                 updateQueries = new String[]{
@@ -384,21 +385,41 @@ public class ModifyDestinationServlet extends HttpServlet {
                     stmt.setString(3, description);
                     
                     if (hasNewImage) {
-                        imageInputStream = filePart.getInputStream();
-                        stmt.setBlob(4, imageInputStream);
-                        stmt.setInt(5, id);
+                        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+                        // Create path to store the file
+                        String savePath = getServletContext().getRealPath("") + File.separator + "images";
+                        File imageDir = new File(savePath);
+                        if (!imageDir.exists()) {
+                            imageDir.mkdirs();
+                        }
+
+                        // Full file system path
+                        String filePath = savePath + File.separator + fileName;
+
+                        // Save the file to disk
+                        filePart.write(filePath);
+
+                        // Set relative path to store in DB
+                        String imagePath = "images/" + fileName;
+
+                        // ✅ Debugging
+                        System.out.println("DEBUG: File saved to: " + filePath);
+                        System.out.println("DEBUG: Path stored in DB: " + imagePath);
+
+                        stmt.setString(4, imagePath); // 4th param = image path
+                        stmt.setInt(5, id);           // 5th param = id
                     } else {
-                        stmt.setInt(4, id);
+                        stmt.setInt(4, id); // 4th param = id if no image
                     }
 
                     int rowsAffected = stmt.executeUpdate();
                     if (rowsAffected > 0) {
                         conn.commit();
-                        message = "Destination '" + destinationName + "' updated successfully!";
-                        messageType = "success";
                         updateSuccess = true;
-                        break;
+                        break; // stop after the first successful query
                     }
+
                 } catch (SQLException e) {
                     System.err.println("DEBUG: Update query failed: " + sql + " - " + e.getMessage());
                     continue;

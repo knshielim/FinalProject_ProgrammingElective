@@ -176,7 +176,7 @@
 	        conn = DatabaseConnection.getConnection();
 	
 	        // SELECT query for destination details - No longer need 'image_path' here
-	        psDestination = conn.prepareStatement("SELECT destination_name, caption, description FROM destinations WHERE id=?");
+	       psDestination = conn.prepareStatement("SELECT destination_name, caption, description, image_path FROM destinations WHERE id=?");
 	        psDestination.setInt(1, id);
 	        drs = psDestination.executeQuery();
 	
@@ -188,11 +188,17 @@
 	        String destinationName = drs.getString("destination_name");
 	        String caption = drs.getString("caption");
 	        String description = drs.getString("description");
-	        // String imagePath = drs.getString("image_path"); // No longer retrieved directly here
+	        String imagePath = drs.getString("image_path"); // ✅ Add this here
+
 	    %>
 	        <div class="destination-detail">
 	            <h1><%= destinationName %></h1>
-	            <img src="${pageContext.request.contextPath}/GetDestinationImageServlet?id=<%= id %>" alt="<%= destinationName %>" class="destination-main-image">
+	            <img src="<%= request.getContextPath() + "/" + imagePath %>"
+				     alt="<%= destinationName %>"
+				     class="destination-main-image"
+				     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+				<span style="display:none;">Image not found</span>
+
 	            <p class="destination-caption"><strong><%= caption %></strong></p>
 	            <p><%= (description != null && !description.isEmpty()) ? description : "No detailed description available." %></p>
 	        </div>
