@@ -1,9 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.halabo.model.Destination" %>
+<%@ page import="java.sql.*, java.util.*, com.halabo.model.Destination, com.halabo.util.DatabaseConnection" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<!DOCTYPE html>
+<%
+    List<Destination> destinations = new ArrayList<>();
+    try (Connection conn = DatabaseConnection.getConnection()) {
+    	String sql = "SELECT id, destination_name, caption, description, image_path FROM destinations ORDER BY id ASC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Destination dest = new Destination(
+                    rs.getInt("id"),
+                    rs.getString("destination_name"),
+                    rs.getString("caption"),
+                    rs.getString("description"),
+                    rs.getString("image_path")
+                );
+                destinations.add(dest);
+            }
+        }
+    } catch (Exception e) {
+        out.println("<p style='color:red;'>Error retrieving destinations: " + e.getMessage() + "</p>");
+        e.printStackTrace();
+    }
+
+    request.setAttribute("destinations", destinations);
+%>
+
+<!DOCTYPE html>	
 <html>
     <head>
         <meta charset="UTF-8">
@@ -110,6 +133,12 @@
         </style>
     </head>
     <body>
+    	<pre>
+		    Destinations object: ${destinations}
+		</pre>
+		<c:out value="${destinations}" default="destinations is NULL or empty"/>
+		
+    	
         <jsp:include page="header.jsp"/>
 
         <%

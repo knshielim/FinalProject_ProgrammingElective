@@ -35,7 +35,7 @@ public class ModifyDestinationServlet extends HttpServlet {
         
         // Try multiple possible column name variations
         String[] possibleQueries = {
-            "SELECT id, destination_name, caption, description, image_path FROM destinations ORDER BY destination_name",
+        	"SELECT id, destination_name, caption, description, image_path FROM destinations ORDER BY id ASC",
             "SELECT id, name, caption, description, image_path FROM destinations ORDER BY name",
             "SELECT id, destination_name, caption, description, destination_image FROM destinations ORDER BY destination_name",
             "SELECT * FROM destinations ORDER BY id"
@@ -54,6 +54,7 @@ public class ModifyDestinationServlet extends HttpServlet {
                         // Try different column name combinations
                         int id = rs.getInt("id");
                         String name = getStringFromResultSet(rs, "destination_name", "name");
+                        System.out.println("DEBUG: Destination fetched from DB: " + rs.getString("destination_name"));
                         String caption = getStringFromResultSet(rs, "caption");
                         String description = getStringFromResultSet(rs, "description");
                         String imagePath = getStringFromResultSet(rs, "image_path", "destination_image");
@@ -221,6 +222,10 @@ public class ModifyDestinationServlet extends HttpServlet {
                 }
                 
                 List<Destination> destinations = getAllDestinations(conn);
+                System.out.println("DEBUG: Retrieved " + destinations.size() + " destinations for display");
+                for (Destination d : destinations) {
+                    System.out.println("DEBUG: Destination - ID: " + d.getId() + ", Name: " + d.getName());
+                }
                 request.setAttribute("destinations", destinations);
                 request.getRequestDispatcher("modify_destination.jsp").forward(request, response);
 

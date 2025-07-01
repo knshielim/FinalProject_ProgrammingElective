@@ -1,6 +1,7 @@
 DROP DATABASE halabo_tour;
 CREATE DATABASE IF NOT EXISTS halabo_tour;
 USE halabo_tour;
+SELECT * FROM destinations;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
