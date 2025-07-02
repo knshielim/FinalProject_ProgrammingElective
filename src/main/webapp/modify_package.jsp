@@ -1,96 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.util.*, com.halabo.util.DatabaseConnection" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<%
+    Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+    if (isAdmin == null || !isAdmin) {
+        response.sendRedirect("login.jsp?error=unauthorized");
+        return;
+    }
+
+    // Handle delete if action=delete and id provided
+    String action = request.getParameter("action");
+    String deleteId = request.getParameter("id");
+    if ("delete".equals(action) && deleteId != null) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM packages WHERE id = ?");
+            ps.setInt(1, Integer.parseInt(deleteId));
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("modify_package.jsp");
+        return;
+    }
+
+    // Fetch all packages with destination name
+    List<Map<String, String>> packages = new ArrayList<>();
+    try (Connection conn = DatabaseConnection.getConnection()) {
+        String sql = "SELECT p.id, p.package_name, p.image_path, d.destination_name FROM packages p JOIN destinations d ON p.destination_id = d.id ORDER BY p.id ASC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Map<String, String> row = new HashMap<>();
+                row.put("id", rs.getString("id"));
+                row.put("name", rs.getString("package_name"));
+                row.put("destination", rs.getString("destination_name"));
+                row.put("image", rs.getString("image_path"));
+                packages.add(row);
+            }
+        }
+    } catch (Exception e) {
+        out.println("<p style='color:red;'>Error retrieving packages: " + e.getMessage() + "</p>");
+    }
+
+    request.setAttribute("packages", packages);
+%>
+
 <!DOCTYPE html>
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Modify Packages - Admin Panel</title>
-	    <link rel="stylesheet" href="css/style.css"> <%-- Adjust path to your CSS --%>
+	    <title>Manage Packages - Admin</title>
+	    <link rel="stylesheet" href="styles.css">
 	    <style>
-	        /* Add some basic styling for the table if not in style.css */
-	        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-	        .container { max-width: 1200px; margin: 0 auto; padding: 25px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-	        h1 { text-align: center; color: #333; margin-bottom: 25px; }
-	        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-	        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; }
-	        th { background-color: #f2f2f2; }
-	        .action-links a { margin-right: 10px; text-decoration: none; color: #007bff; }
-	        .action-links a:hover { text-decoration: underline; }
-	        .action-links .delete { color: #dc3545; }
-	        .action-links .delete:hover { color: #c82333; }
-	        .add-button-container { text-align: right; margin-bottom: 20px; }
-	        .add-button {
-	            background-color: #28a745;
-	            color: white;
-	            padding: 10px 20px;
-	            border: none;
-	            border-radius: 5px;
-	            text-decoration: none;
-	            font-size: 16px;
-	            transition: background-color 0.3s ease;
+	        .admin-table-container {
+	            max-width: 1000px;
+	            margin: 50px auto;
+	            padding: 20px;
+	            background-color: #f9f9f9;
+	            border-radius: 8px;
 	        }
-	        .add-button:hover { background-color: #218838; }
-	        .message { padding: 10px; margin-bottom: 15px; border-radius: 5px; }
-	        .message.success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
-	        .message.error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
-	        .back-link { display: block; text-align: center; margin-top: 20px; }
+	        .admin-table-container h2 {
+	            text-align: center;
+	            color: #d92662;
+	        }
+	        .admin-table {
+	            width: 100%;
+	            border-collapse: collapse;
+	            margin-top: 20px;
+	        }
+	        .admin-table th, .admin-table td {
+	            border: 1px solid #ddd;
+	            padding: 10px;
+	        }
+	        .admin-table th {
+	            background-color: #d92662;
+	            color: white;
+	        }
+	        .admin-table tbody tr:nth-child(even) {
+	            background-color: #f2f2f2;
+	        }
+	        .admin-table img {
+	            max-width: 80px;
+	            height: auto;
+	        }
+	        .actions a {
+	            padding: 5px 10px;
+	            margin-right: 5px;
+	            text-decoration: none;
+	            color: white;
+	            border-radius: 5px;
+	        }
+	        .edit-btn {
+	            background-color: #007bff;
+	        }
+	        .edit-btn:hover {
+	            background-color: #0056b3;
+	        }
+	        .delete-btn {
+	            background-color: #dc3545;
+	        }
+	        .delete-btn:hover {
+	            background-color: #c82333;
+	        }
 	    </style>
 	</head>
 	<body>
-	    <div class="container">
-	        <h1>Modify Packages</h1>
 	
-	        <%-- Display messages from URL parameters (after redirect) --%>
-	        <c:if test="${not empty param.message}">
-	            <div class="message ${param.messageType}">${param.message}</div>
-	        </c:if>
-	        <%-- Display messages from request attributes (after forward from doGet) --%>
-	        <c:if test="${not empty requestScope.message}">
-	            <div class="message ${requestScope.messageType}">${requestScope.message}</div>
-	        </c:if>
-	
-	        <div class="add-button-container">
-	            <a href="addPackage.jsp" class="add-button">Add New Package</a> <%-- Assuming you have an addPackage.jsp --%>
-	        </div>
-	
-	        <c:choose>
-	            <c:when test="${not empty packages}">
-	                <table>
-	                    <thead>
-	                        <tr>
-	                            <th>ID</th>
-	                            <th>Package Name</th>
-	                            <th>Destination</th>
-	                            <th>Price</th>
-	                            <th>Duration</th>
-	                            <th>Tour Type</th>
-	                            <th>Actions</th>
-	                        </tr>
-	                    </thead>
-	                    <tbody>
-	                        <c:forEach var="pkg" items="${packages}">
-	                            <tr>
-	                                <td><c:out value="${pkg.id}"/></td>
-	                                <td><c:out value="${pkg.packageName}"/></td>
-	                                <td><c:out value="${pkg.destinationName}"/></td> <%-- Using destinationName from Package model --%>
-	                                <td><c:out value="${pkg.price}"/></td>
-	                                <td><c:out value="${pkg.duration}"/></td>
-	                                <td><c:out value="${pkg.tourType}"/></td>
-	                                <td class="action-links">
-	                                    <a href="modifyPackage?action=edit&id=${pkg.id}">Edit</a> |
-	                                    <a href="modifyPackage?action=delete&id=${pkg.id}" class="delete" onclick="return confirm('Are you sure you want to delete package: ${pkg.packageName}?');">Delete</a>
-	                                </td>
-	                            </tr>
-	                        </c:forEach>
-	                    </tbody>
-	                </table>
-	            </c:when>
-	            <c:otherwise>
-	                <p>No packages found.</p>
-	            </c:otherwise>
-	        </c:choose>
-	
-	        <p class="back-link"><a href="adminDashboard.jsp">Back to Admin Dashboard</a></p>
-	    </div>
+		<jsp:include page="header.jsp"/>
+		
+		<div class="admin-table-container">
+		    <h2>Manage Tour Packages</h2>
+		    <table class="admin-table">
+		        <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>Package Name</th>
+		                <th>Destination</th>
+		                <th>Image</th>
+		                <th>Actions</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <c:forEach var="pkg" items="${packages}">
+		                <tr>
+		                    <td><c:out value="${pkg.id}"/></td>
+		                    <td><c:out value="${pkg.name}"/></td>
+		                    <td><c:out value="${pkg.destination}"/></td>
+		                    <td>
+		                        <c:choose>
+		                            <c:when test="${not empty pkg.image}">
+		                                <img src="${pageContext.request.contextPath}/${pkg.image}" alt="${pkg.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+		                                <span style="display:none;">Image not found</span>
+		                            </c:when>
+		                            <c:otherwise>No image</c:otherwise>
+		                        </c:choose>
+		                    </td>
+		                    <td class="actions">
+		                        <a class="edit-btn" href="edit_package.jsp?package_id=${pkg.id}">Edit</a>
+		                        <a class="delete-btn" href="modify_package.jsp?action=delete&id=${pkg.id}" onclick="return confirm('Are you sure you want to delete this package?');">Delete</a>
+		                    </td>
+		                </tr>
+		            </c:forEach>
+		        </tbody>
+		    </table>
+		</div>
+		
+		<jsp:include page="footer.jsp"/>
 	</body>
 </html>

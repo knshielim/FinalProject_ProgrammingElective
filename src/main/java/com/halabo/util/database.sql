@@ -1,7 +1,6 @@
 DROP DATABASE halabo_tour;
 CREATE DATABASE IF NOT EXISTS halabo_tour;
 USE halabo_tour;
-SELECT * FROM destinations;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,16 +61,6 @@ CREATE TABLE bookings (
     contact_phone VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, -- Or SET NULL if preferred
     FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE -- Or SET NULL if preferred
-);
-
-CREATE TABLE IF NOT EXISTS enquiries (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    fullname VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    destination VARCHAR(100) NOT NULL,
-    package_type VARCHAR(100) NOT NULL,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS contacts (
@@ -651,4 +640,16 @@ SELECT * FROM destinations;
 
 SELECT * FROM packages;
 
+SELECT * FROM contacts;
+
+SELECT * FROM feedbacks;
+
 SELECT * FROM users;
+
+SELECT * FROM bookings;
+
+SELECT * FROM packages where destination_id = 3;
+
+SHOW COLUMNS FROM bookings;
+
+SELECT id, destination_name, image_path FROM destinations WHERE destination_name = 'Sunrise Volcano'; -- or your actual name

@@ -8,8 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-// Removed: import java.security.MessageDigest;       // No longer needed
-// Removed: import java.security.NoSuchAlgorithmException; // No longer needed
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

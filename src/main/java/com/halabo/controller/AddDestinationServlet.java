@@ -81,7 +81,7 @@ public class AddDestinationServlet extends HttpServlet {
 
 
             // Build full path to /images folder
-            String savePath = getServletContext().getRealPath("/") + "images";
+            String savePath = getServletContext().getRealPath("/images");
             java.io.File imageDir = new java.io.File(savePath);
             if (!imageDir.exists()) {
                 imageDir.mkdirs();

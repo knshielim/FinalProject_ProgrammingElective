@@ -1,77 +1,132 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.halabo.util.DatabaseConnection" %>
+
+<%
+    Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+    if (isAdmin == null || !isAdmin) {
+        response.sendRedirect("login.jsp?error=unauthorized");
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
 	<head>
 	    <meta charset="UTF-8">
 	    <title>View Users - Admin Panel</title>
-	    <link rel="stylesheet" href="css/style.css"> <%-- Adjust path to your CSS --%>
+	    <link rel="stylesheet" href="styles.css">
 	    <style>
-	        /* Add some basic styling for the table if not in style.css */
-	        body { font-family: Arial, sans-serif; margin: 20px; }
-	        .container { max-width: 900px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-	        h1 { text-align: center; color: #333; }
-	        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-	        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-	        th { background-color: #f2f2f2; }
-	        .message { padding: 10px; margin-bottom: 15px; border-radius: 5px; }
-	        .message.success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
-	        .message.error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
-	        .back-link { display: block; text-align: center; margin-top: 20px; }
+	        body {
+	            font-family: Arial, sans-serif;
+	            background: #f2f2f2;
+	            margin: 0;
+	        }
+	        .main-container {
+	            max-width: 1000px;
+	            margin: 40px auto;
+	            background-color: #fff;
+	            padding: 25px;
+	            border-radius: 10px;
+	            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	        }
+	        h2 {
+	            text-align: center;
+	            color: #d92662;
+	            margin-bottom: 25px;
+	        }
+	        table {
+	            width: 100%;
+	            border-collapse: collapse;
+	            margin-top: 10px;
+	        }
+	        th, td {
+	            padding: 10px;
+	            border: 1px solid #ddd;
+	            text-align: center;
+	        }
+	        th {
+	            background-color: #d92662;
+	            color: white;
+	        }
+	        tr:nth-child(even) {
+	            background-color: #fafafa;
+	        }
+	        .back-link {
+	            text-align: center;
+	            display: block;
+	            margin-top: 20px;
+	            color: #d92662;
+	            text-decoration: none;
+	            font-weight: bold;
+	        }
+	        .back-link:hover {
+	            text-decoration: underline;
+	        }
 	    </style>
 	</head>
 	<body>
-	    <div class="container">
-	        <h1>Registered Users</h1>
 	
-	        <%-- Display messages --%>
-	        <c:if test="${not empty requestScope.message}">
-	            <div class="message ${requestScope.messageType}">${requestScope.message}</div>
-	        </c:if>
-	
-	        <c:choose>
-	            <c:when test="${not empty users}">
-	                <table>
-	                    <thead>
-	                        <tr>
-	                            <th>ID</th>
-	                            <th>First Name</th>
-	                            <th>Last Name</th>
-	                            <th>Username</th>
-	                            <th>Email</th>
-	                            <th>Phone</th>
-	                            <th>Admin</th> <%-- Now displaying isAdmin status --%>
-	                            <%-- Add actions here like Edit/Delete if you implement them for users --%>
-	                            </tr>
-	                    </thead>
-	                    <tbody>
-	                        <c:forEach var="user" items="${users}">
-	                            <tr>
-	                                <td><c:out value="${user.id}"/></td>
-	                                <td><c:out value="${user.firstName}"/></td>
-	                                <td><c:out value="${user.lastName}"/></td>
-	                                <td><c:out value="${user.username}"/></td>
-	                                <td><c:out value="${user.email}"/></td>
-	                                <td><c:out value="${user.phone}"/></td>
-	                                <td>
-	                                    <c:choose>
-	                                        <c:when test="${user.isAdmin()}">Yes</c:when>
-	                                        <c:otherwise>No</c:otherwise>
-	                                    </c:choose>
-	                                </td>
-	                                <%-- Example of actions if needed --%>
-	                                </tr>
-	                        </c:forEach>
-	                    </tbody>
-	                </table>
-	            </c:when>
-	            <c:otherwise>
-	                <p>No users found.</p>
-	            </c:otherwise>
-	        </c:choose>
-	
-	        <p class="back-link"><a href="adminDashboard.jsp">Back to Admin Dashboard</a></p>
-	    </div>
+		<jsp:include page="header.jsp"/>
+		
+		<div class="main-container">
+		    <h2>Registered Users</h2>
+		
+		    <%
+		        Connection conn = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+		
+		        try {
+		            conn = DatabaseConnection.getConnection();
+		            ps = conn.prepareStatement("SELECT id, first_name, last_name, username, email, phone, created_at FROM users ORDER BY id ASC");
+		            rs = ps.executeQuery();
+		    %>
+		
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>First Name</th>
+		                <th>Last Name</th>
+		                <th>Username</th>
+		                <th>Email</th>
+		                <th>Phone</th>
+		                <th>Created At</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        <%
+		            while (rs.next()) {
+		        %>
+		            <tr>
+		                <td><%= rs.getInt("id") %></td>
+		                <td><%= rs.getString("first_name") %></td>
+		                <td><%= rs.getString("last_name") %></td>
+		                <td><%= rs.getString("username") %></td>
+		                <td><%= rs.getString("email") %></td>
+		                <td><%= rs.getString("phone") != null ? rs.getString("phone") : "-" %></td>
+		                <td><%= rs.getTimestamp("created_at") %></td>
+		            </tr>
+		        <%
+		            }
+		        %>
+		        </tbody>
+		    </table>
+		
+		    <%
+		        } catch (SQLException e) {
+		            out.println("<p style='color:red; text-align:center;'>Error fetching users: " + e.getMessage() + "</p>");
+		        } finally {
+		            if (rs != null) try { rs.close(); } catch (SQLException ignored) {}
+		            if (ps != null) try { ps.close(); } catch (SQLException ignored) {}
+		            if (conn != null) try { conn.close(); } catch (SQLException ignored) {}
+		        }
+		    %>
+		
+		    <a href="admin_dashboard.jsp" class="back-link">← Back to Admin Dashboard</a>
+		</div>
+		
+		<jsp:include page="footer.jsp"/>
 	</body>
 </html>
