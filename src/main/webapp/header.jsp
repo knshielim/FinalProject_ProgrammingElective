@@ -21,7 +21,7 @@
 		        <li><a href="packages.jsp">Packages</a></li>
 		        <li><a href="feedback.jsp" class="feedback-btn">Feedback</a></li>
 		        <li><a href="booking.jsp" class="booking-btn">Book Now</a></li>
-		        <li><a href="contact.jsp" class="contact-btn">Contact Us</a></li>
+		        <li><a href="contact.jsp" class="contact-btn special-contact-btn">Contact Us</a></li>
 		
 		        <%-- Server-side login check --%>
 		        <%
@@ -36,14 +36,14 @@
 		        <% } %>
 		
 		        <% if (isLoggedIn) { %>
-		            <li>
-		                <a href="profile.jsp" class="profile-btn" title="Profile">
-		                    <img src="GetProfileImageServlet?username=<%= usernameForHeader %>"
-		                         alt="Profile"
-		                         style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; vertical-align: middle;"
-		                         onerror="this.onerror=null; this.src='images/default_profile.png';">
-		                </a>
-		            </li>
+		            <li class="nav-profile-item">
+					    <a href="profile.jsp" class="profile-btn" title="Profile">
+					        <img src="GetProfileImageServlet?username=<%= usernameForHeader %>"
+					             alt="Profile"
+					             class="profile-img"
+					             onerror="this.onerror=null; this.src='images/default_profile.png';">
+					    </a>
+					</li>
 		            <li><a href="login?action=logout" class="logout-btn">Logout</a></li>
 		        <% } else { %>
 		            <li><a href="login.jsp" class="login-btn">Login</a></li>

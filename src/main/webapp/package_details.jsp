@@ -93,9 +93,10 @@
 	    <% } %>
 	
 	    <div class="action-buttons">
-	        <a href="booking.jsp?destinationId=<%= destinationId %>&packageId=<%= packageId %>" class="book-now-button">Book Now</a>
-	        <a href="destination.jsp?id=<%= destinationId %>" class="back-button">Back to Destination</a>
-	    </div>
+		    <a href="booking.jsp?destinationId=<%= destinationId %>&packageId=<%= packageId %>" class="package-btn">Book Now</a>
+		    <a href="destination.jsp?id=<%= destinationId %>" class="package-btn">Back to Destination</a>
+		</div>
+
 	
 	    <%
 	            } else {

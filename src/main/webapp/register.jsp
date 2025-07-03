@@ -91,9 +91,9 @@
             <a href="login.jsp" style="color: #ff6b00; text-decoration: none; font-weight: bold;">Login here</a>
         </p>
 
-        <div class="back-button" style="text-align: center; margin-top: 20px;">
-            <button onclick="history.back()" class="back-btn">← Back</button>
-        </div>
+        <div class="reg-back-button">
+		    <button type="button" onclick="history.back()">← Back</button>
+		</div>
     </div>
 
 </body>

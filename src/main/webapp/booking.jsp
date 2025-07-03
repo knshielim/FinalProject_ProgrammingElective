@@ -33,11 +33,13 @@
 		    <h2>Complete Your Booking</h2>
 		
 		    <% if (isLoggedIn) { %>
-		        <div class="autofill-prompt">
-		            You're logged in as <strong><%= autoName %></strong>. Auto-fill your details?
-		            <button type="button" id="autofill-yes">Yes</button>
-		            <button type="button" id="autofill-no">No</button>
-		        </div>
+		       	<div class="autofill-wrapper">
+			        <div class="autofill-prompt">
+			            You're logged in as <strong><%= autoName %></strong>. Auto-fill your details?
+			            <button type="button" id="autofill-yes">Yes</button>
+			            <button type="button" id="autofill-no">No</button>
+			        </div>
+			    </div>
 		    <% } %>
 		
 		    <form action="payment.jsp" method="post" id="bookingForm">

@@ -60,6 +60,7 @@
     <meta charset="UTF-8">
     <title>Payment - Halabo Indonesia Tour</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; }
         .form-container { background: white; padding: 30px; max-width: 700px; margin: auto; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
@@ -76,97 +77,99 @@
     </style>
 </head>
 <body>
-<div class="form-container">
-    <h2>Payment Information</h2>
-
-    <div class="summary-box">
-        <p><strong>Name:</strong> <%= name %></p>
-        <p><strong>Email:</strong> <%= email %></p>
-        <p><strong>Phone:</strong> <%= phone %></p>
-        <p><strong>Destination:</strong> <%= destinationName %></p>
-        <p><strong>Package:</strong> <%= packageName %></p>
-        <p><strong>Travelers:</strong> <%= travelers %></p>
-        <p><strong>Date:</strong> <%= date %></p>
-        <p><strong>Total Price:</strong> RM <%= totalPrice %></p>
-    </div>
-
-    <div class="payment-methods">
-        <button type="button" class="method-btn active" data-method="card">Credit/Debit Card</button>
-        <button type="button" class="method-btn" data-method="online">Online Banking (FPX)</button>
-        <button type="button" class="method-btn" data-method="ewallet">E-Wallet</button>
-    </div>
-
-    <form action="SavePaymentServlet" method="post">
-        <!-- CARD -->
-        <div id="payment-card" class="payment-section" style="display:block;">
-            <div class="form-group">
-                <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" name="card-number" required>
-            </div>
-            <div style="display: flex; gap: 1rem;">
-                <div class="form-group" style="flex: 1;">
-                    <label for="card-expiry">Expiry Date</label>
-                    <input type="text" id="card-expiry" name="card-expiry" required>
-                </div>
-                <div class="form-group" style="flex: 1;">
-                    <label for="card-cvv">CVV</label>
-                    <input type="text" id="card-cvv" name="card-cvv" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="card-name">Cardholder Name</label>
-                <input type="text" id="card-name" name="card-name" required>
-            </div>
-        </div>
-
-        <!-- ONLINE BANKING -->
-        <div id="payment-online" class="payment-section" style="display:none;">
-            <div class="form-group">
-                <label for="bank">Choose Bank</label>
-                <select id="bank" name="bank">
-                    <option value="">-- Select Bank --</option>
-                    <option value="Maybank">Maybank</option>
-                    <option value="CIMB">CIMB</option>
-                    <option value="RHB">RHB</option>
-                    <option value="Public Bank">Public Bank</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- E-WALLET -->
-        <div id="payment-ewallet" class="payment-section" style="display: none;">
-            <div class="form-group">
-                <label for="ewallet">Select E-Wallet</label>
-                <select id="ewallet" name="ewallet">
-                    <option value="">-- Select E-Wallet --</option>
-                    <option value="Touch 'n Go">Touch 'n Go</option>
-                    <option value="GrabPay">GrabPay</option>
-                    <option value="Boost">Boost</option>
-                    <option value="ShopeePay">ShopeePay</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Hidden Fields -->
-        <input type="hidden" name="packageId" value="<%= packageId %>">
-        <input type="hidden" name="travelers" value="<%= travelers %>">
-        <!-- Send ISO (yyyy-MM-dd) format for backend -->
-		<input type="hidden" name="date" value="<%= rawDate %>">
-		
-		<!-- Keep displaying in dd-MM-yyyy format -->
-		<p><strong>Date:</strong> <%= date %></p>
-        <input type="hidden" name="name" value="<%= name %>">
-        <input type="hidden" name="email" value="<%= email %>">
-        <input type="hidden" name="phone" value="<%= phone %>">
-        <input type="hidden" id="selected-method" name="payment-method" value="card">
-        <input type="hidden" name="total_price" value="<%= totalPrice %>">
-        <div class="form-group">
-            <label for="special_requests">Special requests (optional)</label>
-            <textarea name="special_requests" placeholder="Enter any special requirements here"></textarea>
-        </div>
-
-        <button type="submit" class="btn-primary">Complete Payment</button>
-    </form>
+<div class="payment-page">
+	<div class="form-container">
+	    <h2>Payment Information</h2>
+	
+	    <div class="summary-box">
+	        <p><strong>Name:</strong> <%= name %></p>
+	        <p><strong>Email:</strong> <%= email %></p>
+	        <p><strong>Phone:</strong> <%= phone %></p>
+	        <p><strong>Destination:</strong> <%= destinationName %></p>
+	        <p><strong>Package:</strong> <%= packageName %></p>
+	        <p><strong>Travelers:</strong> <%= travelers %></p>
+	        <p><strong>Date:</strong> <%= date %></p>
+	        <p><strong>Total Price:</strong> RM <%= totalPrice %></p>
+	    </div>
+	
+	    <div class="payment-methods">
+	        <button type="button" class="method-btn active" data-method="card">Credit/Debit Card</button>
+	        <button type="button" class="method-btn" data-method="online">Online Banking (FPX)</button>
+	        <button type="button" class="method-btn" data-method="ewallet">E-Wallet</button>
+	    </div>
+	
+	    <form action="SavePaymentServlet" method="post">
+	        <!-- CARD -->
+	        <div id="payment-card" class="payment-section" style="display:block;">
+	            <div class="form-group">
+	                <label for="card-number">Card Number</label>
+	                <input type="text" id="card-number" name="card-number" required>
+	            </div>
+	            <div style="display: flex; gap: 1rem;">
+	                <div class="form-group" style="flex: 1;">
+	                    <label for="card-expiry">Expiry Date</label>
+	                    <input type="text" id="card-expiry" name="card-expiry" required>
+	                </div>
+	                <div class="form-group" style="flex: 1;">
+	                    <label for="card-cvv">CVV</label>
+	                    <input type="text" id="card-cvv" name="card-cvv" required>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="card-name">Cardholder Name</label>
+	                <input type="text" id="card-name" name="card-name" required>
+	            </div>
+	        </div>
+	
+	        <!-- ONLINE BANKING -->
+	        <div id="payment-online" class="payment-section" style="display:none;">
+	            <div class="form-group">
+	                <label for="bank">Choose Bank</label>
+	                <select id="bank" name="bank">
+	                    <option value="">-- Select Bank --</option>
+	                    <option value="Maybank">Maybank</option>
+	                    <option value="CIMB">CIMB</option>
+	                    <option value="RHB">RHB</option>
+	                    <option value="Public Bank">Public Bank</option>
+	                </select>
+	            </div>
+	        </div>
+	
+	        <!-- E-WALLET -->
+	        <div id="payment-ewallet" class="payment-section" style="display: none;">
+	            <div class="form-group">
+	                <label for="ewallet">Select E-Wallet</label>
+	                <select id="ewallet" name="ewallet">
+	                    <option value="">-- Select E-Wallet --</option>
+	                    <option value="Touch 'n Go">Touch 'n Go</option>
+	                    <option value="GrabPay">GrabPay</option>
+	                    <option value="Boost">Boost</option>
+	                    <option value="ShopeePay">ShopeePay</option>
+	                </select>
+	            </div>
+	        </div>
+	
+	        <!-- Hidden Fields -->
+	        <input type="hidden" name="packageId" value="<%= packageId %>">
+	        <input type="hidden" name="travelers" value="<%= travelers %>">
+	        <!-- Send ISO (yyyy-MM-dd) format for backend -->
+			<input type="hidden" name="date" value="<%= rawDate %>">
+			
+			<!-- Keep displaying in dd-MM-yyyy format -->
+			<p><strong>Date:</strong> <%= date %></p>
+	        <input type="hidden" name="name" value="<%= name %>">
+	        <input type="hidden" name="email" value="<%= email %>">
+	        <input type="hidden" name="phone" value="<%= phone %>">
+	        <input type="hidden" id="selected-method" name="payment-method" value="card">
+	        <input type="hidden" name="total_price" value="<%= totalPrice %>">
+	        <div class="form-group">
+	            <label for="special_requests">Special requests (optional)</label>
+	            <textarea name="special_requests" placeholder="Enter any special requirements here"></textarea>
+	        </div>
+	
+	        <button type="submit" class="btn-primary">Complete Payment</button>
+	    </form>
+	</div>
 </div>
 
 <script>
