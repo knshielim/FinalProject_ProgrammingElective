@@ -1,69 +1,84 @@
 package com.halabo.controller;
 
+import com.halabo.util.DatabaseConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import com.halabo.util.DatabaseConnection;
+import java.sql.*;
 
 @WebServlet("/booking")
 public class BookingServlet extends HttpServlet {
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        // Get booking form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        String destination = request.getParameter("destination");
-        String packageType = request.getParameter("package");
-        String travelers = request.getParameter("travelers");
-        String date = request.getParameter("date");
+        int destinationId = Integer.parseInt(request.getParameter("destination"));
+        int packageId = Integer.parseInt(request.getParameter("package"));
+        int travelers = Integer.parseInt(request.getParameter("travelers"));
+        String travelDateStr = request.getParameter("date");
         String specialRequests = request.getParameter("special-requests");
-        
+
+        double pricePerPerson = 0;
+        double totalPrice = 0;
+
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "INSERT INTO bookings (name, email, phone, destination, package_type, travelers, travel_date, special_requests, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, phone);
-            stmt.setString(4, destination);
-            stmt.setString(5, packageType);
-            stmt.setString(6, travelers);
-            stmt.setString(7, date);
-            stmt.setString(8, specialRequests);
-            
-            int result = stmt.executeUpdate();
-            
-            if (result > 0) {
-                HttpSession session = request.getSession();
-                session.setAttribute("name", name);
-                session.setAttribute("email", email);
-                session.setAttribute("phone", phone);
-                session.setAttribute("destination", destination);
-                session.setAttribute("package", packageType);
-                session.setAttribute("travelers", travelers);
-                session.setAttribute("date", date);
-                
-                String redirectURL = "payment.jsp?name=" + java.net.URLEncoder.encode(name, "UTF-8") +
-                                   "&email=" + java.net.URLEncoder.encode(email, "UTF-8") +
-                                   "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8") +
-                                   "&destination=" + java.net.URLEncoder.encode(destination, "UTF-8") +
-                                   "&package=" + java.net.URLEncoder.encode(packageType, "UTF-8") +
-                                   "&travelers=" + java.net.URLEncoder.encode(travelers, "UTF-8") +
-                                   "&date=" + java.net.URLEncoder.encode(date, "UTF-8");
-                response.sendRedirect(redirectURL);
-            } else {
-                response.sendRedirect("booking.jsp?error=true");
+
+            // Get price per person from the selected package
+            String sqlPrice = "SELECT price FROM packages WHERE id = ?";
+            try (PreparedStatement stmtPrice = conn.prepareStatement(sqlPrice)) {
+                stmtPrice.setInt(1, packageId);
+                ResultSet rs = stmtPrice.executeQuery();
+                if (rs.next()) {
+                    pricePerPerson = Double.parseDouble(rs.getString("price")); // If price is VARCHAR
+                    totalPrice = pricePerPerson * travelers;
+                }
             }
-            
-        } catch (SQLException e) {
+
+            // Get user ID from session (make sure user is logged in)
+            HttpSession session = request.getSession();
+            Integer userId = (Integer) session.getAttribute("userId");
+            if (userId == null) {
+                response.sendRedirect("login.jsp?redirect=booking");
+                return;
+            }
+
+            // Insert booking
+            String sql = "INSERT INTO bookings (user_id, package_id, travel_date, number_of_travelers, total_price, special_requests, contact_name, contact_email, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, userId);
+                stmt.setInt(2, packageId);
+                stmt.setDate(3, Date.valueOf(travelDateStr));
+                stmt.setInt(4, travelers);
+                stmt.setDouble(5, totalPrice);
+                stmt.setString(6, specialRequests);
+                stmt.setString(7, name);
+                stmt.setString(8, email);
+                stmt.setString(9, phone);
+
+                int result = stmt.executeUpdate();
+                if (result > 0) {
+                    // Set values in session for payment.jsp
+                    session.setAttribute("name", name);
+                    session.setAttribute("email", email);
+                    session.setAttribute("phone", phone);
+                    session.setAttribute("destination", destinationId);
+                    session.setAttribute("package", packageId);
+                    session.setAttribute("travelers", travelers);
+                    session.setAttribute("date", travelDateStr);
+                    session.setAttribute("total_price", totalPrice);
+
+                    // Redirect to payment
+                    response.sendRedirect("payment.jsp");
+                } else {
+                    response.sendRedirect("booking.jsp?error=true");
+                }
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("booking.jsp?error=true");
         }

@@ -51,31 +51,32 @@
 		        <input type="tel" id="phone" name="phone" required>
 		
 		        <label for="select-destination">Select Destination:</label>
-		        <select id="select-destination" name="destination_name" required>
+		        <select id="select-destination" name="destination" required>
 		            <option value="">-- Loading Destinations --</option>
 		        </select>
 		
 		        <label for="select-package">Select Package:</label>
-		        <select id="select-package" name="package_name" required>
+		        <select id="select-package" name="package" required>
 		            <option value="">-- Select Destination First --</option>
 		        </select>
 		
 		        <label for="travelers">Number of Travelers:</label>
-		        <select id="travelers" name="travelers" required>
-		            <option value="">Select</option>
-		            <option>1</option>
-		            <option>2</option>
-		            <option>3</option>
-		            <option>4</option>
-		            <option>5+</option>
-		        </select>
+		        <input type="number" id="travelers" name="travelers" min="1" value="1" required>
 		
 		        <label for="date">Preferred Travel Date:</label>
 		        <input type="date" id="date" name="date" required>
 		
 		        <input type="hidden" id="booking-destination-id" name="destinationId" value="<%= preselectedDestinationId != null ? preselectedDestinationId : "" %>">
 		        <input type="hidden" id="booking-package-id" name="packageId" value="<%= preselectedPackageId != null ? preselectedPackageId : "" %>">
-		
+				
+				<div class="total-price-display">
+				    <p><strong>Total Price: </strong><span id="total-price">RM 0</span></p>
+				</div>
+				
+				<input type="hidden" id="totalPriceInput" name="total_price" value="0">
+				<input type="hidden" name="destination_name" id="destinationNameInput">
+				<input type="hidden" name="package_name" id="packageNameInput">
+				
 		        <button type="submit">Proceed to Payment</button>
 		    </form>
 		</div>

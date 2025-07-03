@@ -33,7 +33,7 @@ public class ApiDataServlet extends HttpServlet {
                     dest.addProperty("name", rsDest.getString("destination_name"));
 
                     // Fetch packages
-                    String sqlPkg = "SELECT id, package_name FROM packages WHERE destination_id = ?";
+                    String sqlPkg = "SELECT id, package_name, price FROM packages WHERE destination_id = ?";
                     JsonArray packages = new JsonArray();
                     try (PreparedStatement stmtPkg = conn.prepareStatement(sqlPkg)) {
                         stmtPkg.setInt(1, destId);
@@ -42,6 +42,7 @@ public class ApiDataServlet extends HttpServlet {
                                 JsonObject pkg = new JsonObject();
                                 pkg.addProperty("id", rsPkg.getInt("id"));
                                 pkg.addProperty("name", rsPkg.getString("package_name"));
+                                pkg.addProperty("price", rsPkg.getDouble("price"));
                                 packages.add(pkg);
                             }
                         }
