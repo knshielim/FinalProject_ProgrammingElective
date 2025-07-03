@@ -1369,6 +1369,131 @@ form input[type="submit"]:hover {
     border: 1px solid #f5c6cb;
 }
 
+/* ====================== PROFILE PAGE ====================== */
+.profile-wrapper {
+    background-color: #f0f8ff;
+    padding: 40px 20px;
+}
+
+.profile-container {
+    background: #ffffff;
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.profile-title {
+    color: #1D3D59;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.profile-upload-form input[type="file"] {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.profile-upload-form button {
+    margin-top: 10px;
+    background-color: transparent;
+    color: #ff6b00;
+    font-weight: bold;
+    padding: 8px 20px;
+    border: 2px solid #ff6b00;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-upload-form button:hover {
+    background-color: #ff6b00;
+    color: white;
+    transform: scale(1.03);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.profile-field label {
+    min-width: 130px;
+    font-weight: bold;
+    color: #1D3D59;
+    font-size: 16px;
+    text-align: left;
+    padding-top: 8px;
+}
+
+.profile-value-box {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #333;
+    font-size: 16px;
+    flex: 1;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    word-break: break-word;
+}
+
+.profile-field p {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.profile-back {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-home-button {
+    background-color: #ff6b00;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.back-home-button:hover {
+    background-color: #ff944d;
+    transform: scale(1.05);
+}
+
 
 /*====================================== FORM LOGIN/REGISTER ================================*/
 .form-group {
