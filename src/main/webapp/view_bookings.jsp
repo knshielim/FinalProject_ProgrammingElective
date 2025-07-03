@@ -14,57 +14,8 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>View Bookings - Admin Panel</title>
+	    <title>View Bookings - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
-	    <style>
-	        body {
-	            font-family: Arial, sans-serif;
-	            background: #f4f4f4;
-	            margin: 0;
-	        }
-	        .main-container {
-	            max-width: 1200px;
-	            margin: 40px auto;
-	            background-color: #fff;
-	            padding: 25px;
-	            border-radius: 10px;
-	            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-	        }
-	        h2 {
-	            text-align: center;
-	            color: #d92662;
-	            margin-bottom: 25px;
-	        }
-	        table {
-	            width: 100%;
-	            border-collapse: collapse;
-	            margin-top: 10px;
-	            font-size: 0.95em;
-	        }
-	        th, td {
-	            padding: 10px;
-	            border: 1px solid #ddd;
-	            text-align: center;
-	        }
-	        th {
-	            background-color: #d92662;
-	            color: white;
-	        }
-	        tr:nth-child(even) {
-	            background-color: #fafafa;
-	        }
-	        .back-link {
-	            text-align: center;
-	            display: block;
-	            margin-top: 20px;
-	            color: #d92662;
-	            text-decoration: none;
-	            font-weight: bold;
-	        }
-	        .back-link:hover {
-	            text-decoration: underline;
-	        }
-	    </style>
 	</head>
 	<body>
 	

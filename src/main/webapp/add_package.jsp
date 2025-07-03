@@ -5,7 +5,7 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Add New Package</title>
+	    <title>Add New Package - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
 	</head>
 	<body>

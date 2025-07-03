@@ -15,64 +15,6 @@
 	    <meta charset="UTF-8">
 	    <title>Payment - Halabo Indonesia Tour</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <style>
-	        .form-container {
-	            max-width: 600px;
-	            margin: 50px auto;
-	            padding: 30px;
-	            background: #fff;
-	            border-radius: 10px;
-	            box-shadow: 0 0 12px rgba(0,0,0,0.1);
-	        }
-	        .form-group { margin-bottom: 1rem; }
-	        .form-group label { font-weight: bold; display: block; margin-bottom: 0.5rem; }
-	        .form-group input, .form-group select {
-	            width: 100%;
-	            padding: 10px;
-	            border: 1px solid #ccc;
-	            border-radius: 4px;
-	        }
-	        .btn-primary {
-	            background-color: #d92662;
-	            color: white;
-	            padding: 12px;
-	            border: none;
-	            border-radius: 4px;
-	            cursor: pointer;
-	            width: 100%;
-	            font-size: 16px;
-	        }
-	        .btn-primary:hover { background-color: #b71c50; }
-	        .summary-box {
-	            background: #f7f7f7;
-	            padding: 15px;
-	            border: 1px solid #ddd;
-	            margin-bottom: 20px;
-	        }
-	        .payment-methods {
-	            display: flex;
-	            gap: 1rem;
-	            margin-bottom: 1.5rem;
-	        }
-	        .payment-methods button {
-	            flex: 1;
-	            padding: 10px;
-	            border: 1px solid #ccc;
-	            background: #eee;
-	            cursor: pointer;
-	            border-radius: 5px;
-	        }
-	        .payment-methods button.active {
-	            background-color: #d92662;
-	            color: white;
-	        }
-	        .payment-section {
-	            display: none;
-	        }
-	        .payment-section.active {
-	            display: block;
-	        }
-	    </style>
 	</head>
 	<body>
 		<div class="form-container">

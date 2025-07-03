@@ -42,7 +42,6 @@ public class BookingServlet extends HttpServlet {
             int result = stmt.executeUpdate();
             
             if (result > 0) {
-                // Store booking details in session for profile access
                 HttpSession session = request.getSession();
                 session.setAttribute("name", name);
                 session.setAttribute("email", email);
@@ -52,7 +51,6 @@ public class BookingServlet extends HttpServlet {
                 session.setAttribute("travelers", travelers);
                 session.setAttribute("date", date);
                 
-                // Redirect to payment page with booking details
                 String redirectURL = "payment.jsp?name=" + java.net.URLEncoder.encode(name, "UTF-8") +
                                    "&email=" + java.net.URLEncoder.encode(email, "UTF-8") +
                                    "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8") +

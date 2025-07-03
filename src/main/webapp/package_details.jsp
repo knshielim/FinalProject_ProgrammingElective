@@ -24,64 +24,8 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Package Details</title>
+	    <title>Package Details - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
-	    <style>
-	        .package-image {
-	            max-width: 100%;
-	            height: auto;
-	            border-radius: 8px;
-	            margin-bottom: 20px;
-	            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-	        }
-	        .key-info {
-	            margin-top: 20px;
-	            font-size: 1.1em;
-	        }
-	        .tab-buttons {
-	            display: flex;
-	            justify-content: center;
-	            margin-top: 30px;
-	            gap: 10px;
-	        }
-	        .tab-btn {
-	            padding: 10px 20px;
-	            border: none;
-	            background-color: #eee;
-	            cursor: pointer;
-	            border-radius: 4px;
-	        }
-	        .tab-btn.active {
-	            background-color: #007bff;
-	            color: white;
-	        }
-	        .tab-content {
-	            display: none;
-	            margin-top: 20px;
-	            line-height: 1.6;
-	        }
-	        .tab-content.active {
-	            display: block;
-	        }
-	        .action-buttons {
-	            text-align: center;
-	            margin-top: 30px;
-	        }
-	        .action-buttons a {
-	            display: inline-block;
-	            padding: 10px 20px;
-	            margin: 5px;
-	            color: white;
-	            text-decoration: none;
-	            border-radius: 5px;
-	        }
-	        .book-now-button {
-	            background-color: #28a745;
-	        }
-	        .back-button {
-	            background-color: #007bff;
-	        }
-	    </style>
 	</head>
 	<body>
 	

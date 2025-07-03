@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Error</title>
+    <title>Error - Halabo Indonesia Tour</title>
 </head>
 <body>
     <h2 style="color:red;">Oops! Something went wrong.</h2>

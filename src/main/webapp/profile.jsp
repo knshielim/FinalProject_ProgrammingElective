@@ -5,20 +5,16 @@
 <%
     User loggedInUser = (User) session.getAttribute("loggedInUser");
 
-    // Check if user is logged in
     if (loggedInUser == null) {
-        // If no user object in session, redirect to login page
         response.sendRedirect("login.jsp?error=not_logged_in");
-        return; // Stop further processing of this JSP
+        return;
     }
 
-    // Now retrieve data from the User object
-    String fullName = loggedInUser.getFullName(); // Using the convenience method
+    String fullName = loggedInUser.getFullName(); 
     String username = loggedInUser.getUsername();
     String email = loggedInUser.getEmail();
     String phone = loggedInUser.getPhone();
 
-    // Profile image path (logic remains the same, assumes username is unique identifier for image)
     String imagePath = "uploads/" + username + ".jpg";
     String realPath = application.getRealPath("/") + imagePath;
     File file = new File(realPath);
@@ -32,30 +28,6 @@
         <title>User Profile - Halabo Indonesia Tour</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            .profile-container {
-                max-width: 600px;
-                margin: 30px auto;
-                padding: 25px;
-                background: #fff;
-                border-radius: 10px;
-                box-shadow: 0 0 12px rgba(0,0,0,0.1);
-            }
-            .profile-image {
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 2px solid #d92662;
-                margin-bottom: 15px;
-            }
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            .form-group label {
-                font-weight: bold;
-            }
-        </style>
     </head>
     <body>
         <jsp:include page="header.jsp" />

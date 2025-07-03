@@ -2,6 +2,11 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page import="com.halabo.model.User" %>
 <%
+    if (session == null || session.getAttribute("loggedInUser") == null) {
+        response.sendRedirect("login.jsp?error=not_logged_in");
+        return;
+    }
+
     User loggedInUser = (User) session.getAttribute("loggedInUser");
     boolean isLoggedIn = (loggedInUser != null);
 
@@ -20,75 +25,6 @@
 	    <title>Booking - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <style>
-	        .form-container {
-	            max-width: 600px;
-	            margin: 50px auto;
-	            padding: 30px;
-	            background-color: #f9f9f9;
-	            border-radius: 8px;
-	            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-	        }
-	        .form-container h2 {
-	            text-align: center;
-	            color: #333;
-	            margin-bottom: 30px;
-	        }
-	        .form-container label {
-	            display: block;
-	            margin-bottom: 8px;
-	            font-weight: bold;
-	            color: #555;
-	        }
-	        .form-container input[type="text"],
-	        .form-container input[type="email"],
-	        .form-container input[type="tel"],
-	        .form-container input[type="date"],
-	        .form-container select {
-	            width: 100%;
-	            padding: 10px;
-	            margin-bottom: 20px;
-	            border: 1px solid #ccc;
-	            border-radius: 5px;
-	            font-size: 1em;
-	            box-sizing: border-box;
-	        }
-	        .form-container button[type="submit"] {
-	            width: 100%;
-	            padding: 12px;
-	            background-color: #d92662;
-	            color: white;
-	            border: none;
-	            border-radius: 5px;
-	            font-size: 1.1em;
-	            cursor: pointer;
-	        }
-	        .form-container button[type="submit"]:hover {
-	            background-color: #b71d4d;
-	        }
-	        .autofill-prompt {
-	            background-color: #e9f7ef;
-	            border: 1px solid #d4edda;
-	            border-radius: 5px;
-	            padding: 15px;
-	            margin-bottom: 20px;
-	            text-align: center;
-	            font-size: 0.95em;
-	            color: #155724;
-	        }
-	        .autofill-prompt button {
-	            background-color: #28a745;
-	            color: white;
-	            border: none;
-	            padding: 8px 15px;
-	            border-radius: 4px;
-	            cursor: pointer;
-	            margin-left: 10px;
-	        }
-	        .autofill-prompt button:hover {
-	            background-color: #218838;
-	        }
-	    </style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp" />

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	    <title>Attractions - Halabo Indonesia Tour</title>
+	    <title>All Destinations - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" type="text/css" href="styles.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
@@ -13,7 +13,6 @@
 		<div class="attractions-grid">
 		<%
 			try(Connection conn = DatabaseConnection.getConnection();
-		    	// We need 'id' to pass to GetDestinationImageServlet
 					ResultSet rs = conn.createStatement().executeQuery("SELECT id, destination_name, caption, image_path FROM destinations")) {
 		    while(rs.next()) {
 		%>

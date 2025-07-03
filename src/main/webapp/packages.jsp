@@ -6,40 +6,8 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Tour Packages - Halabo Indonesia Tour</title>
+	    <title>All Packages - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
-	    <style>
-	        .package-page-container { max-width: 1000px; margin: auto; padding: 40px 20px; }
-	        h1 { text-align: center; color: #d92662; margin-bottom: 40px; }
-	        .destination-section { margin-top: 40px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-	        .destination-title {
-	            font-size: 28px; margin-bottom: 20px; color: #222;
-	            border-bottom: 2px solid #d92662; padding-bottom: 8px;
-	        }
-	        .package-links {
-	            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
-	        }
-	        .package-links a {
-	            display: flex; flex-direction: column; align-items: center;
-	            width: 180px; padding: 15px; background-color: #fff; border: 1px solid #ddd;
-	            border-radius: 8px; text-decoration: none; color: #333; font-weight: bold;
-	            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;
-	        }
-	        .package-links a:hover {
-	            transform: translateY(-5px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); color: #d92662;
-	        }
-	        .package-links img {
-	            width: 100%; height: 120px; object-fit: cover;
-	            border-radius: 4px; margin-bottom: 10px;
-	        }
-	        .no-packages-found, .error-message {
-	            text-align: center; margin-top: 15px; color: #777; font-style: italic;
-	        }
-	        .error-message {
-	            color: red; font-weight: bold; background: #ffe6e6; padding: 10px;
-	            border: 1px solid red; border-radius: 5px;
-	        }
-	    </style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp"/>
@@ -94,7 +62,7 @@
 		        </div>
 		    </div>
 		<%
-		        } // end while destination
+		        } 
 		    } catch (SQLException e) {
 		        out.println("<p class='error-message'>Database error: " + e.getMessage() + "</p>");
 		    } finally {

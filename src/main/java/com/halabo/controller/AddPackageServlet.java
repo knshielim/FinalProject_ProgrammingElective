@@ -37,7 +37,6 @@ public class AddPackageServlet extends HttpServlet {
         String originalFileName = java.nio.file.Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String imagePath = "images/" + System.currentTimeMillis() + "_" + originalFileName;
 
-        // Save file to disk
         String realPath = getServletContext().getRealPath("/") + imagePath;
         File imageFile = new File(realPath);
         imageFile.getParentFile().mkdirs();

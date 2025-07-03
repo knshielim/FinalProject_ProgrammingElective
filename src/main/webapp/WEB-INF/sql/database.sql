@@ -52,14 +52,14 @@ CREATE TABLE IF NOT EXISTS bookings (
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     travel_date DATE NOT NULL,
     number_of_travelers INT NOT NULL,
-    total_price DECIMAL(10, 2) NOT NULL, -- Or appropriate type for your price
-    status VARCHAR(50) DEFAULT 'Pending', -- E.g., Pending, Confirmed, Cancelled
+    total_price DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
     special_requests TEXT,
-    contact_name VARCHAR(255), -- If different from user's name
+    contact_name VARCHAR(255),
     contact_email VARCHAR(255),
     contact_phone VARCHAR(50),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, -- Or SET NULL if preferred
-    FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE -- Or SET NULL if preferred
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS contacts (
@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS contacts (
     message TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 CREATE TABLE IF NOT EXISTS payments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,14 +93,9 @@ CREATE TABLE IF NOT EXISTS feedbacks (
 SHOW TABLES;
 -- SELECT * FROM
 
-INSERT INTO users (first_name,last_name,username,email,password,phone,created_at) 
-VALUES ('Super',
-		'Admin',
-		'admin',
-		'admin@halabo.com',
-		'admin123',
-		'08123456789',
-		NOW());
+INSERT IGNORE INTO users (first_name, last_name, username, email, password, phone, created_at) 
+VALUES ('Super', 'Admin', 'admin', 'admin@halabo.com', 'admin123', '08123456789', NOW());
+
 
 INSERT INTO destinations (destination_name, caption, description) 
 VALUES ('Borobudur Temple', 
@@ -589,8 +585,10 @@ VALUES (
     '<ul><li>Honeymoon packages are available year-round, but peak season surcharges apply during major holidays.</li><li>Non-refundable 60% deposit required to confirm honeymoon suite reservation.</li><li>Custom photography or spa packages available on request.</li><li>Early check-in and late check-out requests are subject to availability.</li></ul>'
 );
 
-INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
-VALUES (
+INSERT INTO packages (
+    destination_id, package_name, price, duration, min_people, tour_type, tour_code,
+    description, itinerary, price_details, hotel, remarks
+) VALUES (
     10,
     '3D2N Prambanan (Cultural Discovery) – Candi Garden Hotel',
     'From RM889.00',
@@ -598,12 +596,14 @@ VALUES (
     '2',
     'Heritage, Cultural',
     'HALA-PRAM-CULT',
-    '<h2>Overview</h2><p>This package offers a rich cultural immersion centered around the magnificent Prambanan Temple. Discover the temple’s historic significance, explore surrounding Javanese heritage villages, and enjoy traditional performances that showcase Indonesia’s ancient traditions.</p><h2>Included / Excluded</h2><ul><li>✅ 2 nights’ stay at Candi Garden Hotel</li><li>✅ Guided Prambanan Temple entrance & tour</li><li>✅ Traditional dance show tickets</li><li>✅ Daily breakfast, 1 lunch at a local restaurant</li><li>✅ Transport & entrance fees included</li><li>❌ Airfare not included</li><li>❌ Personal expenses</li></ul>',
+    '<h2>Overview</h2><p>This package offers a rich cultural immersion centered around the magnificent Prambanan Temple. Discover the temple\'s historic significance, explore surrounding Javanese heritage villages, and enjoy traditional performances that showcase Indonesia\'s ancient traditions.</p><h2>Included / Excluded</h2><ul><li>✅ 2 nights\' stay at Candi Garden Hotel</li><li>✅ Guided Prambanan Temple entrance & tour</li><li>✅ Traditional dance show tickets</li><li>✅ Daily breakfast, 1 lunch at a local restaurant</li><li>✅ Transport & entrance fees included</li><li>❌ Airfare not included</li><li>❌ Personal expenses</li></ul>',
     '<ul><li><strong>Day 1:</strong> Arrival in Yogyakarta, check-in, welcome dinner, stroll around Malioboro Street</li><li><strong>Day 2:</strong> Full-day Prambanan tour with guide, traditional dance show in the evening</li><li><strong>Day 3:</strong> Cultural workshop (optional), visit local market, transfer to airport</li></ul>',
     '<h2>Price Breakdown</h2><table><tr><th>Category</th><th>Per Pax (RM)</th></tr><tr><td>2-3 pax</td><td>889</td></tr><tr><td>4-6 pax</td><td>849</td></tr><tr><td>7 pax and above</td><td>819</td></tr></table><p>Note: Cultural show timings may vary. Please book in advance to ensure reserved seats.</p>',
     'Candi Garden Hotel',
     '<ul><li>Tour bookings must be made at least 10 days in advance.</li><li>Prices are subject to availability and high season surcharges.</li><li>Minimum 2 participants per booking.</li><li>Travel insurance is recommended but not included.</li></ul>'
 );
+
+
 INSERT INTO packages (destination_id, package_name, price, duration, min_people, tour_type, tour_code, description, itinerary, price_details, hotel, remarks)
 VALUES (
     10,
@@ -648,3 +648,4 @@ SELECT * FROM users;
 SELECT * FROM bookings;
 
 SELECT * FROM payments;
+

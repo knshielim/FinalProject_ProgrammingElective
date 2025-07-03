@@ -9,7 +9,6 @@
         return;
     }
 
-    // Handle delete if action=delete and id provided
     String action = request.getParameter("action");
     String deleteId = request.getParameter("id");
     if ("delete".equals(action) && deleteId != null) {
@@ -24,7 +23,6 @@
         return;
     }
 
-    // Fetch all packages with destination name
     List<Map<String, String>> packages = new ArrayList<>();
     try (Connection conn = DatabaseConnection.getConnection()) {
         String sql = "SELECT p.id, p.package_name, p.image_path, d.destination_name FROM packages p JOIN destinations d ON p.destination_id = d.id ORDER BY p.id ASC";
@@ -49,102 +47,89 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Manage Packages - Admin</title>
+	    <title>Manage Packages - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
-	    <style>
-	        .admin-table-container {
-	            max-width: 1000px;
-	            margin: 50px auto;
-	            padding: 20px;
-	            background-color: #f9f9f9;
-	            border-radius: 8px;
-	        }
-	        .admin-table-container h2 {
-	            text-align: center;
-	            color: #d92662;
-	        }
-	        .admin-table {
-	            width: 100%;
-	            border-collapse: collapse;
-	            margin-top: 20px;
-	        }
-	        .admin-table th, .admin-table td {
-	            border: 1px solid #ddd;
-	            padding: 10px;
-	        }
-	        .admin-table th {
-	            background-color: #d92662;
-	            color: white;
-	        }
-	        .admin-table tbody tr:nth-child(even) {
-	            background-color: #f2f2f2;
-	        }
-	        .admin-table img {
-	            max-width: 80px;
-	            height: auto;
-	        }
-	        .actions a {
-	            padding: 5px 10px;
-	            margin-right: 5px;
-	            text-decoration: none;
-	            color: white;
-	            border-radius: 5px;
-	        }
-	        .edit-btn {
-	            background-color: #007bff;
-	        }
-	        .edit-btn:hover {
-	            background-color: #0056b3;
-	        }
-	        .delete-btn {
-	            background-color: #dc3545;
-	        }
-	        .delete-btn:hover {
-	            background-color: #c82333;
-	        }
-	    </style>
 	</head>
 	<body>
 	
 		<jsp:include page="header.jsp"/>
 		
-		<div class="admin-table-container">
-		    <h2>Manage Tour Packages</h2>
-		    <table class="admin-table">
-		        <thead>
-		            <tr>
-		                <th>ID</th>
-		                <th>Package Name</th>
-		                <th>Destination</th>
-		                <th>Image</th>
-		                <th>Actions</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <c:forEach var="pkg" items="${packages}">
-		                <tr>
-		                    <td><c:out value="${pkg.id}"/></td>
-		                    <td><c:out value="${pkg.name}"/></td>
-		                    <td><c:out value="${pkg.destination}"/></td>
-		                    <td>
-		                        <c:choose>
-		                            <c:when test="${not empty pkg.image}">
-		                                <img src="${pageContext.request.contextPath}/${pkg.image}" alt="${pkg.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
-		                                <span style="display:none;">Image not found</span>
-		                            </c:when>
-		                            <c:otherwise>No image</c:otherwise>
-		                        </c:choose>
-		                    </td>
-		                    <td class="actions">
-		                        <a class="edit-btn" href="edit_package.jsp?package_id=${pkg.id}">Edit</a>
-		                        <a class="delete-btn" href="modify_package.jsp?action=delete&id=${pkg.id}" onclick="return confirm('Are you sure you want to delete this package?');">Delete</a>
-		                    </td>
-		                </tr>
-		            </c:forEach>
-		        </tbody>
-		    </table>
-		</div>
+		<div class="admin-container">
+		    <h1>Manage Tour Packages</h1>
 		
+		    <div class="top-action">
+		        <a href="add_package.jsp" class="add-package-btn">+ Add New Package</a>
+		    </div>
+		
+		    <div class="responsive-table">
+		        <table class="admin-table">
+		            <thead>
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Package Name</th>
+		                    <th>Destination</th>
+		                    <th>Image</th>
+		                    <th class="actions-header">Actions</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="pkg" items="${packages}">
+		                    <tr>
+		                        <td><c:out value="${pkg.id}"/></td>
+		                        <td><c:out value="${pkg.name}"/></td>
+		                        <td><c:out value="${pkg.destination}"/></td>
+		                        <td>
+								    <c:choose>
+								        <c:when test="${not empty pkg.image}">
+								            <img src="${pageContext.request.contextPath}/${pkg.image}" 
+											     alt="${pkg.name}"
+											     class="thumbnail"
+											     data-filename="${pkg.image}"
+											     onclick="openImageModal(this)"
+											     style="max-width: 90px; height: 60px; object-fit: cover; cursor: pointer;"
+											     onerror="this.style.display='none';" />
+								        </c:when>
+								        <c:otherwise>No image</c:otherwise>
+								    </c:choose>
+								</td>
+
+		                        <td class="actions-cell">
+		                            <a class="edit-btn" href="edit_package.jsp?package_id=${pkg.id}">Edit</a>
+		                            <a class="delete-btn" href="modify_package.jsp?action=delete&id=${pkg.id}" onclick="return confirm('Are you sure you want to delete this package?');">Delete</a>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+
 		<jsp:include page="footer.jsp"/>
+		
+		 <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+	        <div class="image-modal-content" onclick="event.stopPropagation();">
+	            <span class="close-button" onclick="closeImageModal()">&times;</span>
+	            <img id="modalImage" src="" alt="Preview">
+	            <p id="imageFilename" class="filename-text"></p>
+	        </div>
+	    </div>
+		
 	</body>
+	<script>
+		function openImageModal(img) {
+		    const modal = document.getElementById("imageModal");
+		    const modalImg = document.getElementById("modalImage");
+		    const filename = img.getAttribute("data-filename");
+		    const filenameText = document.getElementById("imageFilename");
+		
+		    modal.style.display = "flex";
+		    modalImg.src = img.src;
+		    filenameText.textContent = "Filename: " + filename;
+		}
+		
+		function closeImageModal() {
+		    document.getElementById("imageModal").style.display = "none";
+		}
+	</script>
+	
 </html>

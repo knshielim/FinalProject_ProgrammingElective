@@ -33,24 +33,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     methodButtons.forEach(btn => {
         btn.addEventListener("click", () => {
-            // Remove active class from all buttons
             methodButtons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
             const method = btn.dataset.method;
             selectedMethodInput.value = method;
 
-            // Show only selected section
             sections.forEach(sec => sec.classList.remove("active"));
             document.getElementById(`payment-${method}`).classList.add("active");
 
-            // Clear required attributes
             Object.values(methodFields).flat().forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.removeAttribute("required");
             });
 
-            // Set required only for the current method's fields
             methodFields[method].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.setAttribute("required", "required");
@@ -58,6 +54,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Trigger default method on load
     document.querySelector(".method-btn.active")?.click();
 });

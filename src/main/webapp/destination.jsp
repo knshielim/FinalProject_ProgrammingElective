@@ -23,36 +23,8 @@
 <html>
 	<head>
 	    <meta charset="UTF-8">
-	    <title>Destination Details</title>
+	    <title>Destination Details - Halabo Indonesia Tour</title>
 	    <link rel="stylesheet" href="styles.css">
-	    <style>
-	        .destination-main-image {
-	            max-width: 100%;
-	            height: auto;
-	            border-radius: 8px;
-	            margin-top: 20px;
-	        }
-	        .packages-grid {
-	            display: grid;
-	            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	            gap: 25px;
-	            justify-content: center;
-	        }
-	        .package-card {
-	            border: 1px solid #ddd;
-	            border-radius: 10px;
-	            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-	            text-align: center;
-	            padding-bottom: 15px;
-	            background-color: white;
-	        }
-	        .package-card img {
-	            width: 100%;
-	            height: 200px;
-	            object-fit: cover;
-	            border-bottom: 1px solid #eee;
-	        }
-	    </style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp"/>
