@@ -17,7 +17,7 @@
 		    <ul>
 		        <li><a href="home.jsp">Home</a></li>
 		        <li><a href="about.jsp">About</a></li>
-		        <li><a href="attractions.jsp">Attractions</a></li>
+		        <li><a href="attractions.jsp">Destinations</a></li>
 		        <li><a href="packages.jsp">Packages</a></li>
 		        <li><a href="feedback.jsp" class="feedback-btn">Feedback</a></li>
 		        <li><a href="booking.jsp" class="booking-btn">Book Now</a></li>
