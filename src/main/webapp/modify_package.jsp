@@ -9,19 +9,29 @@
         return;
     }
 
+    // Handle delete action directly in JSP (for simple delete operations)
     String action = request.getParameter("action");
     String deleteId = request.getParameter("id");
     if ("delete".equals(action) && deleteId != null) {
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM packages WHERE id = ?");
             ps.setInt(1, Integer.parseInt(deleteId));
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                response.sendRedirect("modify_package.jsp?message=Package+deleted+successfully&messageType=success");
+            } else {
+                response.sendRedirect("modify_package.jsp?message=Failed+to+delete+package&messageType=error");
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("modify_package.jsp?message=Error+deleting+package&messageType=error");
         }
-        response.sendRedirect("modify_package.jsp");
         return;
     }
+
+    // Display success/error messages
+    String message = request.getParameter("message");
+    String messageType = request.getParameter("messageType");
 
     List<Map<String, String>> packages = new ArrayList<>();
     try (Connection conn = DatabaseConnection.getConnection()) {
@@ -57,6 +67,15 @@
 		<div class="admin-container">
 		    <h1>Manage Tour Packages</h1>
 		
+		    <%
+		        if (message != null && messageType != null) {
+		            String cssClass = "success".equals(messageType) ? "success" : "error";
+		    %>
+		        <div class="form-message <%= cssClass %>"><%= message %></div>
+		    <%
+		        }
+		    %>
+		
 		    <div class="top-action">
 		        <a href="add_package.jsp" class="add-package-btn">+ Add New Package</a>
 		    </div>
@@ -79,20 +98,19 @@
 		                        <td><c:out value="${pkg.name}"/></td>
 		                        <td><c:out value="${pkg.destination}"/></td>
 		                        <td>
-								    <c:choose>
-								        <c:when test="${not empty pkg.image}">
-								            <img src="${pageContext.request.contextPath}/${pkg.image}" 
-											     alt="${pkg.name}"
-											     class="thumbnail"
-											     data-filename="${pkg.image}"
-											     onclick="openImageModal(this)"
-											     style="max-width: 90px; height: 60px; object-fit: cover; cursor: pointer;"
-											     onerror="this.style.display='none';" />
-								        </c:when>
-								        <c:otherwise>No image</c:otherwise>
-								    </c:choose>
-								</td>
-
+							    <c:choose>
+							        <c:when test="${not empty pkg.image}">
+							            <img src="${pageContext.request.contextPath}/${pkg.image}" 
+										     alt="${pkg.name}"
+										     class="thumbnail"
+										     data-filename="${pkg.image}"
+										     onclick="openImageModal(this)"
+										     style="max-width: 90px; height: 60px; object-fit: cover; cursor: pointer;"
+										     onerror="this.style.display='none';" />
+							        </c:when>
+							        <c:otherwise>No image</c:otherwise>
+							    </c:choose>
+							</td>
 		                        <td class="actions-cell">
 		                            <a class="edit-btn" href="edit_package.jsp?package_id=${pkg.id}">Edit</a>
 		                            <a class="delete-btn" href="modify_package.jsp?action=delete&id=${pkg.id}" onclick="return confirm('Are you sure you want to delete this package?');">Delete</a>
@@ -102,6 +120,12 @@
 		            </tbody>
 		        </table>
 		    </div>
+		
+		    <c:if test="${empty packages}">
+		        <div class="no-data">
+		            <p>No packages found. <a href="add_package.jsp">Add your first package</a></p>
+		        </div>
+		    </c:if>
 		</div>
 
 		<jsp:include page="footer.jsp"/>

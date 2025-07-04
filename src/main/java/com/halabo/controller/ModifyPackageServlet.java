@@ -21,16 +21,35 @@ public class ModifyPackageServlet extends HttpServlet {
         throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        
+        // Check if user is admin
+        Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin");
+        if (isAdmin == null || !isAdmin) {
+            response.sendRedirect("login.jsp?error=unauthorized");
+            return;
+        }
+
         String action = request.getParameter("action");
-        String idStr = request.getParameter("id");
-        int packageId = (idStr != null && !idStr.isEmpty()) ? Integer.parseInt(idStr) : 0;
+        String packageIdStr = request.getParameter("packageId"); // Changed from "id" to "packageId"
+        
+        if (packageIdStr == null || packageIdStr.isEmpty()) {
+            response.sendRedirect("modify_package.jsp?message=Invalid+Package+ID&messageType=error");
+            return;
+        }
+        
+        int packageId;
+        try {
+            packageId = Integer.parseInt(packageIdStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("modify_package.jsp?message=Invalid+Package+ID&messageType=error");
+            return;
+        }
 
         if ("delete".equals(action)) {
             deletePackage(packageId, request, response);
-        } else if ("update".equals(action)) {
-            updatePackage(packageId, request, response);
         } else {
-            response.sendRedirect("modify_package.jsp?message=Invalid+action.&messageType=error");
+            // Default action is update (for edit form submission)
+            updatePackage(packageId, request, response);
         }
     }
 
@@ -68,7 +87,23 @@ public class ModifyPackageServlet extends HttpServlet {
         String hotel = request.getParameter("hotel");
         String remarks = request.getParameter("remarks");
 
-        int destinationId = Integer.parseInt(destinationIdStr);
+        // Validate required fields
+        if (packageName == null || packageName.trim().isEmpty() || 
+            destinationIdStr == null || destinationIdStr.trim().isEmpty() ||
+            description == null || description.trim().isEmpty() ||
+            duration == null || duration.trim().isEmpty() ||
+            price == null || price.trim().isEmpty()) {
+            response.sendRedirect("edit_package.jsp?package_id=" + packageId + "&message=Required+fields+missing&messageType=error");
+            return;
+        }
+
+        int destinationId;
+        try {
+            destinationId = Integer.parseInt(destinationIdStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("edit_package.jsp?package_id=" + packageId + "&message=Invalid+destination+ID&messageType=error");
+            return;
+        }
 
         Part filePart = request.getPart("imageFile");
         boolean hasNewImage = filePart != null && filePart.getSize() > 0;

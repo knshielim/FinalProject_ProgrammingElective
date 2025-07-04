@@ -11,27 +11,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate; // For handling DATE type
+import java.time.LocalDate; 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.halabo.model.Booking; // Import your Booking model
+import com.halabo.model.Booking; 
 import com.halabo.util.DatabaseConnection;
 
-@WebServlet("/viewBookings") // Map this servlet to the URL /viewBookings
+@WebServlet("/viewBookings") 
 public class ViewBookingsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // --- Access Control Check ---
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("isAdmin") == null || !(Boolean)session.getAttribute("isAdmin")) {
             response.sendRedirect("login.jsp?error=unauthorized");
             return;
         }
-        // --- End Access Control Check ---
 
         List<Booking> bookings = new ArrayList<>();
         Connection conn = null;
@@ -42,7 +40,8 @@ public class ViewBookingsServlet extends HttpServlet {
             conn = DatabaseConnection.getConnection();
             String sql = "SELECT b.id, b.user_id, u.username, b.package_id, p.package_name, " +
                          "b.booking_date, b.travel_date, b.number_of_travelers, b.total_price, " +
-                         "b.status, b.special_requests, b.contact_name, b.contact_email, b.contact_phone " +
+                         "b.status, b.special_requests, b.contact_name, b.contact_email, b.contact_phone, " +
+                         "b.payment_method " +
                          "FROM bookings b " +
                          "JOIN users u ON b.user_id = u.id " +
                          "JOIN packages p ON b.package_id = p.id " +
@@ -66,7 +65,8 @@ public class ViewBookingsServlet extends HttpServlet {
                     rs.getString("special_requests"),
                     rs.getString("contact_name"),
                     rs.getString("contact_email"),
-                    rs.getString("contact_phone")
+                    rs.getString("contact_phone"),
+                    rs.getString("payment_method")
                 ));
             }
 
@@ -86,5 +86,4 @@ public class ViewBookingsServlet extends HttpServlet {
         }
     }
 
-    // No doPost needed for a simple view operation
 }

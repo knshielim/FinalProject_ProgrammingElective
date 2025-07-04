@@ -12,13 +12,11 @@
     String destinationName = "", packageName = "";
 
     try (Connection conn = DatabaseConnection.getConnection()) {
-        // Get destination name
         PreparedStatement stmt1 = conn.prepareStatement("SELECT destination_name FROM destinations WHERE id = ?");
         stmt1.setInt(1, destinationId);
         ResultSet rs1 = stmt1.executeQuery();
         if (rs1.next()) destinationName = rs1.getString("destination_name");
 
-        // Get package name
         PreparedStatement stmt2 = conn.prepareStatement("SELECT package_name FROM packages WHERE id = ?");
         stmt2.setInt(1, packageId);
         ResultSet rs2 = stmt2.executeQuery();
@@ -32,20 +30,18 @@
     String phone = request.getParameter("phone") != null ? URLDecoder.decode(request.getParameter("phone"), "UTF-8") : "";
     String travelers = request.getParameter("travelers") != null ? URLDecoder.decode(request.getParameter("travelers"), "UTF-8") : "";
 
-    // Convert date to yyyy-MM-dd format
     String rawDate = request.getParameter("date") != null
 	    ? URLDecoder.decode(request.getParameter("date"), "UTF-8")
 	    : "";
 	String date = "";
 	try {
-	    // Expecting input in yyyy-MM-dd (HTML date input format)
 	    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    SimpleDateFormat displayFormat = new SimpleDateFormat("dd-MM-yyyy");
 	    Date parsedDate = inputFormat.parse(rawDate);
 	    date = displayFormat.format(parsedDate);
 	} catch (Exception e) {
 	    e.printStackTrace();
-	    date = rawDate; // fallback if parsing fails
+	    date = rawDate;
 	}
 
     String totalPrice = request.getParameter("total_price");
@@ -74,6 +70,7 @@
         textarea { resize: vertical; min-height: 80px; }
         .btn-primary { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; }
         .btn-primary:hover { background-color: #218838; }
+        .btn-primary:disabled { background-color: #6c757d; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -98,30 +95,28 @@
 	        <button type="button" class="method-btn" data-method="ewallet">E-Wallet</button>
 	    </div>
 	
-	    <form action="SavePaymentServlet" method="post">
-	        <!-- CARD -->
+	    <form action="SavePaymentServlet" method="post" id="payment-form">
 	        <div id="payment-card" class="payment-section" style="display:block;">
 	            <div class="form-group">
 	                <label for="card-number">Card Number</label>
-	                <input type="text" id="card-number" name="card-number" required>
+	                <input type="text" id="card-number" name="card-number" maxlength="19" placeholder="1234 5678 9012 3456">
 	            </div>
 	            <div style="display: flex; gap: 1rem;">
 	                <div class="form-group" style="flex: 1;">
 	                    <label for="card-expiry">Expiry Date</label>
-	                    <input type="text" id="card-expiry" name="card-expiry" required>
+	                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" maxlength="5">
 	                </div>
 	                <div class="form-group" style="flex: 1;">
 	                    <label for="card-cvv">CVV</label>
-	                    <input type="text" id="card-cvv" name="card-cvv" required>
+	                    <input type="text" id="card-cvv" name="card-cvv" placeholder="123" maxlength="4">
 	                </div>
 	            </div>
 	            <div class="form-group">
 	                <label for="card-name">Cardholder Name</label>
-	                <input type="text" id="card-name" name="card-name" required>
+	                <input type="text" id="card-name" name="card-name" placeholder="John Doe">
 	            </div>
 	        </div>
 	
-	        <!-- ONLINE BANKING -->
 	        <div id="payment-online" class="payment-section" style="display:none;">
 	            <div class="form-group">
 	                <label for="bank">Choose Bank</label>
@@ -131,11 +126,14 @@
 	                    <option value="CIMB">CIMB</option>
 	                    <option value="RHB">RHB</option>
 	                    <option value="Public Bank">Public Bank</option>
+	                    <option value="Hong Leong Bank">Hong Leong Bank</option>
+	                    <option value="AmBank">AmBank</option>
+	                    <option value="BSN">BSN</option>
+	                    <option value="Bank Rakyat">Bank Rakyat</option>
 	                </select>
 	            </div>
 	        </div>
 	
-	        <!-- E-WALLET -->
 	        <div id="payment-ewallet" class="payment-section" style="display: none;">
 	            <div class="form-group">
 	                <label for="ewallet">Select E-Wallet</label>
@@ -145,29 +143,27 @@
 	                    <option value="GrabPay">GrabPay</option>
 	                    <option value="Boost">Boost</option>
 	                    <option value="ShopeePay">ShopeePay</option>
+	                    <option value="BigPay">BigPay</option>
+	                    <option value="MAE">MAE</option>
 	                </select>
 	            </div>
 	        </div>
 	
-	        <!-- Hidden Fields -->
 	        <input type="hidden" name="packageId" value="<%= packageId %>">
 	        <input type="hidden" name="travelers" value="<%= travelers %>">
-	        <!-- Send ISO (yyyy-MM-dd) format for backend -->
 			<input type="hidden" name="date" value="<%= rawDate %>">
-			
-			<!-- Keep displaying in dd-MM-yyyy format -->
-			<p><strong>Date:</strong> <%= date %></p>
 	        <input type="hidden" name="name" value="<%= name %>">
 	        <input type="hidden" name="email" value="<%= email %>">
 	        <input type="hidden" name="phone" value="<%= phone %>">
 	        <input type="hidden" id="selected-method" name="payment-method" value="card">
 	        <input type="hidden" name="total_price" value="<%= totalPrice %>">
+	        
 	        <div class="form-group">
 	            <label for="special_requests">Special requests (optional)</label>
-	            <textarea name="special_requests" placeholder="Enter any special requirements here"></textarea>
+	            <textarea name="special_requests" id="special_requests" placeholder="Enter any special requirements here"></textarea>
 	        </div>
 	
-	        <button type="submit" class="btn-primary">Complete Payment</button>
+	        <button type="submit" class="btn-primary" id="submit-btn">Complete Payment</button>
 	    </form>
 	</div>
 </div>
@@ -181,6 +177,7 @@
             ewallet: document.getElementById("payment-ewallet")
         };
         const selectedMethodInput = document.getElementById("selected-method");
+        const submitBtn = document.getElementById("submit-btn");
 
         const methodFields = {
             card: ["card-number", "card-expiry", "card-cvv", "card-name"],
@@ -198,19 +195,70 @@
             }
 
             methodButtons.forEach(btn => btn.classList.remove("active"));
-            document.querySelector(`.method-btn[data-method="${method}"]`).classList.add("active");
+
+            const activeBtn = document.querySelector(`.method-btn[data-method="${method}"]`);
+            if (activeBtn) activeBtn.classList.add("active");
 
             Object.values(methodFields).flat().forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.removeAttribute("required");
             });
+
             methodFields[method].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.setAttribute("required", "required");
             });
 
             selectedMethodInput.value = method;
+
+            validateForm();
         }
+
+        function validateForm() {
+            const method = selectedMethodInput.value;
+            let isValid = true;
+
+            if (method === "card") {
+                const cardNumber = document.getElementById("card-number").value.trim();
+                const cardExpiry = document.getElementById("card-expiry").value.trim();
+                const cardCvv = document.getElementById("card-cvv").value.trim();
+                const cardName = document.getElementById("card-name").value.trim();
+                isValid = cardNumber !== "" && cardExpiry !== "" && cardCvv !== "" && cardName !== "";
+            } else if (method === "online") {
+                const bankSelect = document.getElementById("bank");
+                isValid = bankSelect.value !== "";
+            } else if (method === "ewallet") {
+                const ewalletSelect = document.getElementById("ewallet");
+                isValid = ewalletSelect.value !== "";
+            }
+
+            submitBtn.disabled = !isValid;
+        }
+
+        document.getElementById("card-number").addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+            validateForm();
+        });
+
+        document.getElementById("card-expiry").addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+            validateForm();
+        });
+
+        document.getElementById("card-cvv").addEventListener("input", function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+            validateForm();
+        });
+
+        document.getElementById("card-name").addEventListener("input", validateForm);
+        document.getElementById("bank").addEventListener("change", validateForm);
+        document.getElementById("ewallet").addEventListener("change", validateForm);
 
         methodButtons.forEach(btn => {
             btn.addEventListener("click", () => {
@@ -219,41 +267,15 @@
             });
         });
 
-        switchToMethod("card");
-    });
-    
-    document.addEventListener("DOMContentLoaded", () => {
-        const submitBtn = document.querySelector("button[type='submit']");
-        const bankSelect = document.getElementById("bank");
-        const ewalletSelect = document.getElementById("ewallet");
-        const methodButtons = document.querySelectorAll(".method-btn");
-        const selectedMethodInput = document.getElementById("selected-method");
-
-        function validatePaymentInputs() {
-            const method = selectedMethodInput.value;
-            if (method === "card") {
-                // Assume card inputs are text and required, let browser handle
-                submitBtn.disabled = false; // no additional check
-            } else if (method === "online") {
-                submitBtn.disabled = !bankSelect.value;
-            } else if (method === "ewallet") {
-                submitBtn.disabled = !ewalletSelect.value;
+        document.getElementById("payment-form").addEventListener("submit", function(e) {
+            validateForm();
+            if (submitBtn.disabled) {
+                e.preventDefault();
+                alert("Please complete all required fields for the selected payment method.");
             }
-        }
-
-        // Validate on select change
-        bankSelect?.addEventListener("change", validatePaymentInputs);
-        ewalletSelect?.addEventListener("change", validatePaymentInputs);
-
-        // Validate on method change
-        methodButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                validatePaymentInputs();
-            });
         });
 
-        // Initial validation
-        validatePaymentInputs();
+        switchToMethod("card");
     });
 </script>
 </body>

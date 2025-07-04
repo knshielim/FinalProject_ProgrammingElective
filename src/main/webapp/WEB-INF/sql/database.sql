@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     travel_date DATE NOT NULL,
     number_of_travelers INT NOT NULL,
     total_price DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50),
     status VARCHAR(50) DEFAULT 'Pending',
     special_requests TEXT,
     contact_name VARCHAR(255),

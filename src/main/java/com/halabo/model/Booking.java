@@ -1,33 +1,33 @@
-package com.halabo.model; 
+package com.halabo.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDate; // Use LocalDate for travel_date for cleaner handling
+import java.time.LocalDate;
 
 public class Booking {
     private int id;
     private int userId;
-    private String username; // From users table
+    private String username;
     private int packageId;
-    private String packageName; // From packages table
+    private String packageName;
     private Timestamp bookingDate;
-    private LocalDate travelDate; // Using LocalDate for just date
+    private LocalDate travelDate;
     private int numberOfTravelers;
-    private double totalPrice; // Use double or BigDecimal for currency
-    private String status;
+    private double totalPrice;
+    private String status;    
+    private String paymentMethod;
     private String specialRequests;
     private String contactName;
     private String contactEmail;
     private String contactPhone;
 
-    // Constructors
     public Booking() {
     }
 
-    // Constructor for fetching from DB
     public Booking(int id, int userId, String username, int packageId, String packageName,
                    Timestamp bookingDate, LocalDate travelDate, int numberOfTravelers,
-                   double totalPrice, String status, String specialRequests,
-                   String contactName, String contactEmail, String contactPhone) {
+                   double totalPrice, String status, String paymentMethod, String specialRequests,
+                   String contactName, String contactEmail, String contactPhone
+                   ) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -38,13 +38,13 @@ public class Booking {
         this.numberOfTravelers = numberOfTravelers;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.paymentMethod = paymentMethod; 
         this.specialRequests = specialRequests;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getUserId() { return userId; }
     public String getUsername() { return username; }
@@ -55,12 +55,12 @@ public class Booking {
     public int getNumberOfTravelers() { return numberOfTravelers; }
     public double getTotalPrice() { return totalPrice; }
     public String getStatus() { return status; }
+    public String getPaymentMethod() { return paymentMethod; }   
     public String getSpecialRequests() { return specialRequests; }
     public String getContactName() { return contactName; }
     public String getContactEmail() { return contactEmail; }
     public String getContactPhone() { return contactPhone; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setUserId(int userId) { this.userId = userId; }
     public void setUsername(String username) { this.username = username; }
@@ -71,6 +71,7 @@ public class Booking {
     public void setNumberOfTravelers(int numberOfTravelers) { this.numberOfTravelers = numberOfTravelers; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
     public void setStatus(String status) { this.status = status; }
+    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
     public void setSpecialRequests(String specialRequests) { this.specialRequests = specialRequests; }
     public void setContactName(String contactName) { this.contactName = contactName; }
     public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
@@ -84,6 +85,7 @@ public class Booking {
                ", packageName='" + packageName + '\'' +
                ", bookingDate=" + bookingDate +
                ", status='" + status + '\'' +
+               ", paymentMethod='" + paymentMethod + '\'' +
                '}';
     }
 }

@@ -19,6 +19,10 @@
         }
     }
 
+    // Display success/error messages
+    String message = request.getParameter("message");
+    String messageType = request.getParameter("messageType");
+
     Connection conn = null;
     PreparedStatement ps = null, psDest = null;
     ResultSet rs = null, destinationRs = null;
@@ -40,6 +44,15 @@
 	
 	<div class="form-container-admin">
 	    <h2>Edit Tour Package</h2>
+	
+	    <%
+	        if (message != null && messageType != null) {
+	            String cssClass = "success".equals(messageType) ? "success" : "error";
+	    %>
+	        <div class="form-message <%= cssClass %>"><%= message %></div>
+	    <%
+	        }
+	    %>
 	
 	    <%
 	        try {
@@ -74,7 +87,7 @@
 	        <select name="destinationId" id="destinationId" required>
 	            <option value="">-- Select Destination --</option>
 	            <%
-	                psDest = conn.prepareStatement("SELECT id, destination_name FROM destinations");
+	                psDest = conn.prepareStatement("SELECT id, destination_name FROM destinations ORDER BY destination_name");
 	                destinationRs = psDest.executeQuery();
 	                while (destinationRs.next()) {
 	                    int destId = destinationRs.getInt("id");
@@ -88,42 +101,47 @@
 	        </select>
 	
 	        <label>Package Name:</label>
-	        <input type="text" name="packageName" value="<%= packageName %>" required>
+	        <input type="text" name="packageName" value="<%= packageName != null ? packageName : "" %>" required>
 	
 	        <label>Description:</label>
-	        <textarea name="description" required><%= description %></textarea>
+	        <textarea name="description" required><%= description != null ? description : "" %></textarea>
 	
 	        <label>Itinerary:</label>
-	        <textarea name="itinerary"><%= itinerary %></textarea>
+	        <textarea name="itinerary"><%= itinerary != null ? itinerary : "" %></textarea>
 	
 	        <label>Price Details:</label>
-	        <textarea name="priceDetails"><%= priceDetails %></textarea>
+	        <textarea name="priceDetails"><%= priceDetails != null ? priceDetails : "" %></textarea>
 	
 	        <label>Hotel:</label>
-	        <textarea name="hotel"><%= hotel %></textarea>
+	        <textarea name="hotel"><%= hotel != null ? hotel : "" %></textarea>
 	
 	        <label>Remarks:</label>
-	        <textarea name="remarks"><%= remarks %></textarea>
+	        <textarea name="remarks"><%= remarks != null ? remarks : "" %></textarea>
 	
 	        <label>Tour Type:</label>
-	        <input type="text" name="tourType" value="<%= tourType %>">
+	        <input type="text" name="tourType" value="<%= tourType != null ? tourType : "" %>">
 	
 	        <label>Tour Code:</label>
-	        <input type="text" name="tourCode" value="<%= tourCode %>">
+	        <input type="text" name="tourCode" value="<%= tourCode != null ? tourCode : "" %>">
 	
 	        <label>Min People:</label>
-	        <input type="text" name="minPeople" value="<%= minPeople %>">
+	        <input type="number" name="minPeople" value="<%= minPeople != null ? minPeople : "" %>">
 	
 	        <label>Duration:</label>
-	        <input type="text" name="duration" value="<%= duration %>" required>
+	        <input type="text" name="duration" value="<%= duration != null ? duration : "" %>" required>
 	
 	        <label>Price (RM):</label>
-	        <input type="text" name="price" value="<%= price %>" required>
+	        <input type="text" name="price" value="<%= price != null ? price : "" %>" required>
 	
 	        <label>Current Image:</label>
-	        <img src="<%= request.getContextPath() + "/" + imagePath %>" alt="Current Image" class="image-preview"
-	             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
-	        <span style="display:none;">Image not found</span>
+	        <% if (imagePath != null && !imagePath.isEmpty()) { %>
+	            <img src="<%= request.getContextPath() + "/" + imagePath %>" alt="Current Image" class="image-preview"
+	                 style="max-width: 200px; max-height: 150px; object-fit: cover; display: block; margin: 10px 0;"
+	                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+	            <span style="display:none;">Image not found</span>
+	        <% } else { %>
+	            <p>No image uploaded</p>
+	        <% } %>
 	
 	        <label>Change Image:</label>
 	        <input type="file" name="imageFile" accept="image/*">
@@ -138,6 +156,7 @@
 	<%
 	        } catch (Exception e) {
 	            out.println("<div class='form-message error'>Error loading package: " + e.getMessage() + "</div>");
+	            e.printStackTrace();
 	        } finally {
 	            if (rs != null) try { rs.close(); } catch (Exception ignored) {}
 	            if (ps != null) try { ps.close(); } catch (Exception ignored) {}
