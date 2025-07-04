@@ -614,6 +614,52 @@ img {
     color: #ff6b00;
 }
 
+@media (max-width: 768px) {
+    .feedback-container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .feedback-form {
+        gap: 14px;
+    }
+
+    .feedback-form-group label {
+        font-size: 1rem;
+    }
+
+    .feedback-input,
+    .feedback-textarea {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .feedback-textarea {
+        min-height: 80px;
+    }
+
+    .feedback-rating {
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 1.5rem;
+    }
+
+    .feedback-rating label {
+        font-size: 1.8rem;
+    }
+
+    .feedback-submit {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px 16px;
+    }
+
+    .feedback-message {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+
 
 /*====================================== ATTRACTIONS GRID ================================*/
 .attractions-grid {

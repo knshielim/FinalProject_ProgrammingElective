@@ -67,6 +67,12 @@
             }, 500);
         }
     });
+    
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-links');
+        nav.style.right = nav.style.right === "0px" ? "-200px" : "0px";
+    }
+
 </script>
 
 </body>

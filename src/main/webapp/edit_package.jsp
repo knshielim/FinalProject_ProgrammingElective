@@ -112,7 +112,7 @@
 	        <input type="text" name="tourCode" value="<%= tourCode %>">
 	
 	        <label>Min People:</label>
-	        <input type="number" name="minPeople" value="<%= minPeople %>">
+	        <input type="text" name="minPeople" value="<%= minPeople %>">
 	
 	        <label>Duration:</label>
 	        <input type="text" name="duration" value="<%= duration %>" required>
