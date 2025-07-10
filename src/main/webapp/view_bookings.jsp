@@ -40,7 +40,7 @@
 	<div class="admin-container">
 	    <h1>All Bookings</h1>
 	
-	    <div class="responsive-table">
+	    <div class="scrollable-booking-table">
 	        <table class="admin-table">
 	            <thead>
 	                <tr>

@@ -24,6 +24,8 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <title>Destination Details - Halabo Indonesia Tour</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 	    <link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
@@ -123,5 +125,16 @@
 	</div>
 	
 	<jsp:include page="footer.jsp"/>
+	
+	<script>
+    const navLinks = document.getElementById("navLinks");
+    function showMenu() { 
+    	navLinks.style.right = "0"; 
+    }
+    
+    function hideMenu() { 
+    	navLinks.style.right = "-200px"; 
+    }
+  	</script>
 	</body>
 </html>

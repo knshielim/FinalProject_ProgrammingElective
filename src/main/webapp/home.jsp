@@ -76,28 +76,30 @@
     </p>
   </section>
 
+<div class="attractions-wrapper">
   <div class="attractions">
     <div class="card">
-      <img src="images/borobudur1.jpg" alt="Borobudur Temple">
-      <p>The world’s largest Buddhist temple, rich with ancient history.</p>
-      <a href="attraction1.jsp">Read More</a>
-    </div>
-    <div class="card">
-      <img src="images/bali2.jpg" alt="Bali Island">
-      <p>Beautiful beaches, temples, and a unique spiritual vibe.</p>
-      <a href="attraction2.jsp">Read More</a>
-    </div>
-    <div class="card">
-      <img src="images/rajaampat3.jpg" alt="Raja Ampat">
-      <p>A diver’s paradise with stunning marine biodiversity.</p>
-      <a href="attraction3.jsp">Read More</a>
-    </div>
-    <div class="card">
-      <img src="images/bromo4.jpg" alt="Mount Bromo">
-      <p>Witness a sunrise over one of Indonesia’s iconic volcanoes.</p>
-      <a href="attraction4.jsp">Read More</a>
-    </div>
+	  <img src="images/borobudur1.jpg" alt="Borobudur Temple">
+	  <p>The world’s largest Buddhist temple, rich with ancient history.</p>
+	  <a href="destination.jsp?id=1">Read More</a>
+	</div>
+	<div class="card">
+	  <img src="images/bali2.jpg" alt="Bali Island">
+	  <p>Beautiful beaches, temples, and a unique spiritual vibe.</p>
+	  <a href="destination.jsp?id=2">Read More</a>
+	</div>
+	<div class="card">
+	  <img src="images/rajaampat3.jpg" alt="Raja Ampat">
+	  <p>A diver’s paradise with stunning marine biodiversity.</p>
+	  <a href="destination.jsp?id=3">Read More</a>
+	</div>
+	<div class="card">
+	  <img src="images/bromo4.jpg" alt="Mount Bromo">
+	  <p>Witness a sunrise over one of Indonesia’s iconic volcanoes.</p>
+	  <a href="destination.jsp?id=4">Read More</a>
+	</div>
   </div>
+</div>
 
   <div class="button-container">
     <a href="attractions.jsp" class="hero-btn">Find more attractions here!</a>

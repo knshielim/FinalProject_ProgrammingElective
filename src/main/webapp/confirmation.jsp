@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ page import="com.halabo.model.User" %>
 
+<%
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    String name = (loggedInUser != null) ? loggedInUser.getUsername() : "Guest";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,7 +15,7 @@
 	</head>
 	<body>
 		<div class="confirmation-container">
-			<h2>Thank you, <%= request.getAttribute("name") %>!</h2>
+			<h2>Thank you, <%= name %>!</h2>
 			<p>Your input has been successfully received!</p>
 			<a href="home.jsp">Back to Home</a>
 		</div>

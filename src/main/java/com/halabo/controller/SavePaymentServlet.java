@@ -87,6 +87,7 @@ public class SavePaymentServlet extends HttpServlet {
                 session.setAttribute("travelDate", parsedDate.toString());
                 session.setAttribute("numberOfTravelers", numberOfTravelers);
                 session.setAttribute("paymentMethod", paymentMethod);
+                session.setAttribute("name", contactName);
 
                 if (paymentMethod.equals("cash")) {
                     response.sendRedirect("confirmation.jsp");
