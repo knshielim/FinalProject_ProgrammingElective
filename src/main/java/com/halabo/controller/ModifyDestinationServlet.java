@@ -25,17 +25,15 @@ import com.halabo.model.Destination;
 import com.halabo.util.DatabaseConnection;
 
 @WebServlet("/modifyDestination")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-                 maxFileSize = 1024 * 1024 * 10,      // 10MB
-                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
+                 maxFileSize = 1024 * 1024 * 10,   
+                 maxRequestSize = 1024 * 1024 * 50)  
 public class ModifyDestinationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // Helper method to fetch all destinations with enhanced debugging
     private List<Destination> getAllDestinations(Connection conn) throws SQLException {
         List<Destination> destinations = new ArrayList<>();
-        
-        // Try multiple possible column name variations
+
         String[] possibleQueries = {
         	"SELECT id, destination_name, caption, description, image_path FROM destinations ORDER BY id ASC",
             "SELECT id, name, caption, description, image_path FROM destinations ORDER BY name",
@@ -53,7 +51,6 @@ public class ModifyDestinationServlet extends HttpServlet {
                 
                 while (rs.next()) {
                     try {
-                        // Try different column name combinations
                         int id = rs.getInt("id");
                         String name = getStringFromResultSet(rs, "destination_name", "name");
                         System.out.println("DEBUG: Destination fetched from DB: " + rs.getString("destination_name"));
@@ -71,7 +68,7 @@ public class ModifyDestinationServlet extends HttpServlet {
                 
                 if (!destinations.isEmpty()) {
                     System.out.println("DEBUG: Successfully retrieved " + destinations.size() + " destinations");
-                    break; // Success, exit the loop
+                    break; 
                 } else {
                     System.out.println("DEBUG: Query executed but no results found");
                 }
@@ -79,11 +76,10 @@ public class ModifyDestinationServlet extends HttpServlet {
             } catch (SQLException e) {
                 System.err.println("DEBUG: Query failed: " + sql + " - Error: " + e.getMessage());
                 lastException = e;
-                continue; // Try next query
+                continue; 
             }
         }
-        
-        // If all queries failed and we have no destinations, throw the last exception
+
         if (destinations.isEmpty() && lastException != null) {
             System.err.println("DEBUG: All queries failed, throwing last exception");
             throw lastException;
@@ -92,20 +88,17 @@ public class ModifyDestinationServlet extends HttpServlet {
         return destinations;
     }
     
-    // Helper method to safely get string from ResultSet with fallback column names
     private String getStringFromResultSet(ResultSet rs, String... columnNames) throws SQLException {
         for (String columnName : columnNames) {
             try {
                 return rs.getString(columnName);
             } catch (SQLException e) {
-                // Column doesn't exist, try next one
                 continue;
             }
         }
-        return null; // None of the column names worked
+        return null; 
     }
 
-    // Helper method to fetch a single destination by ID with enhanced error handling
     private Destination getDestinationById(Connection conn, int id) throws SQLException {
         String[] possibleQueries = {
             "SELECT id, destination_name, caption, description, image_path FROM destinations WHERE id = ?",
@@ -145,7 +138,6 @@ public class ModifyDestinationServlet extends HttpServlet {
 
         System.out.println("DEBUG: ModifyDestinationServlet doGet called");
 
-        // Access Control Check
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("isAdmin") == null || !(Boolean)session.getAttribute("isAdmin")) {
             response.sendRedirect("login.jsp?error=" + URLEncoder.encode("Unauthorized access. Please log in as admin.", StandardCharsets.UTF_8));
@@ -165,7 +157,6 @@ public class ModifyDestinationServlet extends HttpServlet {
             }
         }
 
-        // Retrieve messages passed from a redirect (from doPost)
         String urlMessage = request.getParameter("message");
         String urlMessageType = request.getParameter("messageType");
         if (urlMessage != null && urlMessageType != null) {
@@ -178,7 +169,6 @@ public class ModifyDestinationServlet extends HttpServlet {
             conn = DatabaseConnection.getConnection();
             System.out.println("DEBUG: Database connection established");
             
-            // Test database connection and table existence
             try (PreparedStatement testStmt = conn.prepareStatement("SELECT COUNT(*) FROM destinations")) {
                 ResultSet testRs = testStmt.executeQuery();
                 if (testRs.next()) {
@@ -191,7 +181,6 @@ public class ModifyDestinationServlet extends HttpServlet {
             
             if ("delete".equals(action)) {
                 if (destinationId != -1) {
-                    // Try different possible table structures for delete
                     String[] deleteQueries = {
                         "DELETE FROM destinations WHERE id = ?",
                         "DELETE FROM destination WHERE id = ?"
@@ -252,7 +241,6 @@ public class ModifyDestinationServlet extends HttpServlet {
                     request.getRequestDispatcher("modify_destination.jsp").forward(request, response);
                 }
             } else {
-                // Default action: display the list of destinations
                 List<Destination> destinations = getAllDestinations(conn);
                 System.out.println("DEBUG: Retrieved " + destinations.size() + " destinations for display");
                 request.setAttribute("destinations", destinations);
@@ -279,7 +267,6 @@ public class ModifyDestinationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Access Control Check
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("isAdmin") == null || !(Boolean)session.getAttribute("isAdmin")) {
             response.sendRedirect("login.jsp?error=" + URLEncoder.encode("Unauthorized access. Please log in as admin.", StandardCharsets.UTF_8));
@@ -308,12 +295,10 @@ public class ModifyDestinationServlet extends HttpServlet {
         String caption = request.getParameter("caption");
         String description = request.getParameter("description");
 
-        // Trim input values
         if (destinationName != null) destinationName = destinationName.trim();
         if (caption != null) caption = caption.trim();
         if (description != null) description = description.trim();
 
-        // Basic validation
         if (destinationName == null || destinationName.isEmpty() ||
             description == null || description.isEmpty()) {
             String message = "Destination Name and Description are required.";
@@ -331,7 +316,6 @@ public class ModifyDestinationServlet extends HttpServlet {
             conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
-            // Check for existing destination name (excluding current destination)
             String[] checkQueries = {
                 "SELECT COUNT(*) FROM destinations WHERE destination_name = ? AND id != ?",
                 "SELECT COUNT(*) FROM destinations WHERE name = ? AND id != ?"
@@ -348,7 +332,6 @@ public class ModifyDestinationServlet extends HttpServlet {
                         break;
                     }
                 } catch (SQLException e) {
-                    // Try next query if this one fails
                     continue;
                 }
             }
@@ -360,7 +343,6 @@ public class ModifyDestinationServlet extends HttpServlet {
                 return;
             }
 
-            // Handle file upload
             Part filePart = request.getPart("newImageFile");
             boolean hasNewImage = (filePart != null && filePart.getSize() > 0);
 
@@ -387,37 +369,29 @@ public class ModifyDestinationServlet extends HttpServlet {
                     if (hasNewImage) {
                         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-                        // Create path to store the file
                         String savePath = getServletContext().getRealPath("") + File.separator + "images";
                         File imageDir = new File(savePath);
                         if (!imageDir.exists()) {
                             imageDir.mkdirs();
                         }
 
-                        // Full file system path
                         String filePath = savePath + File.separator + fileName;
 
-                        // Save the file to disk
                         filePart.write(filePath);
 
-                        // Set relative path to store in DB
                         String imagePath = "images/" + fileName;
 
-                        // ✅ Debugging
-                        System.out.println("DEBUG: File saved to: " + filePath);
-                        System.out.println("DEBUG: Path stored in DB: " + imagePath);
-
-                        stmt.setString(4, imagePath); // 4th param = image path
-                        stmt.setInt(5, id);           // 5th param = id
+                        stmt.setString(4, imagePath); 
+                        stmt.setInt(5, id);        
                     } else {
-                        stmt.setInt(4, id); // 4th param = id if no image
+                        stmt.setInt(4, id); 
                     }
 
                     int rowsAffected = stmt.executeUpdate();
                     if (rowsAffected > 0) {
                         conn.commit();
                         updateSuccess = true;
-                        break; // stop after the first successful query
+                        break; 
                     }
 
                 } catch (SQLException e) {
@@ -474,7 +448,6 @@ public class ModifyDestinationServlet extends HttpServlet {
             }
         }
 
-        // Redirect back to the list view
         response.sendRedirect("modifyDestination?message=" + URLEncoder.encode(message, StandardCharsets.UTF_8) + "&messageType=" + URLEncoder.encode(messageType, StandardCharsets.UTF_8));
     }
 }

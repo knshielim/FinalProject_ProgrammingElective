@@ -58,7 +58,6 @@ public class DatabaseSeeder {
             conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
-            // Update destination image paths
             System.out.println("Updating destination image paths...");
             String updateDestinationSql = "UPDATE destinations SET image_path = ? WHERE destination_name = ?";
             try (PreparedStatement ps = conn.prepareStatement(updateDestinationSql)) {
@@ -74,7 +73,6 @@ public class DatabaseSeeder {
                 }
             }
 
-            // Update package image paths
             System.out.println("Updating package image paths...");
             String updatePackageSql = "UPDATE packages SET image_path = ? WHERE package_name = ?";
             try (PreparedStatement ps = conn.prepareStatement(updatePackageSql)) {

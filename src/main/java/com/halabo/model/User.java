@@ -1,7 +1,6 @@
-// com.halabo.model.User.java
 package com.halabo.model;
 
-import java.io.Serializable; // Good practice for session objects
+import java.io.Serializable; 
 
 public class User implements Serializable {
     private int id;
@@ -10,12 +9,10 @@ public class User implements Serializable {
     private String username;
     private String email;
     private String phone;
-    private boolean isAdmin; // Added for admin status
+    private boolean isAdmin; 
 
-    // Constructor (optional)
     public User() {}
 
-    // Getters and Setters for all fields
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -34,10 +31,9 @@ public class User implements Serializable {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public boolean isAdmin() { return isAdmin; } // Getter for boolean is convention "is"
+    public boolean isAdmin() { return isAdmin; } 
     public void setAdmin(boolean admin) { isAdmin = admin; }
 
-    // Convenience method for full name
     public String getFullName() {
         return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");
     }

@@ -9,7 +9,7 @@ public class DatabaseConnection {
     private static final String DB_URL   = "jdbc:mysql://localhost:3306/halabo_tour?allowMultiQueries=true&serverTimezone=UTC";
 
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "root"; // add your real password
+    private static final String PASSWORD = "root"; // add your actual password
 
     static {
         try {

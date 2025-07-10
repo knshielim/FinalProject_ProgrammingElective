@@ -16,7 +16,7 @@
 	        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 	        if (isAdmin == null || !isAdmin) {
 	            response.sendRedirect("login.jsp?error=unauthorized");
-	            return; // Stop further processing of the JSP
+	            return; 
 	        }
 	    %>
 	

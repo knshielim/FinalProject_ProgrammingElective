@@ -37,7 +37,6 @@ public class GetProfileImageServlet extends HttpServlet {
                     os.flush();
                 }
             } else {
-                // Redirect to default image if user has no image
                 response.sendRedirect("images/default_profile.png");
             }
 

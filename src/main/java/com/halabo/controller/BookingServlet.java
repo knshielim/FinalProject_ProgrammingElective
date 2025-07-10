@@ -12,7 +12,6 @@ public class BookingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get booking form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -27,18 +26,16 @@ public class BookingServlet extends HttpServlet {
 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
-            // Get price per person from the selected package
             String sqlPrice = "SELECT price FROM packages WHERE id = ?";
             try (PreparedStatement stmtPrice = conn.prepareStatement(sqlPrice)) {
                 stmtPrice.setInt(1, packageId);
                 ResultSet rs = stmtPrice.executeQuery();
                 if (rs.next()) {
-                    pricePerPerson = Double.parseDouble(rs.getString("price")); // If price is VARCHAR
+                    pricePerPerson = Double.parseDouble(rs.getString("price")); 
                     totalPrice = pricePerPerson * travelers;
                 }
             }
 
-            // Get user ID from session (make sure user is logged in)
             HttpSession session = request.getSession();
             Integer userId = (Integer) session.getAttribute("userId");
             if (userId == null) {
@@ -46,7 +43,6 @@ public class BookingServlet extends HttpServlet {
                 return;
             }
 
-            // Insert booking
             String sql = "INSERT INTO bookings (user_id, package_id, travel_date, number_of_travelers, total_price, special_requests, contact_name, contact_email, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, userId);
@@ -61,7 +57,6 @@ public class BookingServlet extends HttpServlet {
 
                 int result = stmt.executeUpdate();
                 if (result > 0) {
-                    // Set values in session for payment.jsp
                     session.setAttribute("name", name);
                     session.setAttribute("email", email);
                     session.setAttribute("phone", phone);
@@ -71,7 +66,6 @@ public class BookingServlet extends HttpServlet {
                     session.setAttribute("date", travelDateStr);
                     session.setAttribute("total_price", totalPrice);
 
-                    // Redirect to payment
                     response.sendRedirect("payment.jsp");
                 } else {
                     response.sendRedirect("booking.jsp?error=true");

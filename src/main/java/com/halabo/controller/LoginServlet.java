@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String password = request.getParameter("password"); // This will now be the plain-text password
+        String password = request.getParameter("password"); 
 
         // Basic input validation
         if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
@@ -41,15 +41,9 @@ public class LoginServlet extends HttpServlet {
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    String storedPassword = rs.getString("password"); // Get the plain-text password from DB
+                    String storedPassword = rs.getString("password"); 
 
-                    // Debugging: Print passwords to compare them (DANGEROUS IN PRODUCTION!)
-                    System.out.println("DEBUG (LoginServlet): Attempting login for username: " + username);
-                    System.out.println("DEBUG (LoginServlet): Input password (plain):  " + password);
-                    System.out.println("DEBUG (LoginServlet): Stored password (plain): " + storedPassword);
-
-                    if (storedPassword.equals(password)) { // DIRECT COMPARISON OF PLAIN-TEXT PASSWORDS
-                        // Login successful
+                    if (storedPassword.equals(password)) { 
                         System.out.println("DEBUG (LoginServlet): Password MATCHED for user: " + username);
                         HttpSession session = request.getSession();
 
@@ -74,13 +68,11 @@ public class LoginServlet extends HttpServlet {
                             response.sendRedirect("home.jsp");
                         }
                     } else {
-                        // Invalid password
                         System.out.println("DEBUG (LoginServlet): Password MISMATCH for user: " + username);
                         request.setAttribute("errorMessage", "Invalid username or password.");
                         request.getRequestDispatcher("login.jsp").forward(request, response);
                     }
                 } else {
-                    // User not found
                     System.out.println("DEBUG (LoginServlet): User NOT found in DB: " + username);
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -91,10 +83,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", "A database error occurred during login. Please try again later.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } 
-        // Removed: catch (NoSuchAlgorithmException e) - no hashing means no such exception
     }
-
-    // Removed: The hashPassword method is no longer needed
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

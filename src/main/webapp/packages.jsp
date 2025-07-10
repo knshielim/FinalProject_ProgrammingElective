@@ -68,9 +68,9 @@
 	                    if (rsPkg != null) rsPkg.close();
 	                    if (psPkg != null) psPkg.close();
 	                %>
-	            </div> <!-- .package-grid -->
-	        </div> <!-- .package-row-wrapper -->
-	    </div> <!-- .destination-section -->
+	            </div> 
+	        </div> 
+	    </div>
 	    <%
 	            }
 	        } catch (SQLException e) {

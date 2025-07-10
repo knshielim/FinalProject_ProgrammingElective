@@ -55,7 +55,6 @@
 
 <jsp:include page="footer.jsp"/>
 
-<!-- Auto-clear form after successful submission -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const successMessage = document.getElementById("feedback-success");

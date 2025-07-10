@@ -20,9 +20,6 @@ public class AdminServlet extends HttpServlet {
 			String description = request.getParameter("description");
 			int price = Integer.parseInt(request.getParameter("price"));
 
-			// Insert into DB logic here
-			// e.g., DBHelper.addPackage(destination, packageName, description, price);
-
 			response.sendRedirect("admin.jsp");
 		}
 	}
@@ -33,9 +30,7 @@ public class AdminServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		if ("delete".equals(action)) {
-			// DBHelper.deletePackage(id);
 		} else if ("edit".equals(action)) {
-			// Redirect to edit form or handle inline
 		}
 
 		response.sendRedirect("admin.jsp");

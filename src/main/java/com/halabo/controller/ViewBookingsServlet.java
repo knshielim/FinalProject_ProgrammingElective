@@ -45,7 +45,7 @@ public class ViewBookingsServlet extends HttpServlet {
                          "FROM bookings b " +
                          "JOIN users u ON b.user_id = u.id " +
                          "JOIN packages p ON b.package_id = p.id " +
-                         "ORDER BY b.booking_date DESC"; // Order by most recent bookings
+                         "ORDER BY b.booking_date DESC"; 
 
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -58,7 +58,7 @@ public class ViewBookingsServlet extends HttpServlet {
                     rs.getInt("package_id"),
                     rs.getString("package_name"),
                     rs.getTimestamp("booking_date"),
-                    rs.getDate("travel_date") != null ? rs.getDate("travel_date").toLocalDate() : null, // Convert java.sql.Date to java.time.LocalDate
+                    rs.getDate("travel_date") != null ? rs.getDate("travel_date").toLocalDate() : null,
                     rs.getInt("number_of_travelers"),
                     rs.getDouble("total_price"),
                     rs.getString("status"),
@@ -70,7 +70,7 @@ public class ViewBookingsServlet extends HttpServlet {
                 ));
             }
 
-            request.setAttribute("bookings", bookings); // Set the list of bookings as a request attribute
+            request.setAttribute("bookings", bookings); 
             request.getRequestDispatcher("view_bookings.jsp").forward(request, response);
 
         } catch (SQLException e) {
@@ -79,7 +79,6 @@ public class ViewBookingsServlet extends HttpServlet {
             request.setAttribute("messageType", "error");
             request.getRequestDispatcher("view_bookings.jsp").forward(request, response);
         } finally {
-            // Close resources
             try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
             try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
             try { if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }

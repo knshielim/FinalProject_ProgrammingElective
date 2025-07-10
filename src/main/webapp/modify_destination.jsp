@@ -111,7 +111,6 @@
 <jsp:include page="footer.jsp"/>
 </body>
 
-<!-- Image Modal -->
 <div id="imageModal" class="image-modal" onclick="closeImageModal()">
     <div class="image-modal-content" onclick="event.stopPropagation();">
         <span class="close-button" onclick="closeImageModal()">&times;</span>

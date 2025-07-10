@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import com.halabo.util.DatabaseConnection;
 
 @WebServlet("/UploadProfileImageServlet")
-@MultipartConfig(maxFileSize = 16177215) // ~16MB
+@MultipartConfig(maxFileSize = 16177215)
 public class UploadProfileImageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

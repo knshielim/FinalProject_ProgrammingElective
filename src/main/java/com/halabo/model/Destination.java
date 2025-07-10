@@ -5,10 +5,9 @@ public class Destination {
     private String name;
     private String caption;
     private String description;
-    private byte[] imageData; // Stores image data as byte array (BLOB)
-    private String imagePath; // Added imagePath field
+    private byte[] imageData; 
+    private String imagePath; 
 
-    // Constructor for fetching from DB with all fields
     public Destination(int id, String name, String caption, String description, String imagePath) {
         this.id = id;
         this.name = name;
@@ -17,7 +16,6 @@ public class Destination {
         this.imagePath = imagePath;
     }
 
-    // Constructor for fetching from DB with image data
     public Destination(int id, String name, String caption, String description, byte[] imageData) {
         this.id = id;
         this.name = name;
@@ -26,7 +24,6 @@ public class Destination {
         this.imageData = imageData;
     }
 
-    // Constructor for creating new destinations (e.g., from form input, before ID is assigned)
     public Destination(String name, String caption, String description, byte[] imageData) {
         this.name = name;
         this.caption = caption;
@@ -34,7 +31,6 @@ public class Destination {
         this.imageData = imageData;
     }
 
-    // Getters
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCaption() { return caption; }
@@ -42,7 +38,6 @@ public class Destination {
     public byte[] getImageData() { return imageData; }
     public String getImagePath() { return imagePath; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setCaption(String caption) { this.caption = caption; }

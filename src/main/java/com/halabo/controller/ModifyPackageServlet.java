@@ -22,7 +22,6 @@ public class ModifyPackageServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         
-        // Check if user is admin
         Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin");
         if (isAdmin == null || !isAdmin) {
             response.sendRedirect("login.jsp?error=unauthorized");
@@ -30,7 +29,7 @@ public class ModifyPackageServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
-        String packageIdStr = request.getParameter("packageId"); // Changed from "id" to "packageId"
+        String packageIdStr = request.getParameter("packageId");
         
         if (packageIdStr == null || packageIdStr.isEmpty()) {
             response.sendRedirect("modify_package.jsp?message=Invalid+Package+ID&messageType=error");
@@ -48,7 +47,6 @@ public class ModifyPackageServlet extends HttpServlet {
         if ("delete".equals(action)) {
             deletePackage(packageId, request, response);
         } else {
-            // Default action is update (for edit form submission)
             updatePackage(packageId, request, response);
         }
     }
@@ -87,7 +85,6 @@ public class ModifyPackageServlet extends HttpServlet {
         String hotel = request.getParameter("hotel");
         String remarks = request.getParameter("remarks");
 
-        // Validate required fields
         if (packageName == null || packageName.trim().isEmpty() || 
             destinationIdStr == null || destinationIdStr.trim().isEmpty() ||
             description == null || description.trim().isEmpty() ||

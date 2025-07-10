@@ -19,7 +19,6 @@
         }
     }
 
-    // Display success/error messages
     String message = request.getParameter("message");
     String messageType = request.getParameter("messageType");
 

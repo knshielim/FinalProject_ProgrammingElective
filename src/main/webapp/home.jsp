@@ -1,4 +1,3 @@
-<!-- home.jsp - Cleaned Up and Prettified Version -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
@@ -15,7 +14,6 @@
 <body>
   <jsp:include page="header.jsp" />
 
-  <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-text">
       <h1>Making Indonesia <br>Your Playground</h1>
@@ -27,7 +25,6 @@
     </div>
   </section>
 
-  <!-- INTRODUCTION -->
   <section class="title">
     <h1>Welcome to Halabo Indonesia Tour</h1>
     <p>
@@ -37,7 +34,6 @@
     </p>
   </section>
 
-  <!-- WHAT WE OFFER -->
   <section>
     <h2>What We Offer</h2>
     <div class="offers">
@@ -68,7 +64,6 @@
     </div>
   </section>
 
-  <!-- GALLERY SECTION -->
   <section class="attraction-title">
     <h2>Our Gallery</h2>
     <p>

@@ -24,11 +24,9 @@ public class AppStartupListener implements ServletContextListener {
         System.out.println("DEBUG: ServletContext.getRealPath(\"/\") returned: " + webAppPath);
 
         try {
-            // Step 1: Run database.sql
             String sqlFilePath = webAppPath + "WEB-INF/sql/database.sql";
             runSqlScript(sqlFilePath);
 
-            // Step 2: Run data seeder
             DatabaseSeeder.runSeeder(webAppPath);
             System.out.println("✅ DatabaseSeeder executed successfully on startup.");
         } catch (Exception e) {
@@ -59,10 +57,8 @@ public class AppStartupListener implements ServletContextListener {
             }
         }
 
-        // 2. Split by semicolon, but skip empty statements
         String[] statements = fullSql.toString().split("(?<=[;])\\s*(?=\\n)");
 
-        // 3. Execute: use base connection for CREATE DATABASE/USE, then switch
         try (Connection baseConn = DatabaseConnection.getBaseConnection();
              Statement baseStmt = baseConn.createStatement()) {
 

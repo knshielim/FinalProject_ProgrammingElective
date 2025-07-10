@@ -9,7 +9,6 @@
         return;
     }
 
-    // Handle delete action directly in JSP (for simple delete operations)
     String action = request.getParameter("action");
     String deleteId = request.getParameter("id");
     if ("delete".equals(action) && deleteId != null) {
@@ -29,7 +28,6 @@
         return;
     }
 
-    // Display success/error messages
     String message = request.getParameter("message");
     String messageType = request.getParameter("messageType");
 

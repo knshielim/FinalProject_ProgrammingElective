@@ -11,27 +11,23 @@
 </head>
 <body>
 
-    <!-- Optional: Include the same header.jsp if applicable -->
     <%@ include file="header.jsp" %>
 
     <div class="login-container" style="background-color: white; max-width: 500px; margin: 80px auto; padding: 40px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
         <h1 style="color: #1D3D59;">Login</h1>
 
-        <!-- Error Message -->
         <c:if test="${not empty requestScope.errorMessage}">
             <div style="background-color: #ffdddd; color: #d8000c; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
                 <c:out value="${requestScope.errorMessage}"/>
             </div>
         </c:if>
 
-        <!-- Success Message -->
         <c:if test="${not empty param.message}">
             <div style="background-color: #ddffdd; color: #4F8A10; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
                 <c:out value="${param.message}"/>
             </div>
         </c:if>
 
-        <!-- Login Form -->
         <form action="login" method="post">
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="username" style="color: #1D3D59; font-weight: bold;">Username:</label>

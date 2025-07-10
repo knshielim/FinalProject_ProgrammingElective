@@ -17,7 +17,6 @@ public class Package {
     private String hotel;
     private String remarks;
 
-    // Constructor for fetching from DB
     public Package(int id, int destinationId, String packageName, String imagePath, String price, 
                    String duration, int minPeople, String tourType, String tourCode, String description,
                    String itinerary, String priceDetails, String hotel, String remarks) {
@@ -37,7 +36,6 @@ public class Package {
         this.remarks = remarks;
     }
 
-    // Constructor for creating new packages
     public Package(int destinationId, String packageName, byte[] packageImage, String price,
                    String duration, int minPeople, String tourType, String tourCode, String description,
                    String itinerary, String priceDetails, String hotel, String remarks) {
@@ -56,7 +54,6 @@ public class Package {
         this.remarks = remarks;
     }
 
-    // Getters
     public int getId() { return id; }
     public int getDestinationId() { return destinationId; }
     public String getPackageName() { return packageName; }
@@ -73,7 +70,6 @@ public class Package {
     public String getHotel() { return hotel; }
     public String getRemarks() { return remarks; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setDestinationId(int destinationId) { this.destinationId = destinationId; }
     public void setPackageName(String packageName) { this.packageName = packageName; }
