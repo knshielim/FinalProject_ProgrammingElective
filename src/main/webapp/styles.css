@@ -2135,7 +2135,6 @@ form button[type="submit"]:hover {
 
 .admin-table {
   width: 100%;
-  table-layout: fixed; /* forces wrapping */
   border-collapse: collapse;
 }
 
@@ -2162,9 +2161,7 @@ form button[type="submit"]:hover {
 .admin-table td {
   padding: 12px;
   text-align: left;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
+  white-space: nowrap; 
   font-size: 16px;
 }
 
@@ -2247,6 +2244,8 @@ form button[type="submit"]:hover {
     margin-top: 30px;
 }
 
+
+
 @media (max-width: 768px) {
   .admin-table th,
   .admin-table td {
@@ -2275,6 +2274,7 @@ form button[type="submit"]:hover {
     width: 60px;
     height: 40px;
   }
+  
 }
 
 

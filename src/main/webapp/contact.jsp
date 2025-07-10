@@ -37,15 +37,11 @@
 	<% } %>
 	
 	<%
-    String successParam = request.getParameter("success");
-    String errorParam = request.getParameter("error");
-%>
+	    String successParam = request.getParameter("success");
+	    String errorParam = request.getParameter("error");
+	%>
 
-<% if ("true".equals(successParam)) { %>
-    <div class="feedback-message success">Thank you for contacting us! We will get in touch soon!</div>
-<% } else if ("true".equals(errorParam)) { %>
-    <div class="feedback-message error">Oops! Something went wrong. Please try again.</div>
-<% } %>
+
 
 
 
