@@ -29,12 +29,11 @@ public class ContactServlet extends HttpServlet {
             int result = stmt.executeUpdate();
 
             if (result > 0) {
-                // Forward to confirmation.jsp with name attribute
-                request.setAttribute("name", name);
-                request.getRequestDispatcher("confirmation.jsp").forward(request, response);
+                response.sendRedirect("contact.jsp?success=true");
             } else {
                 response.sendRedirect("contact.jsp?error=true");
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -30,15 +30,24 @@
 <div class="contact-container">
     <h2>We’d Love to Hear From You</h2>
 
-    <% if (request.getParameter("success") != null) { %>
-        <div class="contact-alert contact-alert-success">
-            Thank you for contacting us! We'll be in touch soon.
-        </div>
-    <% } else if (request.getParameter("error") != null) { %>
-        <div class="contact-alert contact-alert-error">
-            Oops! Something went wrong. Please try again.
-        </div>
-    <% } %>
+   <% if (request.getParameter("success") != null) { %>
+	    <div class="feedback-message success">Thank you for contacting us! We will get in touch soon!</div>
+	<% } else if (request.getParameter("error") != null) { %>
+	    <div class="feedback-message error">Oops! Something went wrong. Please try again.</div>
+	<% } %>
+	
+	<%
+    String successParam = request.getParameter("success");
+    String errorParam = request.getParameter("error");
+%>
+
+<% if ("true".equals(successParam)) { %>
+    <div class="feedback-message success">Thank you for contacting us! We will get in touch soon!</div>
+<% } else if ("true".equals(errorParam)) { %>
+    <div class="feedback-message error">Oops! Something went wrong. Please try again.</div>
+<% } %>
+
+
 
     <form name="contactForm" method="post" action="contact" class="contact-form" onsubmit="return validateForm();">
         <div class="contact-form-group">

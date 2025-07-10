@@ -192,12 +192,12 @@ img {
         padding: 60px 20px;
         z-index: 999;
         transition: 0.5s;
-        overflow-y: auto; /* ✅ Makes the nav menu scrollable vertically */
+        overflow-y: auto; 
         
     }
 
     .nav-links li {
-	    margin: 20px 0;
+	    margin: 10px 0;
 	    width: 100%;
 	    text-align: left;
 	    padding-left: 10px;
@@ -205,7 +205,7 @@ img {
 	
 	.nav-links ul {
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 
     .nav-links ul li {
@@ -380,14 +380,18 @@ img {
 }
 
 .card {
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
   width: 100%;
-  max-width: 300px; /* consistent size */
+  max-width: 300px;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  padding: 10px; /* optional for spacing inside */
 }
 
 .card:hover {
@@ -402,6 +406,7 @@ img {
 }
 
 .card p {
+  flex-grow: 1; 
   padding: 10px;
   font-size: 14px;
   color: #333;
@@ -415,17 +420,23 @@ img {
 
 .card a {
   display: inline-block;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #007bff;
   color: white;
   padding: 8px 16px;
   text-decoration: none;
   border-radius: 5px;
 }
-
 .card a:hover {
   background-color: #0056b3;
   transition: background-color 0.3s ease;
+}
+
+.card h3 {
+    margin: 10px 0 5px;
+    color: #ff4d00;
+    font-size: 1.2rem;
 }
 
 @media(max-width: 1050px){
@@ -457,11 +468,7 @@ img {
   }
 }
 
-.card h3 {
-    margin: 10px 0 5px;
-    color: #ff4d00;
-    font-size: 1.2rem;
-}
+
 
 .card p {
     font-size: 0.95rem;
@@ -637,13 +644,23 @@ img {
 }
 
 .feedback-message.success {
-  background-color: #d4edda;
-  color: #155724;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
 }
 
 .feedback-message.error {
-  background-color: #f8d7da;
-  color: #721c24;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* Responsive Rules */
@@ -833,6 +850,13 @@ img {
     scroll-snap-align: start;
 }
 
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+  color: #333;
+  text-align: center;
+}
 /* ====== Unified Button Style for Package Actions ====== */
 .package-btn {
     background-color: #ff6b00;
