@@ -1,4 +1,3 @@
-/*====================================== GLOBAL STYLES ================================*/
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +7,6 @@
 
 body {
     background-color: #f0f8ff;
-    margin: 0;
-    padding: 0;
     line-height: 1.6;
     color: #333;
     overflow-x:hidden;
@@ -29,7 +26,6 @@ p {
     text-align: center;
     color: #555;
     margin-bottom: 15px;
-    
 }
 
 img {
@@ -55,11 +51,10 @@ img {
 	
 }
 
-/*====================================== NAVIGATION ================================*/
 .header {
     background-color: #1D3D59;
     color: white;
-    height: 70px; /* fixed height */
+    height: 70px;
     padding: 0 5%;
     display: flex;
     justify-content: space-between;
@@ -72,7 +67,6 @@ img {
 }
 
 
-/* ====================== PROFILE IMAGE IN NAV ====================== */
 .nav-profile-item {
     display: flex;
     align-items: center;
@@ -159,11 +153,11 @@ img {
 }
 
 .header .fa{
-	display: none; /* Display: None biar iconnya gak keliatan pas di layar normal */
+	display: none; 
 }
 
 .nav-links .fas{
-	display: none; /* Display: None biar iconnya gak keliatan pas di layar normal */
+	display: none; 
 }
 
 @media screen and (max-width: 768px) {
@@ -232,9 +226,6 @@ img {
         z-index: 1000;
     }
 
-
-    
-    
     .special-contact-btn {
 	    display: block;
 	    width: 100%;
@@ -249,7 +240,6 @@ img {
 }
 
 
-/*====================================== HERO SECTION ======================================*/
 .hero {
     background: linear-gradient(rgba(29,61,89,0.7), rgba(29,61,89,0.7)), url('images/Hero_BG.jpg');
     background-size: cover;
@@ -313,7 +303,6 @@ img {
     background: #ff4d00;
     font-weight: 700;
     color: #ffffff;
-
 }
 
 
@@ -322,13 +311,13 @@ img {
 }
 
 @media(max-width: 768px){
+	
 	.title p{
 		margin: 25px 80px 75px;		
 	}
 	
 }
 
-/*====================================== CONTENT BLOCKS ======================================*/
 .offers {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -357,8 +346,6 @@ img {
     color: #1D3D59;
 }
 
-/*====================================== ATTRACTIONS ======================================*/
-
 .attraction-title p{
 	margin: 25px 120px 75px;
 }
@@ -371,7 +358,7 @@ img {
 
 .attractions {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns on large screens */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -391,7 +378,7 @@ img {
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  padding: 10px; /* optional for spacing inside */
+  padding: 10px;
 }
 
 .card:hover {
@@ -415,7 +402,6 @@ img {
 .card img:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease;
-    
 }
 
 .card a {
@@ -428,6 +414,7 @@ img {
   text-decoration: none;
   border-radius: 5px;
 }
+
 .card a:hover {
   background-color: #0056b3;
   transition: background-color 0.3s ease;
@@ -443,7 +430,6 @@ img {
 
 	.card img {
     width: 100%;
-    
     border-radius: 8px;
     margin-bottom: 10px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
@@ -464,7 +450,7 @@ img {
 	}
 	
 	.attractions {
-    grid-template-columns: 1fr; /* 1 column on phones */
+    grid-template-columns: 1fr;
   }
 }
 
@@ -499,7 +485,6 @@ img {
     max-width: 500px;
     color: #1D3D59;
     border: 2px solid #1D3D59;
-    justify-content: center;
     margin:auto;
     
 }
@@ -549,7 +534,6 @@ img {
     transform: scale(1.05);
 }
 
-/* ====================== FEEDBACK PAGE ====================== */
 .feedback-container {
   max-width: 700px;
   margin: 40px auto;
@@ -559,21 +543,18 @@ img {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Headline */
 .feedback-container h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
 }
 
-/* Form */
 .feedback-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Input groups */
 .feedback-form-group {
   display: flex;
   flex-direction: column;
@@ -594,7 +575,6 @@ img {
   box-sizing: border-box;
 }
 
-/* Rating Stars */
 .feedback-rating {
   display: flex;
   justify-content: center;
@@ -618,7 +598,6 @@ img {
   color: #f7c600;
 }
 
-/* Submit Button */
 .feedback-submit {
   background-color: #007bff;
   color: white;
@@ -634,7 +613,6 @@ img {
   background-color: #0056b3;
 }
 
-/* Success/Error Messages */
 .feedback-message {
   padding: 10px;
   border-radius: 6px;
@@ -663,7 +641,6 @@ img {
     font-weight: bold;
 }
 
-/* Responsive Rules */
 @media screen and (max-width: 768px) {
   .feedback-container {
     margin: 20px 10px;
@@ -684,7 +661,6 @@ img {
   }
 }
 
-/* ====================== STAR RATING ====================== */
 .feedback-rating {
     direction: rtl;
     display: flex;
@@ -757,11 +733,9 @@ img {
     }
 }
 
-
-/*====================================== ATTRACTIONS GRID ================================*/
 .attractions-grid {
   	 display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     max-width: 1000px;
     margin: 40px auto;
@@ -825,7 +799,7 @@ img {
     flex-direction: column;
     height: 100%;
 }
-/*====================================== PACKAGES ================================*/
+
 .package-grid {
     display: flex;
     flex-direction: row;
@@ -839,7 +813,7 @@ img {
 .card {
     flex: 0 0 auto;
     width: 260px;
-    min-height: 380px; /* ✅ Ensures all cards have same height */
+    min-height: 380px; 
     background-color: #fff;
     border: 3px solid #1D3D59;
     border-radius: 12px;
@@ -857,7 +831,7 @@ img {
   color: #333;
   text-align: center;
 }
-/* ====== Unified Button Style for Package Actions ====== */
+
 .package-btn {
     background-color: #ff6b00;
     color: white;
@@ -874,7 +848,7 @@ img {
     box-sizing: border-box;
     transition: background-color 0.3s ease, transform 0.2s;
     text-align: center;
-    min-width: 160px; /* ✅ ensure both buttons are same width */
+    min-width: 160px; 
 }
 
 .package-btn:hover {
@@ -899,7 +873,6 @@ img {
     border-radius: 8px;
 }
 
-/* Optional: wrap or truncate long names */
 .card h3 {
     font-size: 1.05rem;
     margin: 12px 0 8px;
@@ -925,7 +898,7 @@ img {
 }
 
 .card a:hover {
-    background-color: #ff6b00; /* ✅ Orange on hover */
+    background-color: #ff6b00; 
 }
 
 .destination-title {
@@ -957,8 +930,6 @@ img {
     scroll-behavior: smooth;
 }
 
-
-/*====================================== PACKAGES DETAILS ================================*/
  .main-content {
     max-width: 1000px;
     margin: 50px auto;
@@ -1094,10 +1065,10 @@ img {
     font-weight: bold;
     font-size: 0.95rem;
     line-height: 1.2;
-    display: inline-flex;         /* ✅ For vertical alignment fix */
-    align-items: center;          /* ✅ Centers text */
-    justify-content: center;      /* ✅ Horizontal alignment */
-    height: 42px;                 /* ✅ Set fixed height for both */
+    display: inline-flex;         
+    align-items: center;         
+    justify-content: center;    
+    height: 42px;                
     box-sizing: border-box;
     transition: background-color 0.3s ease, transform 0.2s;
     text-align: center;
@@ -1108,7 +1079,7 @@ img {
     background-color: #ff944d;
     transform: scale(1.05);
 }
-/*====================================== ABOUT PAGE ================================*/
+
 .about-container {
     background-color: white;
     padding: 30px;
@@ -1193,7 +1164,6 @@ img {
     line-height: 1.5;
 }
 
-/*====================================== CONTACT FORM ================================*/
 form {
     background-color: white;
     max-width: 600px;
@@ -1314,7 +1284,6 @@ form input[type="submit"]:hover {
 }
 
 
-/*====================================== FOOTER ================================*/
 .footer {
     background-color: #1D3D59;
     color: white;
@@ -1329,7 +1298,6 @@ form input[type="submit"]:hover {
     margin: 0;
 }
 
-/* ======================= DESTINATION DETAILS PAGE ======================= */
 .destination-container {
     max-width: 1100px;
     margin: 40px auto;
@@ -1519,7 +1487,6 @@ form input[type="submit"]:hover {
     border: 1px solid #f5c6cb;
 }
 
-/* ====================== PROFILE PAGE ====================== */
 .profile-wrapper {
     background-color: #f0f8ff;
     padding: 40px 20px;
@@ -1644,8 +1611,6 @@ form input[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-
-/*====================================== FORM LOGIN/REGISTER ================================*/
 .form-group {
     margin-bottom: 16px;
 }
@@ -1672,7 +1637,6 @@ form input[type="submit"]:hover {
     outline: none;
 }
 
-/* ====================== SIGN UP BUTTON ====================== */
 .signup-btn {
     width: 100%;
     padding: 12px 0;
@@ -1692,7 +1656,6 @@ form input[type="submit"]:hover {
     transform: scale(1.02);
 }
 
-/* ====================== REGISTER BACK BUTTON ====================== */
 .reg-back-button {
     text-align: center;
     margin-top: 20px;
@@ -1715,7 +1678,6 @@ form input[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-/* ====================== BOOKING PAGE ====================== */
 .form-container {
     background-color: #ffffff;
     max-width: 700px;
@@ -1771,13 +1733,13 @@ form button[type="submit"] {
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: transparent;
-    border: 2px solid #ff6b00;   /* stroke orange */
+    border: 2px solid #ff6b00;   
     color: #ff6b00;
     margin-top: 20px;
 }
 
 form button[type="submit"]:hover {
-    background-color: #ff6b00;   /* solid fill on hover */
+    background-color: #ff6b00; 
     color: #fff;
     transform: scale(1.02);
 }
@@ -1790,7 +1752,7 @@ form button[type="submit"]:hover {
     margin: 0 auto 25px;
     color: #1D3D59;
     font-size: 0.95rem;
-    display: inline-block;        /* shrink to content */
+    display: inline-block;       
     text-align: center;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
@@ -1833,8 +1795,6 @@ form button[type="submit"]:hover {
     font-weight: bold;
 }
 
-
-/* ====================== PAYMENT PAGE STYLES  ====================== */
 .payment-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f8ff;
@@ -1956,7 +1916,6 @@ form button[type="submit"]:hover {
     transform: scale(1.02);
 }
 
-/*====================================== ADMIN DASHBOARD ================================*/
 .admin-dashboard-wrapper {
     max-width: 1000px;
     margin: 80px auto;
@@ -1968,7 +1927,7 @@ form button[type="submit"]:hover {
     border: 1px solid #e0e0e0;
     padding: 40px 30px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-    border-radius: 15px; /* 👈 softer corners */
+    border-radius: 15px; 
 }
 
 .admin-title {
@@ -1991,7 +1950,7 @@ form button[type="submit"]:hover {
     background-color: #f9f9f9;
     color: #1D3D59;
     padding: 18px 22px;
-    border-radius: 12px; /* 👈 rounded buttons */
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 500;
     border: 1px solid #ddd;
@@ -2020,7 +1979,7 @@ form button[type="submit"]:hover {
     color: #d92662;
     padding: 10px 24px;
     font-weight: 600;
-    border-radius: 25px; /* 👈 pill-like button */
+    border-radius: 25px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -2029,8 +1988,6 @@ form button[type="submit"]:hover {
     background-color: #d92662;
     color: #fff;
 }
-
-/*====================================== ADMIN MODIFY ================================*/
 
 .image-modal {
     display: none;
@@ -2287,7 +2244,7 @@ form button[type="submit"]:hover {
 .scrollable-booking-table .admin-table {
   min-width: 800px; 
 }
-/*====================================== THANK YOU PAGE ================================*/
+
 .confirmation-container {
     background-color: white;
     max-width: 600px;
@@ -2325,7 +2282,6 @@ form button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-/* ===================== ADMIN EDIT DESTINATION ===================== */
 .form-container-admin {
     background-color: #ffffff;
     max-width: 700px;
@@ -2407,7 +2363,6 @@ form button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-/* Message box styling */
 .form-message {
     text-align: center;
     margin-bottom: 20px;
@@ -2428,7 +2383,6 @@ form button[type="submit"]:hover {
     border: 1px solid #b30000;
 }
 
-/* =================== ADMIN ADD PACKAGE =================== */
 .form-container-admin {
     background-color: #fff;
     max-width: 800px;
@@ -2476,7 +2430,6 @@ form button[type="submit"]:hover {
     box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
 }
 
-/* Custom dropdown style */
 .form-container-admin select {
     background-color: #f8f8f8;
     appearance: none;
@@ -2511,7 +2464,6 @@ form button[type="submit"]:hover {
     color: white;
 }
 
-/* Message box */
 .form-message {
     padding: 10px 20px;
     border-radius: 8px;
@@ -2530,9 +2482,6 @@ form button[type="submit"]:hover {
     color: #b30000;
     border: 1px solid #b30000;
 }
-
-
-/* =================== ADMIN MODIFY PACKAGE =================== */
 
 .admin-container {
     max-width: 1000px;
@@ -2622,13 +2571,13 @@ form button[type="submit"]:hover {
 .actions-cell {
     text-align: center;
     vertical-align: middle;
-    white-space: nowrap; /* Prevents wrapping */
+    white-space: nowrap; 
     padding: 12px 0;
 }
 
 .actions-cell a {
     display: inline-block;
-    margin: 0 6px; /* spacing between buttons */
+    margin: 0 6px;
     padding: 8px 14px;
     font-size: 14px;
     font-weight: 500;
@@ -2669,9 +2618,6 @@ form button[type="submit"]:hover {
     color: #999;
     font-style: italic;
 }
-
-
-/*====================================== ADMIN VIEW ================================*/
 
 .admin-container {
     max-width: 1000px;
@@ -2738,9 +2684,6 @@ form button[type="submit"]:hover {
     color: #ff944d;
 }
 
-/*====================================== ADMIN VIEW BOOKING ================================*/
-
-
 .admin-container {
     max-width: 1200px;
     margin: 50px auto;
@@ -2805,7 +2748,6 @@ form button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-/*====================================== RESPONSIVE DESIGN ================================*/
 @media (max-width: 768px) {
     
     
@@ -2827,7 +2769,6 @@ form button[type="submit"]:hover {
 }
 
 
-/*====================================== TABS DESIGN ================================*/
 .package-container {
     max-width: 800px;
     margin: auto;
