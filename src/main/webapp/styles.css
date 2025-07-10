@@ -2581,6 +2581,16 @@ form button[type="submit"]:hover {
     overflow: hidden;
 }
 
+.users-table-scroll {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.users-table-scroll .admin-table {
+    min-width: 1000px; 
+    white-space: nowrap;
+}
+
 .admin-table th, .admin-table td {
     padding: 14px 18px;
     border-bottom: 1px solid #ddd;

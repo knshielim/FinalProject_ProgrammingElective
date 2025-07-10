@@ -25,7 +25,7 @@
 <div class="admin-container">
     <h1>Registered Users</h1>
 
-    <div class="responsive-table">
+    <div class="responsive-table users-table-scroll">
         <table class="admin-table">
             <thead>
                 <tr>
